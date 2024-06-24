@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Board.css';
+import "./Board.css";
 
 function New() {
   const [tasks, setTasks] = useState([
@@ -11,7 +11,11 @@ function New() {
       checklist: [
         { id: 1, task: "Task to be done", completed: false },
         { id: 2, task: "Task to be done", completed: false },
-        { id: 3, task: "Task to be done ede lorem Ipsum is a Dummy text t", completed: false },
+        {
+          id: 3,
+          task: "Task to be done ede lorem Ipsum is a Dummy text t",
+          completed: false,
+        },
       ],
     },
     {
@@ -22,7 +26,11 @@ function New() {
       checklist: [
         { id: 1, task: "Task to be done", completed: false },
         { id: 2, task: "Task to be done", completed: false },
-        { id: 3, task: "Task to be done ede lorem Ipsum is a Dummy text t", completed: false },
+        {
+          id: 3,
+          task: "Task to be done ede lorem Ipsum is a Dummy text t",
+          completed: false,
+        },
       ],
     },
     {
@@ -33,7 +41,11 @@ function New() {
       checklist: [
         { id: 1, task: "Task to be done", completed: false },
         { id: 2, task: "Task to be done", completed: false },
-        { id: 3, task: "Task to be done ede lorem Ipsum is a Dummy text t", completed: false },
+        {
+          id: 3,
+          task: "Task to be done ede lorem Ipsum is a Dummy text t",
+          completed: false,
+        },
       ],
     },
     {
@@ -44,7 +56,11 @@ function New() {
       checklist: [
         { id: 1, task: "Task to be done", completed: false },
         { id: 2, task: "Task to be done", completed: false },
-        { id: 3, task: "Task to be done ede lorem Ipsum is a Dummy text t", completed: false },
+        {
+          id: 3,
+          task: "Task to be done ede lorem Ipsum is a Dummy text t",
+          completed: false,
+        },
       ],
     },
     {
@@ -55,7 +71,11 @@ function New() {
       checklist: [
         { id: 1, task: "Task to be done", completed: false },
         { id: 2, task: "Task to be done", completed: false },
-        { id: 3, task: "Task to be done ede lorem Ipsum is a Dummy text t", completed: false },
+        {
+          id: 3,
+          task: "Task to be done ede lorem Ipsum is a Dummy text t",
+          completed: false,
+        },
       ],
     },
     {
@@ -66,7 +86,11 @@ function New() {
       checklist: [
         { id: 1, task: "Task to be done", completed: false },
         { id: 2, task: "Task to be done", completed: false },
-        { id: 3, task: "Task to be done ede lorem Ipsum is a Dummy text t", completed: false },
+        {
+          id: 3,
+          task: "Task to be done ede lorem Ipsum is a Dummy text t",
+          completed: false,
+        },
       ],
     },
     {
@@ -77,7 +101,11 @@ function New() {
       checklist: [
         { id: 1, task: "Task to be done", completed: false },
         { id: 2, task: "Task to be done", completed: false },
-        { id: 3, task: "Task to be done ede lorem Ipsum is a Dummy text t", completed: false },
+        {
+          id: 3,
+          task: "Task to be done ede lorem Ipsum is a Dummy text t",
+          completed: false,
+        },
       ],
     },
   ]);
@@ -165,10 +193,32 @@ function New() {
                         ))}
                       </div>
                       <div className="task-actions">
-                        <button className="btn-failed" onClick={() => handleStatusChange(task.id, "FAILED")}>Failed</button>
-                        <button className="btn-progress" onClick={() => handleStatusChange(task.id, "PROGRESS")}>Progress</button>
-                        <button className="btn-to-do" onClick={() => handleStatusChange(task.id, "TO-DO")}>To-Do</button>
-                        <button className="btn-done" onClick={() => handleStatusChange(task.id, "DONE")}>Done</button>
+                        <button
+                          className="btn-failed"
+                          onClick={() => handleStatusChange(task.id, "FAILED")}
+                        >
+                          Failed
+                        </button>
+                        <button
+                          className="btn-progress"
+                          onClick={() =>
+                            handleStatusChange(task.id, "PROGRESS")
+                          }
+                        >
+                          Progress
+                        </button>
+                        <button
+                          className="btn-to-do"
+                          onClick={() => handleStatusChange(task.id, "TO-DO")}
+                        >
+                          To-Do
+                        </button>
+                        <button
+                          className="btn-done"
+                          onClick={() => handleStatusChange(task.id, "DONE")}
+                        >
+                          Done
+                        </button>
                       </div>
                     </div>
                   </li>
@@ -217,10 +267,32 @@ function New() {
                         ))}
                       </div>
                       <div className="task-actions">
-                        <button className="btn-failed" onClick={() => handleStatusChange(task.id, "FAILED")}>Failed</button>
-                        <button className="btn-progress" onClick={() => handleStatusChange(task.id, "PROGRESS")}>Progress</button>
-                        <button className="btn-to-do" onClick={() => handleStatusChange(task.id, "TO-DO")}>To-Do</button>
-                        <button className="btn-done" onClick={() => handleStatusChange(task.id, "DONE")}>Done</button>
+                        <button
+                          className="btn-failed"
+                          onClick={() => handleStatusChange(task.id, "FAILED")}
+                        >
+                          Failed
+                        </button>
+                        <button
+                          className="btn-progress"
+                          onClick={() =>
+                            handleStatusChange(task.id, "PROGRESS")
+                          }
+                        >
+                          Progress
+                        </button>
+                        <button
+                          className="btn-to-do"
+                          onClick={() => handleStatusChange(task.id, "TO-DO")}
+                        >
+                          To-Do
+                        </button>
+                        <button
+                          className="btn-done"
+                          onClick={() => handleStatusChange(task.id, "DONE")}
+                        >
+                          Done
+                        </button>
                       </div>
                     </div>
                   </li>
@@ -269,10 +341,32 @@ function New() {
                         ))}
                       </div>
                       <div className="task-actions">
-                        <button className="btn-failed" onClick={() => handleStatusChange(task.id, "FAILED")}>Failed</button>
-                        <button className="btn-progress" onClick={() => handleStatusChange(task.id, "PROGRESS")}>Progress</button>
-                        <button className="btn-to-do" onClick={() => handleStatusChange(task.id, "TO-DO")}>To-Do</button>
-                        <button className="btn-done" onClick={() => handleStatusChange(task.id, "DONE")}>Done</button>
+                        <button
+                          className="btn-failed"
+                          onClick={() => handleStatusChange(task.id, "FAILED")}
+                        >
+                          Failed
+                        </button>
+                        <button
+                          className="btn-progress"
+                          onClick={() =>
+                            handleStatusChange(task.id, "PROGRESS")
+                          }
+                        >
+                          Progress
+                        </button>
+                        <button
+                          className="btn-to-do"
+                          onClick={() => handleStatusChange(task.id, "TO-DO")}
+                        >
+                          To-Do
+                        </button>
+                        <button
+                          className="btn-done"
+                          onClick={() => handleStatusChange(task.id, "DONE")}
+                        >
+                          Done
+                        </button>
                       </div>
                     </div>
                   </li>
@@ -321,10 +415,32 @@ function New() {
                         ))}
                       </div>
                       <div className="task-actions">
-                        <button className="btn-failed" onClick={() => handleStatusChange(task.id, "FAILED")}>Failed</button>
-                        <button className="btn-progress" onClick={() => handleStatusChange(task.id, "PROGRESS")}>Progress</button>
-                        <button className="btn-to-do" onClick={() => handleStatusChange(task.id, "TO-DO")}>To-Do</button>
-                        <button className="btn-done" onClick={() => handleStatusChange(task.id, "DONE")}>Done</button>
+                        <button
+                          className="btn-failed"
+                          onClick={() => handleStatusChange(task.id, "FAILED")}
+                        >
+                          Failed
+                        </button>
+                        <button
+                          className="btn-progress"
+                          onClick={() =>
+                            handleStatusChange(task.id, "PROGRESS")
+                          }
+                        >
+                          Progress
+                        </button>
+                        <button
+                          className="btn-to-do"
+                          onClick={() => handleStatusChange(task.id, "TO-DO")}
+                        >
+                          To-Do
+                        </button>
+                        <button
+                          className="btn-done"
+                          onClick={() => handleStatusChange(task.id, "DONE")}
+                        >
+                          Done
+                        </button>
                       </div>
                     </div>
                   </li>
@@ -340,25 +456,33 @@ function New() {
             </span>
             <div className="status-buttons">
               <button
-                className={`status-btn ${selectedTask.status === "BACKLOG" ? "active" : ""}`}
+                className={`status-btn ${
+                  selectedTask.status === "BACKLOG" ? "active" : ""
+                }`}
                 onClick={() => handleStatusChange(selectedTask.id, "BACKLOG")}
               >
                 Backlog
               </button>
               <button
-                className={`status-btn ${selectedTask.status === "TO-DO" ? "active" : ""}`}
+                className={`status-btn ${
+                  selectedTask.status === "TO-DO" ? "active" : ""
+                }`}
                 onClick={() => handleStatusChange(selectedTask.id, "TO-DO")}
               >
                 To Do
               </button>
               <button
-                className={`status-btn ${selectedTask.status === "PROGRESS" ? "active" : ""}`}
+                className={`status-btn ${
+                  selectedTask.status === "PROGRESS" ? "active" : ""
+                }`}
                 onClick={() => handleStatusChange(selectedTask.id, "PROGRESS")}
               >
                 In Progress
               </button>
               <button
-                className={`status-btn ${selectedTask.status === "DONE" ? "active" : ""}`}
+                className={`status-btn ${
+                  selectedTask.status === "DONE" ? "active" : ""
+                }`}
                 onClick={() => handleStatusChange(selectedTask.id, "DONE")}
               >
                 Done
