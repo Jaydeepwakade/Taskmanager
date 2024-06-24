@@ -1,0 +1,47 @@
+/* Login.module.css */
+
+.container {
+    display: flex;
+  }
+  
+  .leftDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #17a2b8;
+    height: 100vh;
+    width: 60vw;
+  }
+  
+  .imagecontainer {
+    position: relative;
+  }
+  
+  .imagecontainer img {
+    width: 100%; /* Ensure images take full width of their container */
+  }
+  
+  .backImage {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    z-index: 1;
+    height: 200px;
+    width: 200px;
+  }
+  
+  .artImage {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .leftDiv h2 {
+    color: #fff; /* Example: styling heading text color */
+  }
+  
+  .leftDiv p {
+    color: #fff; /* Example: styling paragraph text color */
+  }
+  
+  

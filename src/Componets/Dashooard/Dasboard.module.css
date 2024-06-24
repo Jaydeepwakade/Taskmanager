@@ -1,0 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.board{
+    display: flex;
+    gap: 10px;
+}
