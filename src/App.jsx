@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./Componets/Login_&_Signup/Login/Login";
 import Dashboard from "./Componets/Dashooard/Dashboard";
-import Board from "./Componets/Dasboardpages/Board";
+import Board from "./Componets/Dasboardpages/board/Board";
 import Anylactics from "./Componets/Dasboardpages/anylacticspage/Anylactics";
 import Settings from "./Componets/Dasboardpages/setting/Settings"
 import Signup from "./Componets/Login_&_Signup/Signup/Signup";

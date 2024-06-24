@@ -143,7 +143,7 @@ function New() {
     <div className="app-container">
       <div className="main-content">
         <div className="header">
-          <h1>Welcome! Kumar</h1>
+          <h1>Welcome jaydeep</h1>
           <div className="add-people">
             <button className="add-people-btn">
               <i className="fas fa-user-plus"></i> Add People
