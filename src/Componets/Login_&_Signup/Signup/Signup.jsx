@@ -11,6 +11,16 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordVisible,setPasswordVisible]=useState(false)
+  const [confimrPasswordVisible,setConfirmPasswordVisible]=useState(false)
+  
+  const togglePasswordVisibility=(value)=>{
+    if(value==1){
+      setPasswordVisible(!passwordVisible)
+    }else{
+      setConfirmPasswordVisible(!confimrPasswordVisible)
+    }
+  }
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate()
@@ -38,7 +48,7 @@ function Signup() {
         email: email,
         password: password,
       };
-      const response = await fetch("http://172.20.10.5:3100/signup", {
+      const response = await fetch("http://192.168.0.105:3100/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,12 +98,12 @@ function Signup() {
                 <img src={Group} alt="icon" />
               </span>
               <input
-                type="password"
+                type={passwordVisible?'text':'password'}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span>
+              <span onClick={()=>togglePasswordVisibility(1)}>
                 <img src={view} alt="" />
               </span>
   
@@ -104,12 +114,12 @@ function Signup() {
                 <img src={Group} alt="icon" />
               </span>
               <input
-                type="password"
+                type={confimrPasswordVisible?'text':'password'}
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <span>
+              <span onClick={togglePasswordVisibility}>
                 <img src={view} alt="" />
               </span>
 
