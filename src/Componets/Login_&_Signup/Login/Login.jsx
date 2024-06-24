@@ -34,6 +34,7 @@ function Login() {
       console.log("Logged in")
       setEmail("")
       setPassword("")
+      navigate("/dashboard2")
     }
   };
   const handlesignup = () => {

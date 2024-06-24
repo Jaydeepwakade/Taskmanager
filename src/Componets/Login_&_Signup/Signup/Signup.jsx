@@ -57,7 +57,7 @@ function Signup() {
       });
 
       const result = await response.json();
-      console.log(result);
+      setErrors({})
     }
   };
 
