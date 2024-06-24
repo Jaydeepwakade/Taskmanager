@@ -40,6 +40,7 @@
 .inputDiv input {
   border: none;
   width: 300px;
+  outline: none;
 }
 
 .mainDiv {

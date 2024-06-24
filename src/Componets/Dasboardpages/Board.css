@@ -1,0 +1,311 @@
+/* Global Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #444;
+  }
+  
+  .logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-nav li {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+  }
+  
+  .sidebar-nav li:hover {
+    background-color: #444;
+    color: #fff;
+  }
+  
+  .sidebar-nav a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .sidebar-footer {
+    padding: 10px;
+    border-top: 1px solid #444;
+  }
+  
+  .logout-btn {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .logout-btn:hover {
+    background-color: #555;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .add-people {
+    margin-right: 10px;
+  }
+  
+  .add-people-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .add-people-btn:hover {
+    background-color: #3e8e41;
+  }
+  
+  .kanban-board {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+  }
+  
+  .kanban-column {
+    flex: 1;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  
+  .kanban-column h2 {
+    margin-top: 0;
+  }
+  
+  .task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .task-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .task-list li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .task-card {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  
+  .task-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .priority {
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .priority-HIGH {
+    color: #FF0000;
+  }
+  
+  .priority-LOW {
+    color: #008000;
+  }
+  
+  .priority-MODERATE {
+    color: #FFFF00;
+  }
+  
+  .task-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .task-actions button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .task-actions button:hover {
+    background-color: #3e8e41;
+  }
+  
+  .checklist {
+    padding: 10px;
+  }
+  
+  .checklist-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .checklist-item input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .checklist-item label {
+    flex: 1;
+  }
+  
+  .task-details {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  
+  .status-buttons {
+    display: flex;
+    justify-content: space-between;
+  padding: 10px;
+  }
+  
+  .status-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .status-btn.active {
+    background-color: #3e8e41;
+  }
+  
+  .status-btn:hover {
+    background-color: #3e8e41;
+  }
+  
+  .link-copied {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .link-copied-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown:hover .dropdown-btn {
+    background-color: #3e8e41;
+  }

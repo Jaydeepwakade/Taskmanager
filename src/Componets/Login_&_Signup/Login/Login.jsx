@@ -5,9 +5,11 @@ import style from "./Login.module.css";
 import Group from "../../../assets/Group.svg";
 import icon from "../../../assets/icon.svg";
 import view from "../../../assets/view.svg";
+import Vector from "../../../assets/Vector.svg";
 
 
 function Login() {
+   const[hideview ,sethideview] = useState(false)
   const navigate = useNavigate();
   const [user, setuser] = useState(true);
   const handleLogin = () => {
@@ -36,7 +38,7 @@ function Login() {
                 <img src={Group} alt="lock" />
               </span>
               <input placeholder="Password" type="password" />
-             <span><img src={view} alt="view" /></span> </div>
+             <span onClick={()=>sethideview(!hideview)}>{!hideview?<img src={view} alt="view" />:<img src={Vector} alt="view" />}</span></div>
           </div>
         </form>
         <div className={style.btndiv}>
