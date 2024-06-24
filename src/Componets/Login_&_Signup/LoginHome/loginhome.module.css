@@ -1,0 +1,54 @@
+
+.container{
+    display: flex;
+}
+
+.leftDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #17a2b8;
+    height: 100vh;
+    width: 65vw;
+}
+
+.imagecontainer {
+    position: relative;
+}
+
+
+.backImage {
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    z-index: 1;
+    height: 50%;
+    width: 62%;
+    border-radius: 50%
+}
+
+.artImage {
+    position: relative;
+    z-index: 2;
+
+    margin-bottom: -10%;
+
+}
+
+.leftDiv h2 {
+    color: #fff;
+
+}
+
+.leftDiv p {
+    color: #fff;
+
+}
+.RightDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    width: 100vh;
+}

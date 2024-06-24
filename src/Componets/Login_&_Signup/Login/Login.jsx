@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Art from "../../../assets/Art.png";
-import Back from "../../../assets/Back.png";
+import { useNavigate,Outlet } from "react-router-dom";
+
 import style from "./Login.module.css";
 import Group from "../../../assets/Group.svg";
 import icon from "../../../assets/icon.svg";
@@ -20,14 +19,7 @@ function Login() {
 
   return (
     <div className={style.container}>
-      <div className={style.leftDiv}>
-        <div className={style.imagecontainer}>
-          <img className={style.backImage} src={Back} alt="" />
-          <img className={style.artImage} src={Art} alt="Art" />
-        </div>
-        <h2>Welcome aboard my friend</h2>
-        <p>just a couple of clicks and we start</p>
-      </div>
+   
 
       <div className={style.loginDiv}>
         <h2>Login</h2>
@@ -53,6 +45,7 @@ function Login() {
             <button onClick={handlesignup}>signup</button>
           </div>
       </div>
+      <Outlet/>
     </div>
   );
 }
