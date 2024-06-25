@@ -7,7 +7,6 @@ import Anylactics from "./Componets/Dasboardpages/Anylactics";
 import Setting from "./Componets/Dasboardpages/Setting";
 import Signup from "./Componets/Login_&_Signup/Signup/Signup";
 import LoginHome from "./Componets/Login_&_Signup/LoginHome/LoginHome";
-import New from "./Componets/Dashooard/New";
 function App() {
   return (
     <Routes>
@@ -17,11 +16,6 @@ function App() {
       </Route>
       
       <Route path="/dashboard" element={<Dashboard />}>
-        <Route index element={<Board />} />
-        <Route path="anylactics" element={<Anylactics/>} />
-        <Route path="setting" element={<Setting />} />
-      </Route>
-      <Route path="/dashboard2" element={<New />}>
         <Route index element={<Board />} />
         <Route path="anylactics" element={<Anylactics/>} />
         <Route path="setting" element={<Setting />} />

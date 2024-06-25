@@ -1,42 +1,33 @@
-/* Global Styles */
-
-* {
-    box-sizing: border-box;
+/* 
+--------------------
+body, html {
     margin: 0;
     padding: 0;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
+    height: 100%;
+    overflow: hidden;
   }
   
   .app-container {
     display: flex;
-    flex-direction: row;
     height: 100vh;
-    width: 100vw;
-    overflow: hidden;
   }
   
   .sidebar {
-    width: 250px;
+    width: 200px;
     background-color: #333;
-    color: #fff;
-    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   
   .sidebar-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 10px;
-    border-bottom: 1px solid #444;
   }
   
-  .logo {
+  .logo img {
     width: 50px;
     height: 50px;
     margin-right: 10px;
@@ -45,89 +36,73 @@
   .sidebar-nav {
     list-style: none;
     padding: 0;
-    margin: 0;
   }
   
   .sidebar-nav li {
     padding: 10px;
-    border-bottom: 1px solid #444;
   }
   
-  .sidebar-nav li:hover {
-    background-color: #444;
-    color: #fff;
-  }
-  
-  .sidebar-nav a {
+  .sidebar-nav li a {
+    color: white;
     text-decoration: none;
-    color: #fff;
   }
   
   .sidebar-footer {
     padding: 10px;
-    border-top: 1px solid #444;
   }
   
   .logout-btn {
+    width: 100%;
+    padding: 10px;
     background-color: #444;
-    color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    color: white;
     cursor: pointer;
-  }
-  
-  .logout-btn:hover {
-    background-color: #555;
   }
   
   .main-content {
     flex: 1;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Changed from auto to hidden */
   }
   
   .header {
+    padding: 20px;
+    background-color: #f4f4f4;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .add-people {
-    margin-right: 10px;
+    align-items: center;
   }
   
   .add-people-btn {
-    background-color: #4CAF50;
-    color: #fff;
+    padding: 10px;
+    background-color: #007bff;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    color: white;
     cursor: pointer;
-  }
-  
-  .add-people-btn:hover {
-    background-color: #3e8e41;
   }
   
   .kanban-board {
     display: flex;
-    flex-direction: row;
+    flex-grow: 1;
+    overflow-x: auto;
     padding: 20px;
   }
   
   .kanban-column {
     flex: 1;
-    margin: 10px;
+    min-width: 400px; /* Increased the min-width for larger columns */
+    background-color: #f0f0f0;
+    margin: 0 10px;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #fff;
+    border-radius: 5px;
+    overflow-y: auto;
+    height: calc(100vh - 160px); /* Adjust height based on your header and padding */
   }
   
   .kanban-column h2 {
-    margin-top: 0;
+    text-align: center;
   }
   
   .task-list {
@@ -136,149 +111,105 @@
     margin: 0;
   }
   
-  .task-list li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .task-list li:hover {
-    background-color: #f0f0f0;
-  }
-  
   .task-card {
-    display: flex;
-    flex-direction: column;
+    background-color: white;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
   }
   
   .task-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
   }
   
-  .priority {
-    font-size: 12px;
-    font-weight: bold;
-    margin-right: 10px;
+  .priority-low, .priority-medium, .priority-high {
+    padding: 5px;
+    border-radius: 3px;
+    color: white;
   }
   
-  .priority-HIGH {
-    color: #FF0000;
+  .priority-low {
+    background-color: green;
   }
   
-  .priority-LOW {
-    color: #008000;
+  .priority-medium {
+    background-color: orange;
   }
   
-  .priority-MODERATE {
-    color: #FFFF00;
-  }
-  
-  .task-actions {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-  }
-  
-  .task-actions button {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .task-actions button:hover {
-    background-color: #3e8e41;
+  .priority-high {
+    background-color: red;
   }
   
   .checklist {
-    padding: 10px;
+    margin-top: 10px;
   }
   
   .checklist-item {
     display: flex;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
   }
   
-  .checklist-item input[type="checkbox"] {
-    margin-right: 10px;
+  .task-actions {
+    margin-top: 10px;
   }
   
-  .checklist-item label {
-    flex: 1;
-  }
-  
-  .task-details {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #fff;
-  }
-  
-  .status-buttons {
-    display: flex;
-    justify-content: space-between;
-  padding: 10px;
-  }
-  
-  .status-btn {
-    background-color: #4CAF50;
-    color: #fff;
+  .task-actions button {
+    margin-right: 5px;
+    padding: 5px;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    border-radius: 3px;
     cursor: pointer;
   }
   
-  .status-btn.active {
-    background-color: #3e8e41;
+  .btn-backlog {
+    background-color: #6c757d;
+    color: white;
   }
   
-  .status-btn:hover {
-    background-color: #3e8e41;
+  .btn-to-do {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-progress {
+    background-color: #ffc107;
+    color: white;
+  }
+  
+  .btn-done {
+    background-color: #28a745;
+    color: white;
   }
   
   .link-copied {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
   }
   
   .link-copied-btn {
-    background-color: #4CAF50;
-    color: #fff;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
     cursor: pointer;
   }
   
   .dropdown {
     position: relative;
     display: inline-block;
+    margin-left: 10px;
   }
   
   .dropdown-btn {
-    background-color: #4CAF50;
-    color: #fff;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
     cursor: pointer;
   }
   
@@ -292,20 +223,15 @@
   }
   
   .dropdown-content a {
-    color: #333;
+    color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #f0f0f0;
   }
   
   .dropdown:hover .dropdown-content {
     display: block;
   }
   
-  .dropdown:hover .dropdown-btn {
-    background-color: #3e8e41;
-  }
+
+   */

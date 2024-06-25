@@ -28,13 +28,14 @@ function Login() {
     })
 
     const result=await response.json()
+    console.log(result)
 
     if(result.message){
       localStorage.setItem("token",result.data)
       console.log("Logged in")
       setEmail("")
       setPassword("")
-      navigate("/dashboard2")
+      navigate("/dashboard")
     }
   };
   const handlesignup = () => {
