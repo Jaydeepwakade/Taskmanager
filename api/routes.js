@@ -4,6 +4,7 @@ const User=require('./models/users')
 const crypto=require('crypto')
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
+const Todo=require("./models/Todo")
 
 
 router.post("/signup",async(req,res)=>{
@@ -79,6 +80,43 @@ router.post("/updateProfile",async(req,res)=>{
     }
   }catch(err){
     res.send(440).send({error:"Something went wrong"})
+  }
+})
+
+router.post("/saveTask/:id",async(req,res)=>{
+  try{
+    const {id}=req.params
+    const {title,priority,status,checklist,dueDate}=req.body
+    const newTodo=await Todo({
+      title,
+      priority,
+      status,
+      checklist,
+      dueDate
+    })
+  
+    const savedTask=await newTodo.save()
+  
+    await User.findByIdAndUpdate(id,{$push:{todo:savedTask._id}})
+    console.log("done")
+  }catch(err){
+    console.log(err)
+  }
+})
+
+router.get("/fetchTask/:id",async(req,res)=>{
+  try {
+    console.log("hello")
+    const { id } = req.params;
+    const user = await User.findById(id).populate('todo');
+    if (!user) {
+      console.log("not done")
+      return res.status(404).json({ error: 'User not found' });
+    }
+    console.log(user.todo[0])
+    res.status(200).json({message:"Done",data:user.todo[0]});
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 })
 module.exports=router
