@@ -8,14 +8,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
+}
+.container{
+    width: 100%;
 }
 
 .modal {
     background: white;
     padding: 20px;
     border-radius: 8px;
-    max-width: 500px;
-    width: 100%;
+    width: 40%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -28,3 +31,29 @@ input {
 button {
     margin-right: 10px;
 }
+.prioritydiv{
+    display: flex;
+    gap: 20px;
+
+}
+.inputdiv{
+    display: flex;
+    border: 1px solid;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    height: 60px;
+    
+}
+.inputdiv1{
+ 
+    margin: 0;
+    padding:10px;
+    height: 20px;
+    width: 10%;
+    
+}
+.inputdiv2{
+  height: 20px;
+}
+

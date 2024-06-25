@@ -37,6 +37,8 @@ function Login() {
 
     if(result.message){
       localStorage.setItem("token",result.data)
+      localStorage.setItem("id",result.id)
+      localStorage.setItem("name",result.name)
       console.log("Logged in")
       setEmail("")
       setPassword("")
