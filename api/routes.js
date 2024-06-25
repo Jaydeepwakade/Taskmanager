@@ -58,4 +58,27 @@ router.post("/login",async(req,res)=>{
       }
     
 })
+
+router.post("/updateProfile",async(req,res)=>{
+  const {name,email,password,newPassword}=req.body
+  try{
+    const user=await User.findOne({email:email})
+    if(user){
+      bcrypt.compare(password,user.password,(err,result)=>{
+        if(result){
+          const hashedPass=bcrypt.hash(newPassword,10)
+          user.password=hashedPass
+          user.name=name
+          res.status(200).send({message:"Password changed"})
+        }else{
+          res.status(500).send({error:"Invalid old password"})
+        }
+      })
+    }else{
+      res.send(400).send({error:"Please enter valid email"})
+    }
+  }catch(err){
+    res.send(440).send({error:"Something went wrong"})
+  }
+})
 module.exports=router

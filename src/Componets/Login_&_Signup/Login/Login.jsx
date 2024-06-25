@@ -39,6 +39,7 @@ function Login() {
       console.log("Logged in")
       setEmail("")
       setPassword("")
+      alert("Logged in")
       navigate("/dashboard")
     }
   };

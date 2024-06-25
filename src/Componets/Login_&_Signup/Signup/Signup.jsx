@@ -58,6 +58,15 @@ function Signup() {
 
       const result = await response.json();
       setErrors({})
+      if(result.message){
+        setEmail("")
+        setName("")
+        setPassword("")
+        setConfirmPassword("")
+        alert("Successfully signed up")
+      }else{
+        alert("Something went wrong")
+      }
     }
   };
 
