@@ -13,19 +13,6 @@ function Board() {
   //Harsh code
   const [name,setName]=useState("")
   const [id,setId]=useState("")
-  const [title,setTitle]=useState("Task No1")
-  const [priority,setPriority]=useState("HIGH")
-  const [checklist,setChecklist]=useState([])
-  const data={
-    "title": "New Task",
-    "priority": "high",
-    "status":"Done",
-    "checklist": [
-      { "id": "1", "task": "Subtask 1" },
-      { "id": "2", "task": "Subtask 2", "completed": true }
-    ],
-    "dueDate": "2024-12-31"
-  }
 
 
   useEffect(()=>{
@@ -35,28 +22,9 @@ function Board() {
     setId(id)
   },[])
 
-  // useEffect(()=>{
-  //   const fetchTask=async()=>{
-  //     const result=await fetch(`http://192.168.0.105:3100/fetchTask/${id}`,{
-  //       method:'GET',
-  //       headers:{
-  //         "Content-Type":"application/json"
-  //       }
-  //     })
-
-  //     const response=await result.json()
-  //     if(response.message){
-  //       console.log("data",response.data)
-  //     }
-  //   }
-  //   fetchTask()
-  // },[])
 
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
-  // useEffect(()=>{
-  //   console.log(tasks)
-  // },[tasks])
 
   const dispatch= useDispatch()
   const tasks = useSelector((state)=>state.tasks)

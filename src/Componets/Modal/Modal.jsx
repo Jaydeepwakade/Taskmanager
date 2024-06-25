@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import './Modal.css';
 import add from "../../assets/add.svg";
 import Delete from "../../assets/Delete.svg";
 import style from "./modal.module.css";
+import { url } from '../../redux/action';
 
 ReactModal.setAppElement('#root');
 
@@ -68,7 +69,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
             />
             <div className={style.prioritydiv}>
                 <h3>Select Priority</h3>
-                <button>HIGH PRIORITY</button>
+                <button >HIGH PRIORITY</button>
                 <button>MODERATE PRIORITY</button>
                 <button>LOW PRIORITY</button>
             </div>

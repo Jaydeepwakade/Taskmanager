@@ -1,5 +1,5 @@
 
-  export const url = "http://192.168.0.105:3100"
+  export const url = "http://192.168.0.106:3200"
   export const getdatarequest = "GETDATAREQUEST"
   export const getdatasucces = "GETDATA"
   export const getdataerror = "GETERROR"
