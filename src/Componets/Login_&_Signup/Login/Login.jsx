@@ -23,7 +23,7 @@ function Login() {
       email:email,
       password:password
     }
-    const response=await fetch('http://192.168.0.105:3100/login',{
+    const response=await fetch('http://172.20.10.5:3100/login',{
       method:'POST',
       headers:{
         'Content-Type':'application/json'
@@ -33,6 +33,7 @@ function Login() {
 
     const result=await response.json()
     console.log(result)
+    alert("succes")
 
     if(result.message){
       localStorage.setItem("token",result.data)
