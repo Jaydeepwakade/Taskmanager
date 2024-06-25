@@ -20,6 +20,7 @@ function Board() {
   const toggleDropdown = (id) => {
     if (openDropdownId === id) {
       setOpenDropdownId(null);
+      console.log(id)
     } else {
       setOpenDropdownId(id);
     }
@@ -34,6 +35,7 @@ function Board() {
     setModalIsOpen(false);
   };
   const backlogTasks = tasks.tasks.filter((task) => task.status === "BACKLOG");
+  console.log()
   const todoTasks =tasks.tasks.filter((task) => task.status === "TO-DO");
   const inProgressTasks = tasks.tasks.filter((task) => task.status === "inProgress");
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
@@ -85,6 +87,14 @@ function Board() {
                         </div>
                       ))}
                   </div>
+                  <div className={Style.divbuttons}>
+                    <div className={Style.date}>date</div>
+                    <div className={Style.btns}>
+                      <button>PROGRESS</button>
+                      <button>TODO</button>
+                      <button>DONE</button>
+                    </div>
+                  </div>
                 </div>
               );
             })}
@@ -93,13 +103,15 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>To Do</h3>
+              <div>
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
               <img src={collapse} alt="" />
+              </div>
             </div>
             
             <div className={Style.taskshow}>
-            {backlogTasks.map((ele) => {
+            {todoTasks.map((ele) => {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
@@ -130,6 +142,14 @@ function Board() {
                           <h3>{item.task}</h3>
                         </div>
                       ))}
+                  </div>
+                  <div className={Style.divbuttons}>
+                    <div className={Style.date}>date</div>
+                    <div className={Style.btns}>
+                      <button>PROGRESS</button>
+                      <button>BACKLOG</button>
+                      <button>DONE</button>
+                    </div>
                   </div>
                 </div>
               );
@@ -178,10 +198,21 @@ function Board() {
                         </div>
                       ))}
                   </div>
+                  <div className={Style.divbuttons}>
+                    <div className={Style.date}>date</div>
+                    <div className={Style.btns}>
+                  
+                      <button>TODO</button>
+                      <button>BACKLOG</button>
+                      <button>DONE</button>
+                    </div>
+                  </div>
                 </div>
               );
             })}
+            
           </div>
+          
           
         </div>
         <div className={Style.taskcontainer}>
@@ -190,7 +221,7 @@ function Board() {
             <img src={collapse} alt="" />
           </div>
           <div className={Style.taskshow}>
-            {inProgressTasks.map((ele) => {
+            {doneTasks.map((ele) => {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
@@ -221,6 +252,15 @@ function Board() {
                           <h3>{item.task}</h3>
                         </div>
                       ))}
+                  </div>
+                  <div className={Style.divbuttons}>
+                    <div className={Style.date}>date</div>
+                    <div className={Style.btns}>
+                      <button>TO-DO</button>
+                      <button>IN PROGRESS</button>
+                      <button>BACKLOG</button>
+                      
+                    </div>
                   </div>
                 </div>
               );

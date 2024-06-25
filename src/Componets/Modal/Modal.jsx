@@ -5,17 +5,33 @@ import './Modal.css';
 ReactModal.setAppElement('#root');
 
 const Modal = ({ isOpen, onRequestClose }) => {
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState({});
+    
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
 
     const handleSubmit = () => {
-        console.log('Input Value:', inputValue);
+        const payload=
+            {
+                title: '',
+                priority: '',
+                status: "BACKLOG",
+                checklist: [
+                  { id: 1, "task": "Task to be done", "completed": false },
+                  { id: 2, "task": "Task to be done", "completed": false },
+                  {
+                    id: 3,
+                    task: "Task to be done ede lorem Ipsum is a Dummy text t",
+                    completed: false
+                  }]
+            }
+        
+      
+        
         onRequestClose();
-    };
-
+    }
     return (
         <ReactModal
             isOpen={isOpen}
