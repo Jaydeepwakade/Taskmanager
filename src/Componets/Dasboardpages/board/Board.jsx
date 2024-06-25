@@ -9,6 +9,17 @@ import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchdata } from "../../../redux/action";
 function Board() {
+
+  //Harsh code
+  const [name,setName]=useState("")
+  const [title,setTitle]=useState("Task No1")
+  const [priority,setPriority]=useState("HIGH")
+  const [checklist,setChecklist]=useState([])
+  useEffect(()=>{
+    const name=localStorage.getItem('name')
+    setName(name)
+  },[])
+
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
   const dispatch= useDispatch()
@@ -43,7 +54,7 @@ function Board() {
   return (
     <div className={Style.container}>
       <div className={Style.header}>
-        <h1>welcome jaydeep</h1>
+        <h1>welcome {name}</h1>
 
         <h2>Board</h2>
       </div>
