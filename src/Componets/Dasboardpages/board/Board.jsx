@@ -148,7 +148,7 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>To Do</h3>
-              <img onClick={handleSaveTask} src={add} alt="" />
+              <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
               <img src={collapse} alt="" />
             </div>
