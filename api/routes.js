@@ -47,7 +47,7 @@ router.post("/login",async(req,res)=>{
           if (result) {
             const key = generateKey();
             const token = jwt.sign({ userId: savedUser._id }, key);
-            return res.status(422).send({ message: "Logged IN", data: token });
+            return res.status(422).send({ message: "Logged IN", data: token,id:savedUser._id,name:savedUser.name });
           } else {
             console.log("Error");
             return res.status(422).send({ error: "Invalid Credentials2" });

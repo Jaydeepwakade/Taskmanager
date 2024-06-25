@@ -15,7 +15,7 @@ function Login() {
   const [passwordVisible,setPasswordVisible]=useState(false)
   const navigate = useNavigate();
   const [user, setuser] = useState(true);
-
+  const [name,setName]=useState("")
 
   const handleLogin = async() => {
     // user ? navigate("/dashboard") : "";
@@ -23,7 +23,7 @@ function Login() {
       email:email,
       password:password
     }
-    const response=await fetch('http://172.20.10.5:3100/login',{
+    const response=await fetch('http://192.168.0.105:3100/login',{
       method:'POST',
       headers:{
         'Content-Type':'application/json'
@@ -33,15 +33,19 @@ function Login() {
 
     const result=await response.json()
     console.log(result)
-    alert("succes")
 
     if(result.message){
-      localStorage.setItem("token",result.data)
+      await localStorage.setItem("token",result.data)
+      await localStorage.setItem("name",result.name)
+      await localStorage.setItem("id",result.id)
       console.log("Logged in")
+      // setName(result.name)
       setEmail("")
       setPassword("")
       alert("Logged in")
-      navigate("/dashboard")
+      navigate("/dashboard",{
+        name:name
+      })
     }
   };
   const handlesignup = () => {
