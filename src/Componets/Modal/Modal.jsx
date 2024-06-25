@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import './Modal.css';
 import add from "../../assets/add.svg";
@@ -11,7 +11,13 @@ const Modal = ({ isOpen, onRequestClose }) => {
     const [inputValue, setInputValue] = useState('');
     const [checklist, setChecklist] = useState([]);
     const [dueDate, setDueDate] = useState('');
+    const [id,setId]=useState("")
 
+
+    useEffect(()=>{
+        const data=localStorage.getItem("id")
+        setId(data)
+    },[])
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
@@ -37,8 +43,9 @@ const Modal = ({ isOpen, onRequestClose }) => {
         setChecklist((prevChecklist) => prevChecklist.filter(item => item.id !== id));
     };
 
-    const handleSubmit = () => {
-        const payload = {
+    
+    const handleSubmit = async() => {
+        const data = {
             title: inputValue,
             priority: '',
             status: "BACKLOG",
@@ -46,6 +53,16 @@ const Modal = ({ isOpen, onRequestClose }) => {
             duedate: dueDate
         };
 
+        const result=await fetch(`http://192.168.0.105:3100/saveTask/${id}`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(data)
+        })
+        
+        const response=await result.json()
+        console.log(response)
         // Perform your submit logic with payload here
 
         onRequestClose();
