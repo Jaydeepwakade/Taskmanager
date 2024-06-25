@@ -7,7 +7,6 @@ import Anylactics from "./Componets/Dasboardpages/anylacticspage/Anylactics";
 import Settings from "./Componets/Dasboardpages/setting/Settings"
 import Signup from "./Componets/Login_&_Signup/Signup/Signup";
 import LoginHome from "./Componets/Login_&_Signup/LoginHome/LoginHome";
-
 function App() {
   return (
     <Routes>

@@ -53,7 +53,7 @@
 .btndiv {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   align-items: center;
   justify-content: center;
 
@@ -66,5 +66,9 @@
   border-radius: 10px;
   color: white;
   width: 400px;
-  height: 30px;
+  height: 40px;
+}
+
+.btndiv p{
+    color: gray;
 }

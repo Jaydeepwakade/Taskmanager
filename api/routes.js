@@ -3,6 +3,7 @@ const router=express.Router()
 const User=require('./models/users')
 const crypto=require('crypto')
 const bcrypt=require('bcrypt')
+const jwt=require('jsonwebtoken')
 
 
 router.post("/signup",async(req,res)=>{
@@ -31,4 +32,30 @@ router.post("/signup",async(req,res)=>{
     }
 })
 
+router.post("/login",async(req,res)=>{
+    const generateKey = () => {
+        const key = crypto.randomBytes(32).toString("hex");
+        return key;
+      };
+    const {email,password}=req.body
+    const savedUser = await User.findOne({ email: email });
+    if (!savedUser) {
+      return res.status(422).send({ error: "Invalid Credentials" });
+    }
+      try {
+        bcrypt.compare(password, savedUser.password, (err, result) => {
+          if (result) {
+            const key = generateKey();
+            const token = jwt.sign({ userId: savedUser._id }, key);
+            return res.status(422).send({ message: "Logged IN", data: token });
+          } else {
+            console.log("Error");
+            return res.status(422).send({ error: "Invalid Credentials2" });
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    
+})
 module.exports=router
