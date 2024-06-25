@@ -114,7 +114,7 @@ router.get("/fetchTask/:id",async(req,res)=>{
       return res.status(404).json({ error: 'User not found' });
     }
     console.log(user.todo[0])
-    res.status(200).json({message:"Done",data:user.todo[0]});
+    res.status(200).json({message:"Done",data:user.todo});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

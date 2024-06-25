@@ -12,14 +12,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
     const [inputValue, setInputValue] = useState('');
     const [checklist, setChecklist] = useState([]);
     const [dueDate, setDueDate] = useState('');
-     console.log(checklist, inputValue)
-     const [id,setId]=useState("")
 
-
-    useEffect(()=>{
-        const data=localStorage.getItem("id")
-        setId(data)
-    },[])
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
@@ -45,38 +38,19 @@ const Modal = ({ isOpen, onRequestClose }) => {
         setChecklist((prevChecklist) => prevChecklist.filter(item => item.id !== id));
     };
 
-    const handleonsave= async (data)=>{
-        const result= await fetch(`http://192.168.0.105:3100/saveTask/${id}`,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify(data)
-        })
-        
-        const response=await result.json()
-    }
+    const handleSubmit = () => {
+        const payload = {
+            title: inputValue,
+            priority: '',
+            status: "BACKLOG",
+            checklist: checklist,
+            duedate: dueDate
+        };
 
-    const handleSubmit = async() => {
-        
-            const data = {
-                title: inputValue,
-                priority: '',
-                status: "BACKLOG",
-                checklist: checklist,
-                duedate: dueDate
-            };
-      handleonsave(data)
-          
-         
-            // Perform your submit logic with payload here
-    
-            onRequestClose();
-        };
         // Perform your submit logic with payload here
 
-      
-
+        onRequestClose();
+    };
 
     return (
        <div className={style.container}>

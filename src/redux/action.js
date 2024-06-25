@@ -1,6 +1,5 @@
 
-  export const url = 'http://192.168.0.106:3200'
- 
+  export const url = "http://localhost:3000/tasks"
   export const getdatarequest = "GETDATAREQUEST"
   export const getdatasucces = "GETDATA"
   export const getdataerror = "GETERROR"
