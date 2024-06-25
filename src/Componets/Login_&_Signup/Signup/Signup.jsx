@@ -48,7 +48,7 @@ function Signup() {
         email: email,
         password: password,
       };
-      const response = await fetch("http://172.20.10.5:3100/signup", {
+      const response = await fetch("http://192.168.0.105:3100/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,6 +58,15 @@ function Signup() {
 
       const result = await response.json();
       setErrors({})
+      if(result.message){
+        setEmail("")
+        setName("")
+        setPassword("")
+        setConfirmPassword("")
+        alert("Successfully signed up")
+      }else{
+        alert("Something went wrong")
+      }
     }
   };
 
