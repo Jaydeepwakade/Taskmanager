@@ -13,32 +13,7 @@ function Board() {
   //Harsh code
   const [name,setName]=useState("")
   const [id,setId]=useState("")
-  const [title,setTitle]=useState("Task No1")
-  const [priority,setPriority]=useState("HIGH")
-  const [checklist,setChecklist]=useState([])
-  const data={
-    "title": "New Task",
-    "priority": "high",
-    "status":"Done",
-    "checklist": [
-      { "id": "1", "task": "Subtask 1" },
-      { "id": "2", "task": "Subtask 2", "completed": true }
-    ],
-    "dueDate": "2024-12-31"
-  }
 
-  const handleSaveTask=async()=>{
-    const result=await fetch(`http://192.168.0.105:3100/saveTask/${id}`,{
-      method:"POST",
-      headers:{
-        'Content-Type':"application/json"
-      },
-      body:JSON.stringify(data)
-    })
-
-    const response=await result.json()
-    console.log(response)
-  }
 
   useEffect(()=>{
     const name=localStorage.getItem('name')
@@ -47,29 +22,15 @@ function Board() {
     setId(id)
   },[])
 
-  useEffect(()=>{
-    const fetchTask=async()=>{
-      const result=await fetch(`http://192.168.0.105:3100/fetchTask/${id}`,{
-        method:'GET',
-        headers:{
-          "Content-Type":"application/json"
-        }
-      })
-
-      const response=await result.json()
-      if(response.message){
-        console.log(response.data)
-      }
-    }
-    fetchTask()
-  },[])
 
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
+
   const dispatch= useDispatch()
-   const tasks = useSelector((state)=>state.tasks)
-   useEffect(()=>{
-    dispatch( fetchdata())
+  const tasks = useSelector((state)=>state.tasks)
+  useEffect(()=>{
+    console.log("id2",id)
+    dispatch( fetchdata(id))
    },[dispatch])
 
   const toggleDropdown = (id) => {
@@ -166,12 +127,12 @@ function Board() {
             </div>
             
             <div className={Style.taskshow}>
-            {todoTasks.map((ele) => {
+            {todoTasks.map((ele,id) => {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
               return (
-                <div key={ele.id} className={Style.todos}>
+                <div key={id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
                     <img src={dots} alt="" />

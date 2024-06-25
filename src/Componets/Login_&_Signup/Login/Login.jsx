@@ -6,6 +6,7 @@ import Group from "../../../assets/Group.svg";
 import icon from "../../../assets/icon.svg";
 import view from "../../../assets/view.svg";
 import Vector from "../../../assets/Vector.svg";
+import { url } from "../../../redux/action";
 
 
 function Login() {
@@ -23,7 +24,7 @@ function Login() {
       email:email,
       password:password
     }
-    const response=await fetch('http://192.168.0.106:3100/login',{
+    const response=await fetch(`${url}/login`,{
       method:'POST',
       headers:{
         'Content-Type':'application/json'
