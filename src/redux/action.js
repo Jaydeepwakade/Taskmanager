@@ -1,5 +1,5 @@
 
-  export const url = "http://localhost:3000/tasks"
+  export const url = "http://192.168.0.105:3100"
   export const getdatarequest = "GETDATAREQUEST"
   export const getdatasucces = "GETDATA"
   export const getdataerror = "GETERROR"
@@ -17,10 +17,12 @@
 
 
 
-export const fetchdata = () => {
+export const fetchdata = (id) => {
     return (dispatch) => {
       dispatch(getdatareq());
-      fetch(url)
+      const data=localStorage.getItem('id')
+      console.log("id",data)
+      fetch(`${url}/fetchTask/${data}`,{method:'GET',headers:{"Content-Type":"application/json"}})
         .then((res) => {
           if (!res.ok) {
             throw new Error('Network response was not ok');
@@ -28,7 +30,8 @@ export const fetchdata = () => {
           return res.json();
         })
         .then((data) => {
-            dispatch(getdatasuccesres(data)),console.log(data)
+            console.log("Data",data)
+            dispatch(getdatasuccesres(data.data))
         })
         .catch((error) => dispatch(geterordata(error.message)));
     };
