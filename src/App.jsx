@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./Componets/Login_&_Signup/Login/Login";
 import Dashboard from "./Componets/Dashooard/Dashboard";
-import Board from "./Componets/Dasboardpages/Board";
-import Anylactics from "./Componets/Dasboardpages/Anylactics";
-import Setting from "./Componets/Dasboardpages/Setting";
+import Board from "./Componets/Dasboardpages/board/Board";
+import Anylactics from "./Componets/Dasboardpages/anylacticspage/Anylactics";
+import Settings from "./Componets/Dasboardpages/setting/Settings"
 import Signup from "./Componets/Login_&_Signup/Signup/Signup";
 import LoginHome from "./Componets/Login_&_Signup/LoginHome/LoginHome";
 function App() {
@@ -18,7 +18,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />}>
         <Route index element={<Board />} />
         <Route path="anylactics" element={<Anylactics/>} />
-        <Route path="setting" element={<Setting />} />
+        <Route path="setting" element={<Settings />} />
       </Route>
     </Routes>
   );

@@ -1,6 +1,11 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import layout from "../../assets/layout.svg";
+import database from "../../assets/database.svg";
+import settings from "../../assets/settings.svg";
+import sandbox  from "../../assets/sandbox.svg";
+import Logout from "../../assets/Logout.svg";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -10,16 +15,59 @@ function Navbar() {
 
   return (
     <div className={styles.navbar}>
-      <h1>ProManage</h1>
-      <NavLink to="" >Board</NavLink>
-      <NavLink to="anylactics" >Anylactics</NavLink>
-      <NavLink to="setting" >Settings</NavLink>
+       <div className={styles.header}>
+       <span><img src={sandbox} alt="sandbox" /></span>
+        <h3> ProManager</h3>
+       </div>
+      <div className={styles.NavDiv}>
+        <li>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? styles.activeNav : styles.navlink
+            }
+            to=""
+            end
+          >
+            <span>
+              <img src={layout} alt="" />
+            </span>{" "}
+            <p>Board</p>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? styles.activeNav : styles.navlink}`
+            }
+            to="anylactics"
+          >
+            <span>
+              {" "}
+              <img src={database} alt="" />
+            </span>
+            <p> Anyalitics</p>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? styles.activeNav : styles.navlink}`
+            }
+            to="setting"
+          >
+            <span>
+              {" "}
+              <img src={settings} alt="" />
+            </span>{" "}
+            <p>Setting</p>
+          </NavLink>
+        </li>
+      </div>
       <button className={styles.btn} onClick={handleLogout}>
-        Logout
+       <img src={Logout} alt="" /> <h2>Logout</h2>
       </button>
     </div>
   );
 }
 
 export default Navbar;
-

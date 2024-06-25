@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* Full viewport height */
+  overflow: hidden;
+
+
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  Font-size: 20.4px;
+  Font-style: normal;
+  Font-weight: 600;
+}
+
+.main {
+
+  height: 100vh;
+  overflow-y: auto;
+  white-space: nowrap;
+  padding: 10px;
+}
+
+.taskcontainer {
+  width: 400px;
+  /* Fixed width for each task container */
+  height: 94%;
+  /* Take full height of parent container */
+  margin-right: 20px;
+  /* Space between each task container */
+  background-color:
+    #eef2f5;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  display: inline-block;
+  white-space: normal;
+  /* Ensure content wraps within the container */
+  word-wrap: break-word;
+}
+
+.taskcontainer div {
+  display: flex;
+  justify-content: space-between;
+
+
+}
+
+.taskcontainer div div {
+  display: flex;
+  gap: 20px;
+}
+
+.taskshow {
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+}
+
+.todos {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+
+}
+.todos div{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+}
+.dropdowndiv{
+  display: flex;
+  flex-direction: column;
+}
+.dropdown{
+  display: flex;
+ 
+}
+.dropdown h3{
+ width: 100%;
+}
+

@@ -4,7 +4,7 @@ import Navbar from '../Navbar/Navbar'
 function Board() {
   return (
     <div >
-         board
+        board
     </div>
   )
 }
