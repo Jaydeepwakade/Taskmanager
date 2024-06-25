@@ -1,0 +1,75 @@
+
+{ "tasks":[
+    {
+      "id": 1,
+      "title": "Hero section",
+      "priority": "HIGH",
+      "status": "BACKLOG",
+      "checklist": [
+        { "id": 1, "task": "Task to be done", "completed": false },
+        { "id": 2, "task": "Task to be done", "completed": false },
+        {
+          "id": 3,
+          "task": "Task to be done ede lorem Ipsum is a Dummy text t",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Hero section",
+      "priority": "LOW",
+      "status": "inProgress",
+      "checklist": [
+        { "id": 1, "task": "Task to be done", "completed": false },
+        { "id": 2, "task": "Task to be done", "completed": false },
+        {
+          "id": 3,
+          "task": "Task to be done ede lorem Ipsum is a Dummy text t",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Typography change in the First two screens of th...",
+      "priority": "MODERATE",
+      "status": "BACKLOG",
+      "checklist": [
+        { "id": 1, "task": "Task to be done", "completed": false },
+        { "id": 2, "task": "Task to be done", "completed": false },
+        {
+          "id": 3,
+          "task": "Task to be done ede lorem Ipsum is a Dummy text t",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Hero section",
+      "priority": "LOW",
+      "status": "TO-DO",
+      "checklist": [
+        { "id": 1, "task": "Task to be done", "completed": false },
+        { "id": 2, "task": "Task to be done", "completed": true }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Hero section",
+      "priority": "HIGH",
+      "status": "done",
+      "checklist": [
+        { "id": 1, "task": "Task to be done", "completed": false },
+        { "id": 2, "task": "Task to be done", "completed": false },
+        {
+          "id": 3,
+          "task": "Task to be done ede lorem Ipsum is a Dummy text t",
+          "completed": false
+        }
+      ]
+    }
+  ]
+}
+  
