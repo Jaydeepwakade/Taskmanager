@@ -65,6 +65,24 @@ function Board() {
   const todoTasks =tasks.tasks.filter((task) => task.status === "TO-DO");
   const inProgressTasks = tasks.tasks.filter((task) => task.status === "inProgress");
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
+  const [checked,setChecked]=useState()
+  const [taskId,setTaskid]=useState("")
+  const [itemId,setchecklistid]=useState("")
+  useEffect(()=>{
+    const changeTickStatus=async()=>{
+      const result=await fetch(`http://192.168.0.105:3200/updateChecklistItem/${taskId}/${itemId}`,{
+        method:'PUT',
+        headers:{
+          'Content-Type':"application/json"
+        },
+        body:JSON.stringify({checked})
+      })
+      const response=await result.json()
+      console.log(response)
+    }
+
+    changeTickStatus()
+  },[checked])
 
   return (
     <div className={Style.container}>
@@ -164,7 +182,11 @@ function Board() {
                     {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
                         <div key={item.id} className={Style.dropdown}>
-                          <input type="checkbox" />
+                          <input type="checkbox" onChange={(e)=>{
+                            setChecked(e.target.checked)
+                            setTaskid(ele._id)
+                            setchecklistid(item._id)
+                          }} />
                           <h3>{item.task}</h3>
                         </div>
                       ))}

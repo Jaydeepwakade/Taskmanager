@@ -145,8 +145,10 @@ router.put("/updateTask/:taskId", async (req, res) => {
 });
  
 router.put('/updateChecklistItem/:taskId/:itemId', async (req, res) => {
+  // console.log("update")
   const { taskId, itemId } = req.params;
-  const { completed } = req.body;
+  const { checked } = req.body;
+  console.log(taskId,itemId,checked)
 
   try {
     const task = await Todo.findById(taskId);
@@ -159,7 +161,7 @@ router.put('/updateChecklistItem/:taskId/:itemId', async (req, res) => {
       return res.status(404).send({ error: "Checklist item not found" });
     }
 
-    checklistItem.completed = completed;
+    checklistItem.completed = checked;
     await task.save();
 
     res.status(200).send({message:"done",data:task});
