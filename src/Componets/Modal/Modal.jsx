@@ -3,6 +3,10 @@ import ReactModal from 'react-modal';
 import './Modal.css';
 import add from "../../assets/add.svg";
 import Delete from "../../assets/Delete.svg";
+import Ellipse2 from "../../assets/Ellipse2.svg";
+import blue from "../../assets/blue.svg";
+import green from "../../assets/green.svg";
+
 import style from "./modal.module.css";
 import { addTask, addTaskRequest, fetchdata} from '../../redux/action';
 import { useDispatch } from 'react-redux';
@@ -74,7 +78,7 @@ const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
                 className={style.modal}
                 overlayClassName="overlay"
             >
-                <h2>Title</h2>
+                <h2>Title <span>*</span></h2>
                 <input
                     type="text"
                     value={inputValue}
@@ -83,12 +87,17 @@ const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
                 />
                 <div className={style.prioritydiv}>
                     <h3>Select Priority</h3>
-                    <button onClick={()=>{setprior("HIGH")}} >HIGH PRIORITY</button>
-                    <button onClick={()=>{setprior("MODERATE")}} >MODERATE PRIORITY</button>
-                    <button onClick={()=>{setprior("LOW")}} >LOW PRIORITY</button>
+                    <button onClick={()=>{setprior("HIGH")}} > <img src={Ellipse2} alt="" />                       HIGH PRIORITY</button>
+                    <button onClick={()=>{setprior("MODERATE")}} > <img src={blue} alt="" />                 MODERATE PRIORITY</button>
+                    <button onClick={()=>{setprior("LOW")}} > <img src={green}alt="" />                   LOW PRIORITY</button>
                 </div>
-                <div>
-                    <h3>Checklist <span>{`(${checklist.length})`}</span></h3>
+                <div className={style.assigndiv}>
+                    <h4>Assign to</h4>
+                    <input type="text" placeholder='Add assigne' />
+                </div>
+                <h3>Checklist <span>{`(${checklist.length})`}</span></h3>
+                <div className={style.scrolldiv}>
+                   
                     {checklist.map(item => (
                         <div className={style.inputdiv} key={item.id}>
                             <input
@@ -111,11 +120,12 @@ const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
                             <img className={style.deleteButton} onClick={() => handleDeleteChecklistItem(item.id)} src={Delete} alt="" />
                         </div>
                     ))}
-                    <h2 onClick={handleAddChecklistItem} className={style.addNew}>
+                    
+                </div>
+                <h2 onClick={handleAddChecklistItem} className={style.addNew}>
                         <img src={add} alt="Add new" /> Add new
                     </h2>
-                </div>
-                <div>
+                <div  className={style.button}>
                     <div>
                         <input
                             type="date"
