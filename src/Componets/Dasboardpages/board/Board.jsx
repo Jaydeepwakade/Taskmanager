@@ -105,7 +105,7 @@ function Board() {
                 (item) => item.completed
               ).length;
               return (
-                <div key={ele.id} className={Style.todos}>
+                <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
                     <img src={dots} alt="" />
@@ -126,7 +126,7 @@ function Board() {
                   <div className={Style.dropdowndiv}>
                     {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
-                        <div key={item.id} className={Style.dropdown}>
+                        <div key={item._id} className={Style.dropdown}>
                           <input type="checkbox" />
                           <h3>{item.task}</h3>
                         </div>
@@ -135,9 +135,9 @@ function Board() {
                   <div className={Style.divbuttons}>
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
-                      <button onClick={()=>moveTask(tasks._id,"inProgress")} >PROGRESS</button>
-                      <button onClick={()=>moveTask(tasks._id,"TO-DO")} >TODO</button>
-                      <button onClick={()=>moveTask(tasks._id,"done")} >DONE</button>
+                      <button onClick={()=>moveTask(ele._id,"inProgress")} >PROGRESS</button>
+                      <button onClick={()=>moveTask(ele._id,"TO-DO")} >TODO</button>
+                      <button onClick={()=>moveTask(ele._id,"done")} >DONE</button>
                     </div>
                   </div>
                 </div>
@@ -156,12 +156,12 @@ function Board() {
             </div>
             
             <div className={Style.taskshow}>
-            {todoTasks.map((ele,id) => {
+            {todoTasks.map((ele) => {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
               return (
-                <div key={id} className={Style.todos}>
+                <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
                     <img src={dots} alt="" />
@@ -182,7 +182,7 @@ function Board() {
                   <div className={Style.dropdowndiv}>
                     {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
-                        <div key={item.id} className={Style.dropdown}>
+                        <div key={item._id} className={Style.dropdown}>
                           <input type="checkbox" onChange={(e)=>{
                             setChecked(e.target.checked)
                             setTaskid(ele._id)
@@ -220,7 +220,7 @@ function Board() {
                 (item) => item.completed
               ).length;
               return (
-                <div key={ele.id} className={Style.todos}>
+                <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
                     <img src={dots} alt="" />
@@ -241,7 +241,7 @@ function Board() {
                   <div className={Style.dropdowndiv}>
                     {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
-                        <div key={item.id} className={Style.dropdown}>
+                        <div key={item._id} className={Style.dropdown}>
                           <input type="checkbox" />
                           <h3>{item.task}</h3>
                         </div>
@@ -251,7 +251,7 @@ function Board() {
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
                   
-                      <button onClick={()=>moveTask(ele._id,"TO-D)")} >TODO</button>
+                      <button onClick={()=>moveTask(ele._id,"TO-DO")} >TODO</button>
                       <button onClick={()=>moveTask(ele._id,"BACKLOG")} >BACKLOG</button>
                       <button onClick={()=>moveTask(ele._id,"done")} >DONE</button>
                     </div>
@@ -296,7 +296,7 @@ function Board() {
                   <div className={Style.dropdowndiv}>
                     {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
-                        <div key={item.id} className={Style.dropdown}>
+                        <div key={item._id} className={Style.dropdown}>
                           <input type="checkbox" />
                           <h3>{item.task}</h3>
                         </div>

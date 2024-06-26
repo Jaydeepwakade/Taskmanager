@@ -22,7 +22,7 @@ export const reducer = (state = initialState, action) => {
       return { ...state, tasks: action.payload, loading: false };
     case updatedatasucces:
       const updatedTasks = state.tasks.map((task) =>
-        task.id === action.payload.id ? action.payload : task
+        task._id === action.payload.id ? action.payload : task
       );
       return { ...state, tasks: updatedTasks, loading: false };
     case adddatasucces:  return{...state,tasks:[...state.tasks,action.payoad],loading:false,error:""}
