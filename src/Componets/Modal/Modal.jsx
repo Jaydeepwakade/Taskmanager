@@ -10,7 +10,7 @@ import DatePicker from 'react-datepicker'; // Import date picker component
 import 'react-datepicker/dist/react-datepicker.css'; // Import date picker styles
 
 import style from "./modal.module.css";
-import { addTask } from '../../redux/action';
+import { addTask, fetchdata } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 
 ReactModal.setAppElement('#root');
@@ -22,12 +22,19 @@ const Modal = ({ isOpen, onRequestClose }) => {
     const [prior, setPrior] = useState('');
     const [selectedDate, setSelectedDate] = useState(null); // Track selected date
     const [dateError, setDateError] = useState('');
+    const[payload ,setpayload]= useState({})
     const dispatch = useDispatch();
 
     useEffect(() => {
         const id = localStorage.getItem("id");
         setId(id);
     }, []);
+
+    useEffect(()=>{
+        dispatch(fetchdata())
+    },[payload])
+
+
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -67,8 +74,11 @@ const Modal = ({ isOpen, onRequestClose }) => {
             duedate: formattedDueDate
         };
         dispatch(addTask(payload, id));
-        onRequestClose();
+        setpayload(payload)
         console.log(payload)
+       
+dispatch(fetchdata())
+   
     };
 
     return (

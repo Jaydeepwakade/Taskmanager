@@ -25,7 +25,7 @@ export const reducer = (state = initialState, action) => {
         task._id === action.payload.id ? action.payload : task
       );
       return { ...state, tasks: updatedTasks, loading: false };
-    case adddatasucces:  return{...state,tasks:[...state.tasks,action.payoad],loading:false,error:""}
+    case adddatasucces:  return{...state,tasks:[...state.tasks,action.payload],loading:false,error:""}
     case getdataerror:
     case updatedataerror:
     case adddataerror:

@@ -13,8 +13,7 @@ function Board() {
 
   const [name,setName]=useState("")
   const [id,setId]=useState("")
-  const [task, setTasks] = useState([]);
-  const [check, setCheck] = useState(false);
+
   const [optionsDropdownid, setOptionsDropdownId] = useState(null);
 
   useEffect(()=>{
@@ -30,11 +29,10 @@ function Board() {
 
   const dispatch= useDispatch()
   const tasks = useSelector((state)=>state.tasks)
+
   useEffect(() => {
     dispatch(fetchdata(id));
-
-  
-  }, [id,dispatch]); 
+  }, [dispatch]); 
   const toggleDropdown = (id) => {
     if (openDropdownId === id) {
       setOpenDropdownId(null);
@@ -66,13 +64,16 @@ function Board() {
     setModalIsOpen(false);
   };
   const backlogTasks = tasks.tasks.filter((task) => task.status === "BACKLOG");
-  console.log()
+
   const todoTasks =tasks.tasks.filter((task) => task.status === "TO-DO");
   const inProgressTasks = tasks.tasks.filter((task) => task.status === "inProgress");
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
+
   const [checked,setChecked]=useState()
   const [taskId,setTaskid]=useState("")
   const [itemId,setchecklistid]=useState("")
+ 
+
 
   useEffect(()=>{
     const changeTickStatus=async()=>{
@@ -109,6 +110,7 @@ function Board() {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
+             
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
@@ -304,7 +306,7 @@ function Board() {
                 (item) => item.completed
               ).length;
               return (
-                <div key={ele.id} className={Style.todos}>
+                <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
                     <img onClick={()=>toggleOptionsDropdown(ele._id)} src={dots} alt="" />

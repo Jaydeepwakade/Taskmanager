@@ -15,5 +15,5 @@ const rootreducer = combineReducers(
 
 export const store = createStore(
     rootreducer,
-    applyMiddleware(thunk, logger)
+    applyMiddleware(thunk)
 )

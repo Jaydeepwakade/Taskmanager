@@ -94,6 +94,7 @@ export const updateTaskStatus = (taskId,newStatus) => {
       .then((data) => {
         console.log("New Data:", data.data);
         dispatch(updateTaskSuccess(data.data));
+        
       })
       .catch((error) => dispatch(updateTaskError(error.message)));
   };
