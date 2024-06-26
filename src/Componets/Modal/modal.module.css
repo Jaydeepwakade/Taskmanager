@@ -8,7 +8,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .container {
@@ -22,6 +21,8 @@
     width: 43%;
     height: 600px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
 }
 
 input {
@@ -43,7 +44,6 @@ button {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-
 }
 
 .prioritydiv button {
@@ -52,30 +52,24 @@ button {
     border: none;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
-
 }
 
 .prioritydiv button img {
-
     margin-right: 10px;
     border: none;
-
-
 }
 
 .inputdiv {
     display: flex;
+    align-items: center;
     box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
     border: 1px solid grey;
     border-radius: 20px;
-    justify-content: space-around;
-    align-items: center;
-    height: 2%;
-
+    padding: 10px;
+    gap: 10px;
 }
 
 .inputdiv img {
-   
     padding: 2px;
     margin-right: 5px;
 }
@@ -89,8 +83,7 @@ button {
     margin: 0;
     padding: 10px;
     height: 20px;
-    width: 10%;
-
+    width: 20px;
 }
 
 .scrolldiv {
@@ -103,7 +96,7 @@ button {
 }
 
 .inputdiv2 {
-    height: 3%;
+    height: 1px;
     border: none;
     outline: none;
 
@@ -112,24 +105,27 @@ button {
 .assigndiv {
     display: flex;
     align-items: center;
-
 }
 
 .assigndiv h4 {
     width: 80px;
 }
-.buttons{
-    margin-top: 200px;
+
+.buttons {
+    margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: 1px solid;
+    padding: 10px;
 }
-.buttons input{
-    height: 1px;
+
+.buttons input {
+    height: 40px;
     width: 90px;
 }
-.buttons button{
-    height: 1px;
+
+.buttons button {
+    height: 40px;
     width: 90px;
 }

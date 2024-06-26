@@ -53,8 +53,6 @@
 .taskcontainer div {
   display: flex;
   justify-content: space-between;
-
-
 }
 
 .taskcontainer div div {
@@ -118,7 +116,6 @@
   display: flex;
    gap: 30px;
    width: 100%;
-  
   padding:1px;
   border: none;
   width: 0px;
