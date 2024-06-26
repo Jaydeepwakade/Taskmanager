@@ -183,4 +183,18 @@ router.get('/generateShareLink/:taskId', async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+router.put("/deleteTask/:userId/:taskId",async(req,res)=>{
+  const {taskId,userId}=req.params
+  try{
+    await User.findByIdAndUpdate(userId,{$pull:{todo:taskId}},{new:true})
+    await Todo.findByIdAndDelete(taskId);
+    res.status(200).send({message:"Done"})
+  }catch(err){
+    console.log(err)
+    res.status(400).send({error:"Failed to delete"})
+  }
+})
+
+
 module.exports=router
