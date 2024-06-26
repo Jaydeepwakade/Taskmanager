@@ -144,4 +144,44 @@ router.put("/updateTask/:taskId", async (req, res) => {
   }
 });
 
+router.put('/updateChecklistItem/:taskId/:itemId', async (req, res) => {
+  const { taskId, itemId } = req.params;
+  const { completed } = req.body;
+
+  try {
+    const task = await Todo.findById(taskId);
+    if (!task) {
+      return res.status(404).send({ error: "Task not found" });
+    }
+
+    const checklistItem = task.checklist.id(itemId);
+    if (!checklistItem) {
+      return res.status(404).send({ error: "Checklist item not found" });
+    }
+
+    checklistItem.completed = completed;
+    await task.save();
+
+    res.status(200).send({message:"done",data:task});
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.get('/generateShareLink/:taskId', async (req, res) => {
+  const { taskId } = req.params;
+
+  try {
+    const task = await Todo.findById(taskId);
+    if (!task) {
+      return res.status(404).send({ error: "Task not found" });
+    }
+
+    // Generate a unique shareable link (in production, use a secure method like UUID)
+    const shareLink = `http://192.168.0.105:3100/task/${taskId}/readonly`; // Example link
+    res.send({ shareLink });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 module.exports=router
