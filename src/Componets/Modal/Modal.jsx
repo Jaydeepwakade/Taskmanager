@@ -6,35 +6,31 @@ import Delete from "../../assets/Delete.svg";
 import Ellipse2 from "../../assets/Ellipse2.svg";
 import blue from "../../assets/blue.svg";
 import green from "../../assets/green.svg";
+import DatePicker from 'react-datepicker'; // Import date picker component
+import 'react-datepicker/dist/react-datepicker.css'; // Import date picker styles
 
 import style from "./modal.module.css";
-import { addTask, addTaskRequest, fetchdata} from '../../redux/action';
+import { addTask } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 
 ReactModal.setAppElement('#root');
 
-const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
+const Modal = ({ isOpen, onRequestClose }) => {
     const [inputValue, setInputValue] = useState('');
     const [checklist, setChecklist] = useState([]);
-    const [dueDate, setDueDate] = useState('');
     const [id, setId] = useState('');
-    const [prior,setprior]=useState('')
-    const [payload,setpayload]=useState({})
-    const dispatch = useDispatch()
+    const [prior, setPrior] = useState('');
+    const [selectedDate, setSelectedDate] = useState(null); // Track selected date
+    const [dateError, setDateError] = useState('');
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const id = localStorage.getItem("id");
         setId(id);
-        setpayload(id)
     }, []);
-
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
-    };
-
-    const handleDueDateChange = (e) => {
-        setDueDate(e.target.value);
     };
 
     const handleChecklistTaskChange = (id, value) => {
@@ -53,22 +49,27 @@ const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
     const handleDeleteChecklistItem = (id) => {
         setChecklist((prevChecklist) => prevChecklist.filter(item => item.id !== id));
     };
-
+    const formattedDueDate = new Date(selectedDate).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+    });
     const handleSubmit = () => {
+        if (!selectedDate) {
+            setDateError('Please select a due date.');
+            return;
+        }
+
         const payload = {
             title: inputValue,
             priority: prior,
             status: "TO-DO",
             checklist: checklist,
-            duedate: dueDate,
+            duedate: formattedDueDate
         };
-     dispatch(addTask(payload, id));
-
-
-   
+        dispatch(addTask(payload, id));
         onRequestClose();
+        console.log(payload)
     };
-    
 
     return (
         <div className={style.container}>
@@ -87,9 +88,9 @@ const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
                 />
                 <div className={style.prioritydiv}>
                     <h3>Select Priority</h3>
-                    <button onClick={()=>{setprior("HIGH")}} > <img src={Ellipse2} alt="" />HIGH PRIORITY</button>
-                    <button onClick={()=>{setprior("MODERATE")}} > <img src={blue} alt="" />MODERATE PRIORITY</button>
-                    <button onClick={()=>{setprior("LOW")}} > <img src={green}alt="" />LOW PRIORITY</button>
+                    <button onClick={() => { setPrior("HIGH") }} > <img src={Ellipse2} alt="" />HIGH PRIORITY</button>
+                    <button onClick={() => { setPrior("MODERATE") }} > <img src={blue} alt="" />MODERATE PRIORITY</button>
+                    <button onClick={() => { setPrior("LOW") }} > <img src={green} alt="" />LOW PRIORITY</button>
                 </div>
                 <div className={style.assigndiv}>
                     <h4>Assign to</h4>
@@ -97,7 +98,6 @@ const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
                 </div>
                 <h3>Checklist <span>{`(${checklist.length})`}</span></h3>
                 <div className={style.scrolldiv}>
-                   
                     {checklist.map(item => (
                         <div className={style.inputdiv} key={item.id}>
                             <input
@@ -120,19 +120,18 @@ const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
                             <img className={style.deleteButton} onClick={() => handleDeleteChecklistItem(item.id)} src={Delete} alt="" />
                         </div>
                     ))}
-                    
                 </div>
                 <h2 onClick={handleAddChecklistItem} className={style.addNew}>
-                        <img src={add} alt="Add new" /> Add new
-                    </h2>
-                <div  className={style.buttons}>
+                    <img src={add} alt="Add new" /> Add new
+                </h2>
+                <div className={style.buttons}>
                     <div>
-                        <input
-                            type="date"
-                            value={dueDate}
-                            onChange={handleDueDateChange}
-                            placeholder="Select due date"
+                        <DatePicker
+                            selected={selectedDate}
+                            onChange={date => setSelectedDate(date)}
+                            placeholderText="Select due date"
                         />
+                        {dateError && <p className={style.error}>{dateError}</p>}
                     </div>
                     <div>
                         <button onClick={handleSubmit}>Submit</button>

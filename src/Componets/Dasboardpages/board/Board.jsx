@@ -14,7 +14,8 @@ function Board() {
   const [name,setName]=useState("")
   const [id,setId]=useState("")
   const [task, setTasks] = useState([]);
-
+  const [check, setCheck] = useState(false);
+  const [optionsDropdownid, setOptionsDropdownId] = useState(null);
 
   useEffect(()=>{
     const name=localStorage.getItem('name')
@@ -32,10 +33,8 @@ function Board() {
   useEffect(() => {
     dispatch(fetchdata(id));
 
-    return ()=>{
-      return
-    }
-  }, []); 
+  
+  }, [id,dispatch]); 
   const toggleDropdown = (id) => {
     if (openDropdownId === id) {
       setOpenDropdownId(null);
@@ -44,7 +43,12 @@ function Board() {
       setOpenDropdownId(id);
     }
   };
-
+  const toggleoptionsDropdown = (id) => {
+    setOpenDropdownId((prevId) => (prevId === id ? null : id)); // Toggle task details dropdown based on current state
+  };
+  const toggleOptionsDropdown = (id) => {
+    setOptionsDropdownId((prevId) => (prevId === id ? null : id)); // Toggle options dropdown based on current state
+  };
  
   const moveTask = (taskId, newStatus) => {
     console.log("Passing Id: ",taskId)
@@ -69,6 +73,7 @@ function Board() {
   const [checked,setChecked]=useState()
   const [taskId,setTaskid]=useState("")
   const [itemId,setchecklistid]=useState("")
+
   useEffect(()=>{
     const changeTickStatus=async()=>{
       const result=await fetch(`http://192.168.0.105:3200/updateChecklistItem/${taskId}/${itemId}`,{
@@ -108,10 +113,17 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
-                    <img src={dots} alt="" />
+                    <img onClick={()=>toggleOptionsDropdown(ele._id)} src={dots} alt="" />
                   </div>
                   <h2>{ele.title}</h2>
-
+                  {optionsDropdownid === ele._id && (
+                  <div className={Style.optionsDropdown}>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                    <button>Share</button>
+                  </div>
+                )}
+ 
                   <div>
                     <h3>
                       Checklist (<span>{completedCount}</span>/{" "}
@@ -164,9 +176,17 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
-                    <img src={dots} alt="" />
+                    <img onClick={()=>toggleOptionsDropdown(ele._id)} src={dots} alt="" />
                   </div>
                   <h2>{ele.title}</h2>
+                  {optionsDropdownid === ele._id && (
+                  <div className={Style.optionsDropdown}>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                    <button>Share</button>
+                  </div>
+                )}
+                   
 
                   <div>
                     <h3>
@@ -223,9 +243,18 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
-                    <img src={dots} alt="" />
+                    <img onClick={()=>toggleOptionsDropdown(ele._id)} src={dots} alt="" />
                   </div>
                   <h2>{ele.title}</h2>
+                  {
+                   optionsDropdownid===ele._id && (
+                      <div>
+                            <button>Edit</button>
+                      <button>Delete</button>
+                      <button>Share</button>
+                      </div>
+                    )
+                  }
 
                   <div>
                     <h3>
@@ -278,9 +307,16 @@ function Board() {
                 <div key={ele.id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
-                    <img src={dots} alt="" />
+                    <img onClick={()=>toggleOptionsDropdown(ele._id)} src={dots} alt="" />
                   </div>
                   <h2>{ele.title}</h2>
+                  {optionsDropdownid === ele._id && (
+                  <div className={Style.optionsDropdown}>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                    <button>Share</button>
+                  </div>
+                )}
 
                   <div>
                     <h3>
