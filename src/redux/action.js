@@ -1,5 +1,5 @@
 
-  export const url ="http://172.20.10.5:3200"
+  export const url ="http://192.168.0.105:3200"
   export const getdatarequest = "GETDATAREQUEST"
   export const getdatasucces = "GETDATA"
   export const getdataerror = "GETERROR"
@@ -74,10 +74,12 @@ export const fetchdata = (id) => {
 fetchdata()
 
 
-export const updateTaskStatus = (taskId, newStatus) => {
+export const updateTaskStatus =(taskId, newStatus) => {
   return (dispatch) => {
     dispatch(updateTaskRequest());
-    fetch(`http://${url}/updateTask/${taskId}`, {
+    console.log("Status",newStatus,taskId)
+
+    fetch(`${url}/updateTask/${taskId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus })
@@ -89,7 +91,8 @@ export const updateTaskStatus = (taskId, newStatus) => {
         return res.json();
       })
       .then((data) => {
-        dispatch(updateTaskSuccess(data.updatedTask));
+        console.log("New Data:",data.data)
+        dispatch(updateTaskSuccess(data.data));
       })
       .catch((error) => dispatch(updateTaskError(error.message)));
   };

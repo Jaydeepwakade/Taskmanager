@@ -47,6 +47,7 @@ function Board() {
 
  
   const moveTask = (taskId, newStatus) => {
+    console.log("Passing Id: ",taskId)
     dispatch(updateTaskStatus(taskId, newStatus));
     console.log(taskId,newStatus)
   };
