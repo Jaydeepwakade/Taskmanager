@@ -5,6 +5,7 @@ import Group from "../../../assets/Group.svg";
 import icon from "../../../assets/icon.svg";
 import view from "../../../assets/view.svg";
 import namelogo from "../../../assets/namelogo.svg";
+import { url } from "../../../redux/action";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -48,7 +49,7 @@ function Signup() {
         email: email,
         password: password,
       };
-      const response = await fetch("http://172.20.10.5:3100/signup", {
+      const response = await fetch(`${url}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -4,14 +4,26 @@ import './Modal.css';
 import add from "../../assets/add.svg";
 import Delete from "../../assets/Delete.svg";
 import style from "./modal.module.css";
-import { url } from '../../redux/action';
+import { addTask, addTaskRequest, fetchdata} from '../../redux/action';
+import { useDispatch } from 'react-redux';
 
 ReactModal.setAppElement('#root');
 
-const Modal = ({ isOpen, onRequestClose }) => {
+const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
     const [inputValue, setInputValue] = useState('');
     const [checklist, setChecklist] = useState([]);
     const [dueDate, setDueDate] = useState('');
+    const [id, setId] = useState('');
+    const [prior,setprior]=useState('')
+    const [payload,setpayload]=useState({})
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const id = localStorage.getItem("id");
+        setId(id);
+        setpayload(id)
+    }, []);
+
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -41,82 +53,84 @@ const Modal = ({ isOpen, onRequestClose }) => {
     const handleSubmit = () => {
         const payload = {
             title: inputValue,
-            priority: '',
-            status: "BACKLOG",
+            priority: prior,
+            status: "TO-DO",
             checklist: checklist,
-            duedate: dueDate
+            duedate: dueDate,
         };
+     dispatch(addTask(payload, id));
 
-        // Perform your submit logic with payload here
 
+   
         onRequestClose();
     };
+    
 
     return (
-       <div className={style.container}>
-         <ReactModal
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
-            className={style.modal}
-            overlayClassName="overlay"
-        >
-            <h2>Title</h2>
-            <input
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                placeholder="Enter Task title"
-            />
-            <div className={style.prioritydiv}>
-                <h3>Select Priority</h3>
-                <button >HIGH PRIORITY</button>
-                <button>MODERATE PRIORITY</button>
-                <button>LOW PRIORITY</button>
-            </div>
-            <div>
-                <h3>Checklist <span>{`(${checklist.length})`}</span></h3>
-                {checklist.map(item => (
-                    <div className={style.inputdiv} key={item.id}>
+        <div className={style.container}>
+            <ReactModal
+                isOpen={isOpen}
+                onRequestClose={onRequestClose}
+                className={style.modal}
+                overlayClassName="overlay"
+            >
+                <h2>Title</h2>
+                <input
+                    type="text"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    placeholder="Enter Task title"
+                />
+                <div className={style.prioritydiv}>
+                    <h3>Select Priority</h3>
+                    <button onClick={()=>{setprior("HIGH")}} >HIGH PRIORITY</button>
+                    <button onClick={()=>{setprior("MODERATE")}} >MODERATE PRIORITY</button>
+                    <button onClick={()=>{setprior("LOW")}} >LOW PRIORITY</button>
+                </div>
+                <div>
+                    <h3>Checklist <span>{`(${checklist.length})`}</span></h3>
+                    {checklist.map(item => (
+                        <div className={style.inputdiv} key={item.id}>
+                            <input
+                                className={style.inputdiv1}
+                                type="checkbox"
+                                checked={item.completed}
+                                onChange={() => setChecklist(prevChecklist =>
+                                    prevChecklist.map(chk =>
+                                        chk.id === item.id ? { ...chk, completed: !chk.completed } : chk
+                                    )
+                                )}
+                            />
+                            <input
+                                className={style.inputdiv2}
+                                type="text"
+                                value={item.task}
+                                onChange={(e) => handleChecklistTaskChange(item.id, e.target.value)}
+                                placeholder="Enter task"
+                            />
+                            <img className={style.deleteButton} onClick={() => handleDeleteChecklistItem(item.id)} src={Delete} alt="" />
+                        </div>
+                    ))}
+                    <h2 onClick={handleAddChecklistItem} className={style.addNew}>
+                        <img src={add} alt="Add new" /> Add new
+                    </h2>
+                </div>
+                <div>
+                    <div>
                         <input
-                            className={style.inputdiv1}
-                            type="checkbox"
-                            checked={item.completed}
-                            onChange={() => setChecklist(prevChecklist =>
-                                prevChecklist.map(chk =>
-                                    chk.id === item.id ? { ...chk, completed: !chk.completed } : chk
-                                )
-                            )}
+                            type="date"
+                            value={dueDate}
+                            onChange={handleDueDateChange}
+                            placeholder="Select due date"
                         />
-                        <input
-                            className={style.inputdiv2}
-                            type="text"
-                            value={item.task}
-                            onChange={(e) => handleChecklistTaskChange(item.id, e.target.value)}
-                            placeholder="Enter task"
-                        />
-                        <img  className={style.deleteButton} onClick={() => handleDeleteChecklistItem(item.id)} src={Delete} alt="" />
                     </div>
-                ))}
-                <h2 onClick={handleAddChecklistItem} className={style.addNew}>
-                    <img src={add} alt="Add new" /> Add new
-                </h2>
-            </div>
-            <div>
-                <div>
-                    <input
-                        type="date"
-                        value={dueDate}
-                        onChange={handleDueDateChange}
-                        placeholder="Select due date"
-                    />
+                    <div>
+                        <button onClick={handleSubmit}>Submit</button>
+                        <button onClick={onRequestClose}>Close</button>
+                    </div>
                 </div>
-                <div>
-                    <button onClick={handleSubmit}>Submit</button>
-                    <button onClick={onRequestClose}>Close</button>
-                </div>
-            </div>
-        </ReactModal>
-       </div>
+            </ReactModal>
+        </div>
     );
 };
 

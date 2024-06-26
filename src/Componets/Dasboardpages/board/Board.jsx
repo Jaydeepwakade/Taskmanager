@@ -7,12 +7,13 @@ import Arrow1 from "../../../assets/Arrow1.svg";
 import Arrow2 from "../../../assets/Arrow2.svg";
 import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchdata } from "../../../redux/action";
+import { fetchdata, updateTaskStatus } from "../../../redux/action";
 function Board() {
 
-  //Harsh code
+
   const [name,setName]=useState("")
   const [id,setId]=useState("")
+  const [task, setTasks] = useState([]);
 
 
   useEffect(()=>{
@@ -28,19 +29,27 @@ function Board() {
 
   const dispatch= useDispatch()
   const tasks = useSelector((state)=>state.tasks)
-  useEffect(()=>{
-    console.log("id2",id)
-    dispatch( fetchdata(id))
-   },[dispatch])
+  useEffect(() => {
+    dispatch(fetchdata(id));
 
+    return ()=>{
+      return
+    }
+  }, []); 
   const toggleDropdown = (id) => {
     if (openDropdownId === id) {
       setOpenDropdownId(null);
-      console.log(id)
+      console.log("id",id)
     } else {
       setOpenDropdownId(id);
     }
   };
+
+ 
+  const moveTask = (taskId, newStatus) => {
+    dispatch(updateTaskStatus(taskId, newStatus));
+  };
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -89,13 +98,13 @@ function Board() {
                       <span>{ele.checklist.length}</span>)
                     </h3>
                     <img
-                      onClick={() => toggleDropdown(ele.id)}
-                      src={openDropdownId === ele.id ? Arrow1 : Arrow2}
+                      onClick={() => toggleDropdown(ele._id)}
+                      src={openDropdownId === ele._id ? Arrow1 : Arrow2}
                       alt=""
                     />
                   </div>
                   <div className={Style.dropdowndiv}>
-                    {openDropdownId === ele.id &&
+                    {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
                         <div key={item.id} className={Style.dropdown}>
                           <input type="checkbox" />
@@ -106,9 +115,9 @@ function Board() {
                   <div className={Style.divbuttons}>
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
-                      <button>PROGRESS</button>
-                      <button>TODO</button>
-                      <button>DONE</button>
+                      <button onClick={()=>moveTask(tasks._id,"inProgress")} >PROGRESS</button>
+                      <button onClick={()=>moveTask(tasks._id,"TO-DO")} >TODO</button>
+                      <button onClick={()=>moveTask(tasks._id,"done")} >DONE</button>
                     </div>
                   </div>
                 </div>
@@ -145,13 +154,13 @@ function Board() {
                       <span>{ele.checklist.length}</span>)
                     </h3>
                     <img
-                      onClick={() => toggleDropdown(ele.id)}
-                      src={openDropdownId === ele.id ? Arrow1 : Arrow2}
+                      onClick={() => toggleDropdown(ele._id)}
+                      src={openDropdownId === ele._id ? Arrow1 : Arrow2}
                       alt=""
                     />
                   </div>
                   <div className={Style.dropdowndiv}>
-                    {openDropdownId === ele.id &&
+                    {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
                         <div key={item.id} className={Style.dropdown}>
                           <input type="checkbox" />
@@ -162,7 +171,7 @@ function Board() {
                   <div className={Style.divbuttons}>
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
-                      <button>PROGRESS</button>
+                      <button onClick={()=> moveTask(ele._id,"inProgress")}>PROGRESS</button>
                       <button>BACKLOG</button>
                       <button>DONE</button>
                     </div>
@@ -200,13 +209,13 @@ function Board() {
                       <span>{ele.checklist.length}</span>)
                     </h3>
                     <img
-                      onClick={() => toggleDropdown(ele.id)}
-                      src={openDropdownId === ele.id ? Arrow1 : Arrow2}
+                      onClick={() => toggleDropdown(ele._id)}
+                      src={openDropdownId === ele._id ? Arrow1 : Arrow2}
                       alt=""
                     />
                   </div>
                   <div className={Style.dropdowndiv}>
-                    {openDropdownId === ele.id &&
+                    {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
                         <div key={item.id} className={Style.dropdown}>
                           <input type="checkbox" />
@@ -255,13 +264,13 @@ function Board() {
                       <span>{ele.checklist.length}</span>)
                     </h3>
                     <img
-                      onClick={() => toggleDropdown(ele.id)}
-                      src={openDropdownId === ele.id ? Arrow1 : Arrow2}
+                      onClick={() => toggleDropdown(ele._id)}
+                      src={openDropdownId === ele._id ? Arrow1 : Arrow2}
                       alt=""
                     />
                   </div>
                   <div className={Style.dropdowndiv}>
-                    {openDropdownId === ele.id &&
+                    {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
                         <div key={item.id} className={Style.dropdown}>
                           <input type="checkbox" />

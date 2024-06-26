@@ -119,4 +119,29 @@ router.get("/fetchTask/:id",async(req,res)=>{
     res.status(500).json({ error: error.message });
   }
 })
+
+router.put("/updateTask/:taskId", async (req, res) => {
+  const { taskId } = req.params;
+  const { status, title, priority, checklist, dueDate } = req.body;
+
+  try {
+    const updatedTask = await Todo.findByIdAndUpdate(taskId, {
+      status,
+      title,
+      priority,
+      checklist,
+      dueDate
+    }, { new: true });
+
+    if (!updatedTask) {
+      return res.status(404).send({ error: "Task not found" });
+    }
+
+    res.status(200).send({ message: "Task updated successfully", updatedTask });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: "Error updating task" });
+  }
+});
+
 module.exports=router
