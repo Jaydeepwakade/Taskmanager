@@ -87,9 +87,9 @@ const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
                 />
                 <div className={style.prioritydiv}>
                     <h3>Select Priority</h3>
-                    <button onClick={()=>{setprior("HIGH")}} > <img src={Ellipse2} alt="" />                       HIGH PRIORITY</button>
-                    <button onClick={()=>{setprior("MODERATE")}} > <img src={blue} alt="" />                 MODERATE PRIORITY</button>
-                    <button onClick={()=>{setprior("LOW")}} > <img src={green}alt="" />                   LOW PRIORITY</button>
+                    <button onClick={()=>{setprior("HIGH")}} > <img src={Ellipse2} alt="" />HIGH PRIORITY</button>
+                    <button onClick={()=>{setprior("MODERATE")}} > <img src={blue} alt="" />MODERATE PRIORITY</button>
+                    <button onClick={()=>{setprior("LOW")}} > <img src={green}alt="" />LOW PRIORITY</button>
                 </div>
                 <div className={style.assigndiv}>
                     <h4>Assign to</h4>
@@ -125,7 +125,7 @@ const Modal = ({ isOpen, onRequestClose, onAddTask }) => {
                 <h2 onClick={handleAddChecklistItem} className={style.addNew}>
                         <img src={add} alt="Add new" /> Add new
                     </h2>
-                <div  className={style.button}>
+                <div  className={style.buttons}>
                     <div>
                         <input
                             type="date"

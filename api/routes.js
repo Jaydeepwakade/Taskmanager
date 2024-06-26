@@ -143,7 +143,7 @@ router.put("/updateTask/:taskId", async (req, res) => {
     res.status(500).send({ error: "Error updating task" });
   }
 });
-
+ 
 router.put('/updateChecklistItem/:taskId/:itemId', async (req, res) => {
   const { taskId, itemId } = req.params;
   const { completed } = req.body;
@@ -163,7 +163,7 @@ router.put('/updateChecklistItem/:taskId/:itemId', async (req, res) => {
     await task.save();
 
     res.status(200).send({message:"done",data:task});
-  } catch (error) {
+  } catch (error) {  
     res.status(500).send(error);
   }
 });

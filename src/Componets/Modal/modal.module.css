@@ -8,9 +8,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
-.container{
+
+.container {
     width: 100%;
 }
 
@@ -29,71 +30,106 @@ input {
     margin-bottom: 10px;
     overflow: hidden;
 }
-.modal span{
+
+.modal span {
     color: red;
 }
 
 button {
     margin-right: 10px;
 }
-.prioritydiv{
+
+.prioritydiv {
     display: flex;
     justify-content: space-between;
     gap: 20px;
 
 }
-.prioritydiv button{
+
+.prioritydiv button {
     width: 170px;
     height: 40px;
     border: none;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
-    
+
 }
 
-.prioritydiv button img{
-   
+.prioritydiv button img {
+
     margin-right: 10px;
     border: none;
-   
-    
+
+
 }
-.inputdiv{
+
+.inputdiv {
     display: flex;
-    border: 1px solid red;
-    justify-content: center;
+    box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
+    border: 1px solid grey;
+    border-radius: 20px;
+    justify-content: space-around;
     align-items: center;
-    padding: 5px;
-    height: 60px;
-    
+    height: 2%;
+
 }
-.inputdiv div{
-    border: 2px solid green;
+
+.inputdiv img {
+   
+    padding: 2px;
+    margin-right: 5px;
 }
+
 .scroll {
     max-height: 200px;
     border: 2px solid rgb(32, 139, 32);
 }
-.inputdiv1{
+
+.inputdiv1 {
     margin: 0;
-    padding:10px;
+    padding: 10px;
     height: 20px;
     width: 10%;
-    
-}
-.scrolldiv{
 
+}
+
+.scrolldiv {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
     max-height: 200px;
     overflow-y: scroll;
 }
-.inputdiv2{
-  height: 20px;
+
+.inputdiv2 {
+    height: 3%;
+    border: none;
+    outline: none;
+
 }
-.assigndiv{
+
+.assigndiv {
     display: flex;
     align-items: center;
-   
+
 }
- .assigndiv h4{
+
+.assigndiv h4 {
     width: 80px;
- }
+}
+.buttons{
+    margin-top: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid;
+}
+.buttons input{
+    height: 1px;
+    width: 90px;
+}
+.buttons button{
+    height: 1px;
+    width: 90px;
+}

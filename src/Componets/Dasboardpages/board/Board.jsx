@@ -48,6 +48,7 @@ function Board() {
  
   const moveTask = (taskId, newStatus) => {
     dispatch(updateTaskStatus(taskId, newStatus));
+    console.log(taskId,newStatus)
   };
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -172,8 +173,8 @@ function Board() {
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
                       <button onClick={()=> moveTask(ele._id,"inProgress")}>PROGRESS</button>
-                      <button>BACKLOG</button>
-                      <button>DONE</button>
+                      <button onClick={()=>moveTask(ele._id,"BACKLOG")}>BACKLOG</button>
+                      <button onClick={()=> moveTask(ele._id,"done")}>DONE</button>
                     </div>
                   </div>
                 </div>
@@ -227,9 +228,9 @@ function Board() {
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
                   
-                      <button>TODO</button>
-                      <button>BACKLOG</button>
-                      <button>DONE</button>
+                      <button onClick={()=>moveTask(ele._id,"TO-D)")} >TODO</button>
+                      <button onClick={()=>moveTask(ele._id,"BACKLOG")} >BACKLOG</button>
+                      <button onClick={()=>moveTask(ele._id,"done")} >DONE</button>
                     </div>
                   </div>
                 </div>
@@ -281,9 +282,9 @@ function Board() {
                   <div className={Style.divbuttons}>
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
-                      <button>TO-DO</button>
-                      <button>IN PROGRESS</button>
-                      <button>BACKLOG</button>
+                      <button onClick={()=>moveTask(ele._id,"TO-DO")} >TO-DO</button>
+                      <button onClick={()=>moveTask(ele._id,"inProgress")} >IN PROGRESS</button>
+                      <button onClick={()=>moveTask(ele._id,"BACKLOG")} >BACKLOG</button>
                       
                     </div>
                   </div>
