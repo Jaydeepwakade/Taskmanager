@@ -195,7 +195,7 @@ function Board() {
                   {optionsDropdownid === ele._id && (
                   <div className={Style.optionsDropdown}>
                     <button>Edit</button>
-                    <button>Delete</button>
+                    <button onClick={()=>handleDelete(ele._id)}>Delete</button>
                     <button>Share</button>
                   </div>
                 )}
@@ -263,7 +263,7 @@ function Board() {
                    optionsDropdownid===ele._id && (
                       <div>
                             <button>Edit</button>
-                      <button>Delete</button>
+                            <button onClick={()=>handleDelete(ele._id)}>Delete</button>
                       <button>Share</button>
                       </div>
                     )
@@ -326,7 +326,7 @@ function Board() {
                   {optionsDropdownid === ele._id && (
                   <div className={Style.optionsDropdown}>
                     <button>Edit</button>
-                    <button>Delete</button>
+                    <button onClick={()=>handleDelete(ele._id)}>Delete</button>
                     <button>Share</button>
                   </div>
                 )}
