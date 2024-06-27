@@ -7,7 +7,7 @@ import Arrow1 from "../../../assets/Arrow1.svg";
 import Arrow2 from "../../../assets/Arrow2.svg";
 import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchdata, updateTaskStatus } from "../../../redux/action";
+import { fetchdata, updateTaskStatus, url } from "../../../redux/action";
 function Board() {
 
 
@@ -75,7 +75,7 @@ function Board() {
  
 
   const handleDelete=async(taskid)=>{
-    const result=await fetch(`http://192.168.0.105:3200/deleteTask/${id}/${taskid}`,{
+    const result=await fetch(`http://${url}/deleteTask/${id}/${taskid}`,{
       method:'PUT',
       headers:{
         "Content-Type":"application/json"
@@ -88,7 +88,7 @@ function Board() {
 
   useEffect(()=>{
     const changeTickStatus=async()=>{
-      const result=await fetch(`http://192.168.0.105:3200/updateChecklistItem/${taskId}/${itemId}`,{
+      const result=await fetch(`http://${url}/updateChecklistItem/${taskId}/${itemId}`,{
         method:'PUT',
         headers:{
           'Content-Type':"application/json"
