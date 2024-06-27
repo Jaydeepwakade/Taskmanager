@@ -175,14 +175,24 @@ router.get('/generateShareLink/:taskId', async (req, res) => {
     if (!task) {
       return res.status(404).send({ error: "Task not found" });
     }
-
     // Generate a unique shareable link (in production, use a secure method like UUID)
-    const shareLink = `http://192.168.0.105:3100/task/${taskId}/readonly`; // Example link
+    const shareLink = `http://localhost:5173/task/${taskId}/readonly`; // Example link
     res.send({ shareLink });
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
+router.get("/fetchTaskById/:taskid",async(req,res)=>{
+  console.log("Inside")
+  const {taskid}=req.params
+  const task=await Todo.findById(taskid)
+  if(!task){
+    res.status(400).send({error:"Something went wrong"})
+  }else{
+    res.send({data:task})
+  }
+})
 
 router.put("/deleteTask/:userId/:taskId",async(req,res)=>{
   const {taskId,userId}=req.params
