@@ -42,10 +42,10 @@ function Board() {
     }
   };
   const toggleoptionsDropdown = (id) => {
-    setOpenDropdownId((prevId) => (prevId === id ? null : id)); // Toggle task details dropdown based on current state
+    setOpenDropdownId((prevId) => (prevId === id ? null : id)); 
   };
   const toggleOptionsDropdown = (id) => {
-    setOptionsDropdownId((prevId) => (prevId === id ? null : id)); // Toggle options dropdown based on current state
+    setOptionsDropdownId((prevId) => (prevId === id ? null : id)); 
   };
  
   const moveTask = (taskId, newStatus) => {
@@ -75,7 +75,7 @@ function Board() {
  
 
   const handleDelete=async(taskid)=>{
-    const result=await fetch(`http://${url}/deleteTask/${id}/${taskid}`,{
+    const result=await fetch(`${url}/deleteTask/${id}/${taskid}`,{
       method:'PUT',
       headers:{
         "Content-Type":"application/json"
@@ -87,7 +87,7 @@ function Board() {
   }
 
   const handleShare=async(taskid)=>{
-    const result=await fetch(`http://192.168.0.105:3200/generateShareLink/${taskid}`,{
+    const result=await fetch(`${url}/generateShareLink/${taskid}`,{
       method:'GET',
       headers:{
         "Content-Type":"application/json"
@@ -100,7 +100,7 @@ function Board() {
 
   useEffect(()=>{
     const changeTickStatus=async()=>{
-      const result=await fetch(`http://${url}/updateChecklistItem/${taskId}/${itemId}`,{
+      const result=await fetch(`${url}/updateChecklistItem/${taskId}/${itemId}`,{
         method:'PUT',
         headers:{
           'Content-Type':"application/json"
