@@ -95,7 +95,8 @@ export const updateTaskStatus = (taskId,newStatus) => {
         console.log("New Data:", data.data);
         console.log("hi jaydeep")
         dispatch(updateTaskSuccess(data.data));
-        fetchdata()
+       
+        dispatch(fetchdata())
       })
       .catch((error) => dispatch(updateTaskError(error.message)));
   };

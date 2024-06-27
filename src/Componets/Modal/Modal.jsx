@@ -60,7 +60,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
         month: 'short',
         day: 'numeric',
     });
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!selectedDate) {
             setDateError('Please select a due date.');
             return;
@@ -73,12 +73,15 @@ const Modal = ({ isOpen, onRequestClose }) => {
             checklist: checklist,
             duedate: formattedDueDate
         };
-        dispatch(addTask(payload, id));
-        setpayload(payload)
-        console.log(payload)
-       
-dispatch(fetchdata())
-   
+
+        try {
+            await dispatch(addTask(payload, id));
+            await dispatch(fetchdata());
+            onRequestClose(); // Close modal after successful submission
+        } catch (error) {
+            console.error('Error adding task:', error);
+            // Handle error state or display a message to the user
+        }
     };
 
     return (

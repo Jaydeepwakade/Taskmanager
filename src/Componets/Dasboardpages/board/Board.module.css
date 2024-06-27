@@ -68,11 +68,11 @@
   position: relative; /* Ensure parent container is relative */
 }
 
-.todos div {
+/* .todos div {
   width: 100%;
   display: flex;
   justify-content: space-between;
-}
+} */
 
 .dropdowndiv {
   display: flex;
@@ -131,6 +131,22 @@
   border: none;
   width: 80px;
 }
+.optionsDropdown {
+  position: absolute;
+  top: 25px; /* Adjust as needed */
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Ensure buttons stretch to fill width */
+  border: 1px solid rgb(198, 190, 190);
+  box-sizing: border-box;
+  background-color: white;
+  z-index: 100;
+  padding: 0; /* Remove padding to reduce space */
+  width: 130px; /* Adjust width as needed */
+  max-width: 100%; /* Ensure it doesn't overflow */
+  height: auto; /* Adjust height as needed */
+}
 
 .optionsDropdown {
   position: absolute;
@@ -138,25 +154,47 @@
   right: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: auto;
-  border: 1px solid gray;
+  align-items: stretch; /* Ensure buttons stretch to fill width */
+  border: 1px solid rgb(198, 190, 190);
   box-sizing: border-box;
-  background-color: white; /* Ensure background is white */
-  z-index: 1000; /* Ensure it's on top of other elements */
-  padding: 5px;
+  background-color: white;
+  z-index: 100;
+  padding: 0; /* Remove padding to reduce space */
+  width: 130px; /* Adjust width as needed */
+  max-width: 100%; /* Ensure it doesn't overflow */
+  height: auto; /* Adjust height as needed */
 }
 
 .optionsDropdown button {
-  width: 100px; /* Adjust as needed */
-  padding: 5px 10px;
-  margin: 5px 0;
+  width: 100%;
+  padding: 8px 2px; /* Adjust padding as needed */
   border: none;
   background-color: white;
   cursor: pointer;
-  text-align: left;
+  text-align: center;
+  white-space: nowrap; /* Prevent button text from wrapping */
+  margin: 0; /* Remove margin to eliminate space between buttons */
+ /* Add border between buttons to show separation */
 }
 
-.optionsDropdown button:hover {
-  background-color: #f0f0f0; /* Add hover effect */
+.optionsDropdown button:last-child {
+  border-bottom: none; /* Remove bottom border for the last button */
+  margin-top: -20px;
 }
+
+.optionsDropdown button:nth-last-child(2) {
+  border-bottom: none; /* Remove bottom border for the second-to-last button */
+  margin-top: -20px; /* Adjust margin to eliminate gap */
+ /* Just for visibility, can be removed */
+}
+.optionsDropdown button:nth-last-child() {
+  border-bottom: none; /* Remove bottom border for the second-to-last button */
+  margin-top: -20px; /* Adjust margin to eliminate gap */
+ /* Just for visibility, can be removed */
+}
+
+
+.optionsDropdown button:hover {
+  background-color: #e8e5e5;
+}
+

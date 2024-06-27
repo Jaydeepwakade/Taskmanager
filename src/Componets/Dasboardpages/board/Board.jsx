@@ -8,53 +8,52 @@ import Arrow2 from "../../../assets/Arrow2.svg";
 import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchdata, updateTaskStatus, url } from "../../../redux/action";
+import Toast from "../../toasts/Toast";
+import usePopup from "../../usepopup/Popup";
+  import ConfirmationModal from "../../usepopup/Confarmation";
+
 function Board() {
-
-
-  const [name,setName]=useState("")
-  const [id,setId]=useState("")
-
-  const [optionsDropdownid, setOptionsDropdownId] = useState(null);
-
-  useEffect(()=>{
-    const name=localStorage.getItem('name')
-    setName(name)
-    const id=localStorage.getItem("id")
-    setId(id)
-  },[])
-
-
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
   const [openDropdownId, setOpenDropdownId] = useState(null);
+  const [showtoast, setShowtoast] = useState(false);
+  const [optionsDropdownid, setOptionsDropdownId] = useState(null);
+  const [toastmessage, setToastmessage] = useState("");
+  const [taskToDelete, setTaskToDelete] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [taskId, setTaskId] = useState("");
+  const [itemId, setItemId] = useState("");
 
 
-  const dispatch= useDispatch()
-  const tasks = useSelector((state)=>state.tasks)
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks);
+
+  useEffect(() => {
+    const fetchDataFromLocalStorage = () => {
+      const storedName = localStorage.getItem("name");
+      const storedId = localStorage.getItem("id");
+      setName(storedName);
+      setId(storedId);
+    };
+    fetchDataFromLocalStorage();
+  }, []);
 
   useEffect(() => {
     dispatch(fetchdata(id));
-  }, [dispatch]); 
+  }, [dispatch, id]);
+
   const toggleDropdown = (id) => {
-    if (openDropdownId === id) {
-      setOpenDropdownId(null);
-      console.log("id",id)
-    } else {
-      setOpenDropdownId(id);
-    }
-  };
-  const toggleoptionsDropdown = (id) => {
-    setOpenDropdownId((prevId) => (prevId === id ? null : id)); 
-  };
-  const toggleOptionsDropdown = (id) => {
-    setOptionsDropdownId((prevId) => (prevId === id ? null : id)); 
-  };
- 
-  const moveTask = (taskId, newStatus) => {
-    console.log("Passing Id: ",taskId)
-    dispatch(updateTaskStatus(taskId, newStatus));
-    console.log(taskId,newStatus)
+    setOpenDropdownId((prevId) => (prevId === id ? null : id));
   };
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const toggleOptionsDropdown = (id) => {
+    setOptionsDropdownId((prevId) => (prevId === id ? null : id));
+  };
+
+  const moveTask = (taskId, newStatus) => {
+    dispatch(updateTaskStatus(taskId, newStatus));
+  };
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -63,66 +62,125 @@ function Board() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
-  const backlogTasks = tasks.tasks.filter((task) => task.status === "BACKLOG");
 
-  const todoTasks =tasks.tasks.filter((task) => task.status === "TO-DO");
-  const inProgressTasks = tasks.tasks.filter((task) => task.status === "inProgress");
+  const backlogTasks = tasks.tasks.filter((task) => task.status === "BACKLOG");
+  const todoTasks = tasks.tasks.filter((task) => task.status === "TO-DO");
+  const inProgressTasks = tasks.tasks.filter(
+    (task) => task.status === "inProgress"
+  );
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
-  const [checked,setChecked]=useState()
-  const [taskId,setTaskid]=useState("")
-  const [itemId,setchecklistid]=useState("")
- 
 
-  const handleDelete=async(taskid)=>{
-    const result=await fetch(`${url}/deleteTask/${id}/${taskid}`,{
-      method:'PUT',
-      headers:{
-        "Content-Type":"application/json"
-      }
-    })
 
-    const response=await result.json()
-    console.log(response)
-  }
+  const handleCloseToast = () => {
+    setShowtoast(false);
+  };
 
-  const handleShare=async(taskid)=>{
-    const result=await fetch(`${url}/generateShareLink/${taskid}`,{
-      method:'GET',
-      headers:{
-        "Content-Type":"application/json"
-      }
-    })
-    const {shareLink}=await result.json()
-    await navigator.clipboard.writeText(shareLink)
-    console.log("Link copied to clipboard successfully")
-  }
+  const { isOpen, popupType, openPopup, closePopup } = usePopup();
 
-  useEffect(()=>{
-    const changeTickStatus=async()=>{
-      const result=await fetch(`${url}/updateChecklistItem/${taskId}/${itemId}`,{
-        method:'PUT',
-        headers:{
-          'Content-Type':"application/json"
+  const handleDeleteClick = (taskId) => {
+    setTaskToDelete(taskId);
+    openPopup("DELETE"); 
+  };
+
+  const handleShowToast = (message) => {
+    setShowtoast(true);
+    setToastmessage(message);
+  };
+  
+
+  const handleDelete = async (taskIdToDelete) => {
+    if (!taskIdToDelete) return;
+
+    try {
+      const result = await fetch(`${url}/deleteTask/${id}/${taskIdToDelete}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
         },
-        body:JSON.stringify({checked})
-      })
-      const response=await result.json()
-      console.log(response)
-    }
+      });
 
-    changeTickStatus()
-  },[checked])
+      if (result.ok) {
+        handleShowToast("Task deleted successfully");
+        closePopup(); // Close delete confirmation modal after successful deletion
+        dispatch(fetchdata(id));
+      } else {
+        handleShowToast("Failed to delete task");
+      }
+    } catch (error) {
+      console.error("Error deleting task:", error);
+      handleShowToast("Error deleting task");
+    }
+  };
+
+  const handleShare = async (taskId) => {
+    try {
+      const result = await fetch(`${url}/generateShareLink/${taskId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (result.ok) {
+        handleShowToast("Link copied to clipboard");
+        const { shareLink } = await result.json();
+        await navigator.clipboard.writeText(shareLink);
+        console.log("hii jaydeep")
+      } else {
+        handleShowToast("Failed to generate share link");
+      }
+    } catch (error) {
+      console.error("Error fetching or copying link:", error);
+      handleShowToast("Error generating share link");
+    }
+  };
+
+  useEffect(() => {
+    const changeTickStatus = async () => {
+      try {
+        const result = await fetch(
+          `${url}/updateChecklistItem/${taskId}/${itemId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ checked }),
+          }
+        );
+
+        if (result.ok) {
+          const response = await result.json();
+          console.log(response);
+          dispatch(fetchdata());
+        } else {
+          console.error("Failed to update checklist item");
+        }
+      } catch (error) {
+        console.error("Error updating checklist item:", error);
+      }
+    };
+
+    changeTickStatus();
+  }, [checked, dispatch, taskId, itemId]);
 
   return (
     <div className={Style.container}>
       <div className={Style.header}>
-        <h1>welcome {name}</h1>
-
+        <h1>Welcome {name}</h1>
         <h2>Board</h2>
       </div>
+      <ConfirmationModal
+        isOpen={isOpen && popupType === "DELETE"}
+        onClose={closePopup}
+        onConfirm={() => handleDelete(taskToDelete)}
+        message="Are you sure you want to delete this task?"
+      />
+    
 
       <div className={Style.main}>
+        {/* Backlog Tasks */}
         <div className={Style.taskcontainer}>
           <div>
             <h3>Backlog</h3>
@@ -133,22 +191,28 @@ function Board() {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
-             
+
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
-                    <img onClick={()=>toggleOptionsDropdown(ele._id)} src={dots} alt="" />
+                    <img
+                      onClick={() => toggleOptionsDropdown(ele._id)}
+                      src={dots}
+                      alt=""
+                    />
                   </div>
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
-                  <div className={Style.optionsDropdown}>
-                    <button>Edit</button>
-                    <button onClick={()=>handleDelete(ele._id)}>Delete</button>
-                    <button onClick={()=>handleShare(ele._id)}>Share</button>
-                  </div>
-                )}
- 
+                    <div className={Style.optionsDropdown}>
+                      <button>Edit</button>
+                      <button onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
+                      </button>
+                      <button onClick={() => handleShare(ele._id)}>Share</button>
+                    </div>
+                  )}
+
                   <div>
                     <h3>
                       Checklist (<span>{completedCount}</span>/{" "}
@@ -172,9 +236,15 @@ function Board() {
                   <div className={Style.divbuttons}>
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
-                      <button onClick={()=>moveTask(ele._id,"inProgress")} >PROGRESS</button>
-                      <button onClick={()=>moveTask(ele._id,"TO-DO")} >TODO</button>
-                      <button onClick={()=>moveTask(ele._id,"done")} >DONE</button>
+                      <button onClick={() => moveTask(ele._id, "inProgress")}>
+                        PROGRESS
+                      </button>
+                      <button onClick={() => moveTask(ele._id, "TO-DO")}>
+                        TODO
+                      </button>
+                      <button onClick={() => moveTask(ele._id, "done")}>
+                        DONE
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -182,17 +252,27 @@ function Board() {
             })}
           </div>
         </div>
+
+        {/* To Do Tasks */}
         <div className={Style.taskcontainer}>
+
+          <Toast 
+          
+          message={toastmessage}
+          show={showtoast}
+          duration={3000}
+           onClose={handleCloseToast}
+          
+          />
           <div>
             <h3>To Do</h3>
-              <div>
+            <div>
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
               <img src={collapse} alt="" />
-              </div>
             </div>
-            
-            <div className={Style.taskshow}>
+          </div>
+          <div className={Style.taskshow}>
             {todoTasks.map((ele) => {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
@@ -201,17 +281,22 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
-                    <img onClick={()=>toggleOptionsDropdown(ele._id)} src={dots} alt="" />
+                    <img
+                      onClick={() => toggleOptionsDropdown(ele._id)}
+                      src={dots}
+                      alt=""
+                    />
                   </div>
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
-                  <div className={Style.optionsDropdown}>
-                    <button>Edit</button>
-                    <button onClick={()=>handleDelete(ele._id)}>Delete</button>
-                    <button>Share</button>
-                  </div>
-                )}
-                   
+                    <div className={Style.optionsDropdown}>
+                      <button>Edit</button>
+                      <button onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
+                      </button>
+                      <button onClick={()=> handleShare(ele._id)}>Share</button>
+                    </div>
+                  )}
 
                   <div>
                     <h3>
@@ -228,11 +313,14 @@ function Board() {
                     {openDropdownId === ele._id &&
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
-                          <input type="checkbox" onChange={(e)=>{
-                            setChecked(e.target.checked)
-                            setTaskid(ele._id)
-                            setchecklistid(item._id)
-                          }} />
+                          <input
+                            type="checkbox"
+                            onChange={(e) => {
+                              setChecked(e.target.checked);
+                              setTaskId(ele._id);
+                              setItemId(item._id);
+                            }}
+                          />
                           <h3>{item.task}</h3>
                         </div>
                       ))}
@@ -240,25 +328,29 @@ function Board() {
                   <div className={Style.divbuttons}>
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
-                      <button onClick={()=> moveTask(ele._id,"inProgress")}>PROGRESS</button>
-                      <button onClick={()=>moveTask(ele._id,"BACKLOG")}>BACKLOG</button>
-                      <button onClick={()=> moveTask(ele._id,"done")}>DONE</button>
+                      <button onClick={() => moveTask(ele._id, "inProgress")}>
+                        PROGRESS
+                      </button>
+                      <button onClick={() => moveTask(ele._id, "BACKLOG")}>
+                        BACKLOG
+                      </button>
+                      <button onClick={() => moveTask(ele._id, "done")}>
+                        DONE
+                      </button>
                     </div>
                   </div>
                 </div>
               );
             })}
-        
-          
           </div>
         </div>
+
+        {/* In Progress Tasks */}
         <div className={Style.taskcontainer}>
           <div>
-            <h3>in Progress</h3>
+            <h3>In Progress</h3>
             <img src={collapse} alt="" />
           </div>
-
-          
           <div className={Style.taskshow}>
             {inProgressTasks.map((ele) => {
               const completedCount = ele.checklist.filter(
@@ -268,18 +360,22 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
-                    <img onClick={()=>toggleOptionsDropdown(ele._id)} src={dots} alt="" />
+                    <img
+                      onClick={() => toggleOptionsDropdown(ele._id)}
+                      src={dots}
+                      alt=""
+                    />
                   </div>
                   <h2>{ele.title}</h2>
-                  {
-                   optionsDropdownid===ele._id && (
-                      <div>
-                            <button>Edit</button>
-                            <button onClick={()=>handleDelete(ele._id)}>Delete</button>
-                      <button>Share</button>
-                      </div>
-                    )
-                  }
+                  {optionsDropdownid === ele._id && (
+                    <div className={Style.optionsDropdown}>
+                      <button>Edit</button>
+                      <button onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
+                      </button>
+                      <button onClick={()=> handleShare(ele._id)}>Share</button>
+                    </div>
+                  )}
 
                   <div>
                     <h3>
@@ -304,20 +400,24 @@ function Board() {
                   <div className={Style.divbuttons}>
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
-                  
-                      <button onClick={()=>moveTask(ele._id,"TO-DO")} >TODO</button>
-                      <button onClick={()=>moveTask(ele._id,"BACKLOG")} >BACKLOG</button>
-                      <button onClick={()=>moveTask(ele._id,"done")} >DONE</button>
+                      <button onClick={() => moveTask(ele._id, "TO-DO")}>
+                        TODO
+                      </button>
+                      <button onClick={() => moveTask(ele._id, "BACKLOG")}>
+                        BACKLOG
+                      </button>
+                      <button onClick={() => moveTask(ele._id, "done")}>
+                        DONE
+                      </button>
                     </div>
                   </div>
                 </div>
               );
             })}
-            
           </div>
-          
-          
         </div>
+
+        {/* Done Tasks */}
         <div className={Style.taskcontainer}>
           <div>
             <h3>Done</h3>
@@ -332,16 +432,22 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <p>{ele.priority}</p>
-                    <img onClick={()=>toggleOptionsDropdown(ele._id)} src={dots} alt="" />
+                    <img
+                      onClick={() => toggleOptionsDropdown(ele._id)}
+                      src={dots}
+                      alt=""
+                    />
                   </div>
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
-                  <div className={Style.optionsDropdown}>
-                    <button>Edit</button>
-                    <button onClick={()=>handleDelete(ele._id)}>Delete</button>
-                    <button>Share</button>
-                  </div>
-                )}
+                    <div className={Style.optionsDropdown}>
+                      <button>Edit</button>
+                      <button onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
+                      </button>
+                      <button onClick={()=> handleShare(ele._id)}>Share</button>
+                    </div>
+                  )}
 
                   <div>
                     <h3>
@@ -366,22 +472,25 @@ function Board() {
                   <div className={Style.divbuttons}>
                     <div className={Style.date}>date</div>
                     <div className={Style.btns}>
-                      <button onClick={()=>moveTask(ele._id,"TO-DO")} >TO-DO</button>
-                      <button onClick={()=>moveTask(ele._id,"inProgress")} >IN PROGRESS</button>
-                      <button onClick={()=>moveTask(ele._id,"BACKLOG")} >BACKLOG</button>
-                      
+                      <button onClick={() => moveTask(ele._id, "TO-DO")}>
+                        TO-DO
+                      </button>
+                      <button onClick={() => moveTask(ele._id, "inProgress")}>
+                        IN PROGRESS
+                      </button>
+                      <button onClick={() => moveTask(ele._id, "BACKLOG")}>
+                        BACKLOG
+                      </button>
                     </div>
                   </div>
                 </div>
               );
             })}
           </div>
-        
         </div>
       </div>
     </div>
   );
-  
 }
 
 export default Board;
