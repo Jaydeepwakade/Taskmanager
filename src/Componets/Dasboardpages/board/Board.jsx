@@ -86,6 +86,18 @@ function Board() {
     console.log(response)
   }
 
+  const handleShare=async(taskid)=>{
+    const result=await fetch(`http://192.168.0.105:3200/generateShareLink/${taskid}`,{
+      method:'GET',
+      headers:{
+        "Content-Type":"application/json"
+      }
+    })
+    const {shareLink}=await result.json()
+    await navigator.clipboard.writeText(shareLink)
+    console.log("Link copied to clipboard successfully")
+  }
+
   useEffect(()=>{
     const changeTickStatus=async()=>{
       const result=await fetch(`http://192.168.0.105:3200/updateChecklistItem/${taskId}/${itemId}`,{
@@ -133,7 +145,7 @@ function Board() {
                   <div className={Style.optionsDropdown}>
                     <button>Edit</button>
                     <button onClick={()=>handleDelete(ele._id)}>Delete</button>
-                    <button>Share</button>
+                    <button onClick={()=>handleShare(ele._id)}>Share</button>
                   </div>
                 )}
  
