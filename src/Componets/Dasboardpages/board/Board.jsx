@@ -74,6 +74,17 @@ function Board() {
   const [itemId,setchecklistid]=useState("")
  
 
+  const handleDelete=async(taskid)=>{
+    const result=await fetch(`http://192.168.0.105:3200/deleteTask/${id}/${taskid}`,{
+      method:'PUT',
+      headers:{
+        "Content-Type":"application/json"
+      }
+    })
+
+    const response=await result.json()
+    console.log(response)
+  }
 
   useEffect(()=>{
     const changeTickStatus=async()=>{
@@ -121,7 +132,7 @@ function Board() {
                   {optionsDropdownid === ele._id && (
                   <div className={Style.optionsDropdown}>
                     <button>Edit</button>
-                    <button>Delete</button>
+                    <button onClick={()=>handleDelete(ele._id)}>Delete</button>
                     <button>Share</button>
                   </div>
                 )}
