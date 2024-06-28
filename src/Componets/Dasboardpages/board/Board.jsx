@@ -16,6 +16,7 @@ import Editmodal from "../../Modal/editdatamodal/Editmodal";
 import Ellipse2 from "../../../assets/Ellipse2.svg";
 import blue from "../../../assets/blue.svg";
 import green from "../../../assets/green.svg";
+import people from "../../../assets/people.svg";
 
 function Board() {
   const [name, setName] = useState("");
@@ -191,8 +192,18 @@ function Board() {
   return (
     <div className={Style.container}>
       <div className={Style.header}>
-        <h2>Welcome! {name}</h2>
-        <h2>Board</h2>
+         <div>
+         <h2>Welcome! {name}</h2>
+          
+          <div className={Style.addpeople}>
+          <h2>Board</h2>
+          <button> <img src={people} alt="" /> Add people</button>
+          </div>
+          
+         </div>
+         
+       
+         
       </div>
       <ConfirmationModal
         isOpen={isOpen && popupType === "DELETE"}

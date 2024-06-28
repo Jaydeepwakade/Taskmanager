@@ -142,11 +142,11 @@ function Signup() {
         </form>
 
         <div className={Style.btndiv}>
-        <button onClick={handleSignup}>Sign Up</button>
+        <button className={Style.loginbtn} onClick={handleSignup}>Sign Up</button>
             <p>Have a account ?</p>
        
             
-            <button onClick={handleLogin}>Login</button>
+            <button className={Style.regbtn} onClick={handleLogin}>Login</button>
           </div>
       </div>
     </div>

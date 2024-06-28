@@ -38,9 +38,11 @@
 }
 
 .inputDiv input {
+  height: 0px;
   border: none;
   width: 300px;
   outline: none;
+ 
 }
 
 .mainDiv {
@@ -59,16 +61,29 @@
 
 }
 
-.btndiv button {
+.loginbtn{
   background-color: #17a2b8;
-  padding: 5px;
+  padding: 10px;
   border: none;
-  border-radius: 10px;
+  font-size: 16px;
+  border-radius: 18px;
   color: white;
-  width: 400px;
+  width: 425px;
   height: 40px;
 }
-
-.btndiv p{
-    color: gray;
+.regbtn{
+  background-color: rgb(255, 255, 255);
+  
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  border-radius: 18px;
+  color: #17a2b8;
+  width: 425px;
+  height: 40px; 
+  border: 2px solid  #17a2b8;
+}
+.loginDiv p{
+font-weight: 400;
+color: rgb(58, 65, 71);
 }
