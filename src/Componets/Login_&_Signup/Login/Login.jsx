@@ -7,21 +7,21 @@ import icon from "../../../assets/icon.svg";
 import view from "../../../assets/view.svg";
 import Vector from "../../../assets/Vector.svg";
 import { url } from "../../../redux/action";
+import Toast from "../../toasts/Toast";
 
 
 function Login() {
    const[hideview ,sethideview] = useState(false)
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
-  const [passwordVisible,setPasswordVisible]=useState(false)
+  const [ShowToast,setShowToast]=useState(false)
+  const [toastMessage,setToastMessage]=useState("")
   const navigate = useNavigate();
-  const [user, setuser] = useState(true);
-
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+  const showToast=(message)=>{
+    setShowToast(true)
+    setToastMessage(message)
   }
+
 
   useEffect(()=>{
     const taskId=localStorage.getItem('token')
@@ -34,7 +34,6 @@ function Login() {
   },[])
 
   const handleLogin = async() => {
-    // user ? navigate("/dashboard") : "";
     const data={
       email:email,
       password:password
@@ -49,8 +48,6 @@ function Login() {
     })
 
     const result=await response.json()
-    console.log(result)
-    alert("succes")
 
     if(result.message){
       localStorage.setItem("token",result.data)
@@ -59,6 +56,7 @@ function Login() {
       console.log("Logged in")
       setEmail("")
       setPassword("")
+      showToast("Logged in successfully")
       navigate("/dashboard")
     }
   };
@@ -69,7 +67,7 @@ function Login() {
   return (
     <div className={style.container}>
    
-
+    <Toast message={toastMessage} show={ShowToast} duration={3000} onClose={()=>ShowToast(false)}/>
       <div className={style.loginDiv}>
         <h2>Login</h2>
         <form action="">
