@@ -47,6 +47,14 @@ router.post("/login",async(req,res)=>{
           if (result) {
             const key = generateKey();
             const token = jwt.sign({ userId: savedUser._id }, key);
+            res.cookie("token",token,{
+              httpOnly: true, // Helps prevent XSS attacks
+              secure: process.env.NODE_ENV === 'production', // Ensures cookie is only sent over HTTPS in production
+              sameSite: 'Strict', // Controls when cookies are sent
+              maxAge: 24 * 60 * 60 * 1000 // Cookie expiration time (1 day in this case)
+            })
+            res.cookie("id",savedUser._id)
+            res.cookie("name",savedUser.name)
             return res.status(422).send({ message: "Logged IN", data: token,id:savedUser._id,name:savedUser.name });
           } else {
             return res.status(422).send({ error: "Invalid Credentials2" });
@@ -58,26 +66,41 @@ router.post("/login",async(req,res)=>{
     
 })
 
-router.post("/updateProfile",async(req,res)=>{
-  const {name,email,password,newPassword}=req.body
+router.post("/getDetails/:userId",async(req,res)=>{
+  const {userId}=req.params
   try{
-    const user=await User.findOne({email:email})
+    const user=await User.findById(userId)
+    const Newuser={
+      name:user.name,
+      email:user.email
+    }
+    res.send({data:Newuser})
+  }catch(err){
+    console.log(err)
+  }
+})
+
+router.post("/updateProfile",async(req,res)=>{
+  const {name,email,password,newPassword,id}=req.body
+  try{
+    const user=await User.findById(id)
     if(user){
       bcrypt.compare(password,user.password,(err,result)=>{
         if(result){
           const hashedPass=bcrypt.hash(newPassword,10)
           user.password=hashedPass
           user.name=name
-          res.status(200).send({message:"Password changed"})
+          user.email=email
+          return res.status(200).send({message:"Password changed"})
         }else{
-          res.status(500).send({error:"Invalid old password"})
+          return res.status(500).send({error:"Invalid old password"})
         }
       })
     }else{
-      res.send(400).send({error:"Please enter valid email"})
+      return res.status(400).send({error:"Please enter valid email"})
     }
   }catch(err){
-    res.send(440).send({error:"Something went wrong"})
+    return res.status(440).send({error:"Something went wrong"})
   }
 })
 
@@ -189,6 +212,21 @@ router.put("/deleteTask/:userId/:taskId",async(req,res)=>{
     res.status(200).send({message:"Done"})
   }catch(err){
     res.status(400).send({error:"Failed to delete"})
+  }
+})
+
+router.put("/updateTaskDetails",async(req,res)=>{
+  // const {taskId}=req.params
+  const taskId="667b1ce0991c73befce1ef04"
+  const {title}=req.body
+  try{
+    const task = await Todo.findById(taskId)
+    if(task){
+      task.title=title
+    }
+    console.log(task)
+  }catch(err){
+    console.log(err)
   }
 })
 

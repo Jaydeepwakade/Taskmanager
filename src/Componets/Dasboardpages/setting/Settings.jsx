@@ -1,14 +1,64 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import  Style from "./setting.module.css"
 import Group from "../../../assets/Group.svg";
 import icon from "../../../assets/icon.svg";
 import view from "../../../assets/view.svg";
 import namelogo from "../../../assets/namelogo.svg";
+import { url } from '../../../redux/action';
+import { useNavigate } from 'react-router-dom';
 
 function Settings() {
 
-  const handleupdate=()=>{
-     alert("ho gaya update ja abh")
+  const [email,setEmail]=useState("")
+  const [name,setName]=useState("")
+  const [newPassword,setNewPassword]=useState("")
+  const [password,setPassword]=useState("")
+  const [id,setId]=useState("")
+  const navigate=useNavigate()
+
+  useEffect(()=>{
+    const id2=localStorage.getItem("id")
+    const fetchDetails=async()=>{
+      const result=await fetch(`${url}/getDetails/${id2}`,{
+        method:'POST',
+        headers:{
+          "Content-Type":"application/json"
+        },
+      })
+      const response=await result.json()
+      if(response.data){
+        setName(response.data.name)
+        setEmail(response.data.email)
+      }
+    }
+
+    fetchDetails()
+  },[])
+
+
+  const handleupdate=async()=>{
+    const id=localStorage.getItem("id")
+    const data={
+      name:name,
+      email:email,
+      password:password,
+      newPassword:newPassword,
+      id:id
+    }
+     const result=await fetch(`${url}/updateProfile`,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(data)
+     })
+
+     const response=await result.json()
+     if(response.message){
+      localStorage.clear()
+      navigate("/")
+     }
+     console.log(response)
   }
   return (
     
@@ -25,8 +75,8 @@ function Settings() {
               <input
                 type="text"
                 placeholder="Name"
-                // value={name}
-                // onChange={(e) => setName(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
              
             </div>
@@ -38,8 +88,8 @@ function Settings() {
               <input
                 type="email"
                 placeholder="Email"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
              
             </div>
@@ -51,8 +101,8 @@ function Settings() {
               <input
                 type="password"
                 placeholder="Password"
-                // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <span>
                 <img src={view} alt="" />
@@ -67,8 +117,8 @@ function Settings() {
               <input
                 type="password"
                 placeholder="Confirm Password"
-                // value={confirmPassword}
-                // onChange={(e) => setConfirmPassword(e.target.value)}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
               />
               <span>
                 <img src={view} alt="" />
