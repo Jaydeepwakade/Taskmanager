@@ -70,8 +70,8 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         };
    console.log(payload)
         try {
-            await dispatch(edittasks(id, payload)); // Dispatch edit task action
-            await dispatch(fetchdata()); // Fetch updated data
+            await dispatch(edittasks(task._id,payload)); 
+            await dispatch(fetchdata()); 
             onRequestClose(); // Close modal after successful edit
         } catch (error) {
             console.error('Error updating task:', error);

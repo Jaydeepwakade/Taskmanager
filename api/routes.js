@@ -217,14 +217,19 @@ router.put("/deleteTask/:userId/:taskId",async(req,res)=>{
 
 router.put("/updateTaskDetails/:taskId",async(req,res)=>{
   const {taskId}=req.params
-  // const taskId="667b1ce0991c73befce1ef04"
-  const {title,priority,id,status,checklist}=req.body
-  console.log(taskId,req.body)
+  const {title,priority,id,status,checklist,duedate}=req.body
   try{
     const task = await Todo.findById(taskId)
     if(!task){
       // task.title=title
-      console.log("task",task)
+      console.log("Error")
+    }else{
+      const updatedTask = await Todo.findByIdAndUpdate(
+        taskId,
+        { title, priority, status, checklist,duedate },
+        { new: true } // To return the updated document
+      );
+      console.log("Done:",updatedTask)
     }
   }catch(err){
     console.log(err)
