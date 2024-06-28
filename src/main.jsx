@@ -12,8 +12,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 <BrowserRouter>
     <App />
     </BrowserRouter>
-
-
     </Provider>
 
 )

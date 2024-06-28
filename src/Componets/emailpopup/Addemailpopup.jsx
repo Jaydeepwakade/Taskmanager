@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ConfirmationModal.module.css';
+import styles from '../usepopup/ConfirmationModal.module.css';
 
 const AddEmailpopup = ({ isOpen, message, onClose, onConfirm,buttontxt}) => {
   return (

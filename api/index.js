@@ -5,11 +5,14 @@ const mongoose = require("mongoose");
 
 const app=express()
 const cors=require('cors')
-const port=4000
+const port=4100
 app.use(cors({
-    origin: 'http://localhost:5173', // Frontend URL
-    credentials: true // Allow cookies to be sent
-  }));
+  origin: 'http://localhost:5173', // or use '*' to allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // This allows credentials to be sent
+}));
+
   
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
