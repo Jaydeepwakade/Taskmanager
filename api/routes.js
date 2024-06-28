@@ -47,10 +47,10 @@ router.post("/login",async(req,res)=>{
           if (result) {
             const key = generateKey();
             const token = jwt.sign({ userId: savedUser._id }, key);
-            res.cookie("token",token,{
+            res.cookie("_token",token,{
               httpOnly: true, // Helps prevent XSS attacks
-              secure: process.env.NODE_ENV === 'production', // Ensures cookie is only sent over HTTPS in production
-              sameSite: 'Strict', // Controls when cookies are sent
+              secure: false, // Ensures cookie is only sent over HTTPS in production
+              sameSite: 'none', // Controls when cookies are sent
               maxAge: 24 * 60 * 60 * 1000 // Cookie expiration time (1 day in this case)
             })
             res.cookie("id",savedUser._id)
@@ -215,16 +215,17 @@ router.put("/deleteTask/:userId/:taskId",async(req,res)=>{
   }
 })
 
-router.put("/updateTaskDetails",async(req,res)=>{
-  // const {taskId}=req.params
-  const taskId="667b1ce0991c73befce1ef04"
-  const {title}=req.body
+router.put("/updateTaskDetails/:taskId",async(req,res)=>{
+  const {taskId}=req.params
+  // const taskId="667b1ce0991c73befce1ef04"
+  const {title,priority,id,status,checklist}=req.body
+  console.log(taskId,req.body)
   try{
     const task = await Todo.findById(taskId)
-    if(task){
-      task.title=title
+    if(!task){
+      // task.title=title
+      console.log("task",task)
     }
-    console.log(task)
   }catch(err){
     console.log(err)
   }
