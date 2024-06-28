@@ -6,24 +6,20 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  /* Full viewport height */
+  height: 100vh; /* Full viewport height */
   overflow: hidden;
-
-
 }
 
 .header {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  Font-size: 20.4px;
-  Font-style: normal;
-  Font-weight: 600;
+  font-size: 20.4px;
+  font-style: normal;
+  font-weight: 600;
 }
 
 .main {
-
   height: 100vh;
   overflow-y: auto;
   white-space: nowrap;
@@ -31,23 +27,18 @@
 }
 
 .taskcontainer {
-  width: 400px;
-  /* Fixed width for each task container */
-  height: 94%;
-  /* Take full height of parent container */
-  margin-right: 20px;
-  /* Space between each task container */
-  background-color:
-    #eef2f5;
+  width: 400px; /* Fixed width for each task container */
+  height: 94%; /* Take full height of parent container */
+  margin-right: 20px; /* Space between each task container */
+  background-color: #eef2f5;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  /* Enable vertical scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
   display: inline-block;
-  white-space: normal;
-  /* Ensure content wraps within the container */
+  white-space: normal; /* Ensure content wraps within the container */
   word-wrap: break-word;
+  position: relative;
 }
 
 .taskcontainer div {
@@ -61,7 +52,6 @@
 }
 
 .taskshow {
-
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -75,15 +65,14 @@
   padding: 10px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-
+  position: relative; /* Ensure parent container is relative */
 }
 
-.todos div {
+/* .todos div {
   width: 100%;
   display: flex;
   justify-content: space-between;
-
-}
+} */
 
 .dropdowndiv {
   display: flex;
@@ -94,53 +83,118 @@
   height: 20px;
   width: 20px;
   margin: 10px;
-
 }
 
 .dropdown {
   display: flex;
-   font-size: 15px;
-   font-weight: 400;
+  font-size: 15px;
+  font-weight: 400;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   border-radius: 10px;
   padding: 5px;
   align-items: center;
   justify-content: center;
-
 }
 
 .dropdown h3 {
   width: 100%;
 }
-.divbuttons{
-  display: flex;
-   gap: 30px;
-   width: 100%;
-  padding:1px;
-  border: none;
-  width: 0px;
 
+.divbuttons {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  padding: 1px;
+  border: none;
 }
+
 .divbuttons div {
   display: flex;
   justify-content: center;
   align-items: center;
-   width: 65%; 
-   
-   border-radius: 10px;
+  width: 65%;
+  border-radius: 10px;
 }
-.date{
+
+.date {
   background-color: red;
   color: white;
 }
-.btns{
+
+.btns {
   margin-left: 50px;
 }
 
-.divbuttons div button{
-    font-size: 12px;
-   padding:6px;
-   border: none;
-   width: 80px;
-
+.divbuttons div button {
+  font-size: 12px;
+  padding: 6px;
+  border: none;
+  width: 80px;
 }
+.optionsDropdown {
+  position: absolute;
+  top: 25px; /* Adjust as needed */
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Ensure buttons stretch to fill width */
+  border: 1px solid rgb(198, 190, 190);
+  box-sizing: border-box;
+  background-color: white;
+  z-index: 100;
+  padding: 0; /* Remove padding to reduce space */
+  width: 130px; /* Adjust width as needed */
+  max-width: 100%; /* Ensure it doesn't overflow */
+  height: auto; /* Adjust height as needed */
+}
+
+.optionsDropdown {
+  position: absolute;
+  top: 25px; /* Adjust as needed */
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Ensure buttons stretch to fill width */
+  border: 1px solid rgb(198, 190, 190);
+  box-sizing: border-box;
+  background-color: white;
+  z-index: 100;
+  padding: 0; /* Remove padding to reduce space */
+  width: 130px; /* Adjust width as needed */
+  max-width: 100%; /* Ensure it doesn't overflow */
+  height: auto; /* Adjust height as needed */
+}
+
+.optionsDropdown button {
+  width: 100%;
+  padding: 8px 2px; /* Adjust padding as needed */
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap; /* Prevent button text from wrapping */
+  margin: 0; /* Remove margin to eliminate space between buttons */
+ /* Add border between buttons to show separation */
+}
+
+.optionsDropdown button:last-child {
+  border-bottom: none; /* Remove bottom border for the last button */
+  margin-top: -20px;
+}
+
+.optionsDropdown button:nth-last-child(2) {
+  border-bottom: none; /* Remove bottom border for the second-to-last button */
+  margin-top: -20px; /* Adjust margin to eliminate gap */
+ /* Just for visibility, can be removed */
+}
+.optionsDropdown button:nth-last-child() {
+  border-bottom: none; /* Remove bottom border for the second-to-last button */
+  margin-top: -20px; /* Adjust margin to eliminate gap */
+ /* Just for visibility, can be removed */
+}
+
+
+.optionsDropdown button:hover {
+  background-color: #e8e5e5;
+}
+

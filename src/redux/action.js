@@ -1,4 +1,4 @@
-export const url = "https://workserver-1.onrender.com";
+export const url = "http://192.168.0.105:3200";
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";
 export const getdataerror = "GETERROR";
@@ -93,8 +93,10 @@ export const updateTaskStatus = (taskId,newStatus) => {
       })
       .then((data) => {
         console.log("New Data:", data.data);
+        console.log("hi jaydeep")
         dispatch(updateTaskSuccess(data.data));
-        
+       
+        dispatch(fetchdata())
       })
       .catch((error) => dispatch(updateTaskError(error.message)));
   };
