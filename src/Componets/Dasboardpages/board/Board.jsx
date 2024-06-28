@@ -12,6 +12,7 @@ import Toast from "../../toasts/Toast";
 import usePopup from "../../usepopup/Popup";
   import ConfirmationModal from "../../usepopup/Confarmation";
 import { useNavigate } from "react-router-dom";
+import Editmodal from "../../Modal/editdatamodal/Editmodal";
 
 function Board() {
   const [name, setName] = useState("");
@@ -25,11 +26,13 @@ function Board() {
   const [checked, setChecked] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
+  const [editModal,setEditModal]=useState(false)
+  const [editModalTaskId, setEditModalTaskId] = useState(null);
   const navigate=useNavigate()
 
   useEffect(()=>{
     const taskId=localStorage.getItem('token')
-    console.log(taskId)
+    console.log("Inside",taskId)
     if(!taskId){
       navigate('/')
       return
@@ -285,14 +288,14 @@ function Board() {
             </div>
           </div>
           <div className={Style.taskshow}>
-            {todoTasks.map((ele) => {
+            {todoTasks.map((ele,index) => {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
               return (
 
                 <div key={ele._id} className={Style.todos}>
-                   <Editmodal isOpen={modalIsOpen} onRequestClose={closeModal} task={todoTasks}/>
+                  {editModal?(<Editmodal isOpen={editModal} onRequestClose={closeModal} task={todoTasks[index]}/>):null}
                   <div>
                     <p>{ele.priority}</p>
                     <img
@@ -304,13 +307,22 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button onClick={openModal}>Edit</button>
+                      <button onClick={() => setEditModalTaskId(ele._id)}>
+                        Edit
+                      </button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
                       <button onClick={()=> handleShare(ele._id)}>Share</button>
                     </div>
                   )}
+                  {editModalTaskId === ele._id && (
+                    <Editmodal
+                      isOpen={true}
+                      onRequestClose={() => setEditModalTaskId(null)}
+                      task={ele}
+                    />
+                  )}
 
                   <div>
                     <h3>
