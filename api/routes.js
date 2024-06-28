@@ -231,5 +231,35 @@ router.put("/updateTaskDetails/:taskId",async(req,res)=>{
   }
 })
 
+router.post("addEmails/:userId",async(req,res)=>{
+  const userId="667b0d37a0f03c0b5f454718"
+  const email="jaydeep"
+  try{
+    const user=await User.findById(userId)
+    if(user){
+      if(user.assignedTo.includes(email)){
+        res.status(400).send({error:"Email already exists"})
+      }else{
+        user.assignedTo.push(email)
+        res.status(200).send({message:"Email Added"})
+      }
+    }
+  }catch(err){
+    res.status(500).send({error:"Something went wrong please try again after few time"})
+  }
+})
+
+router.post("/fetchAllEmails/:userId",async(req,res)=>{
+  const {userId}=req.params
+  try{
+    const user=await User.findById(userId)
+    if(user){
+      res.status(200).send({data:user.assignedTo})
+    }
+  }catch(err){
+    res.status(500).send({error:"Something went wrong"})
+  }
+})
+
 
 module.exports=router
