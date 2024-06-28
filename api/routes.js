@@ -16,7 +16,6 @@ router.post("/signup",async(req,res)=>{
         return
     }else{
         const hashedPass=await bcrypt.hash(password,10)
-        console.log(hashedPass)
         const newUser=new User({
             name:name,
             email:email,
@@ -50,7 +49,6 @@ router.post("/login",async(req,res)=>{
             const token = jwt.sign({ userId: savedUser._id }, key);
             return res.status(422).send({ message: "Logged IN", data: token,id:savedUser._id,name:savedUser.name });
           } else {
-            console.log("Error");
             return res.status(422).send({ error: "Invalid Credentials2" });
           }
         });
@@ -96,9 +94,7 @@ router.post("/saveTask/:id",async(req,res)=>{
     })
   
     const savedTask=await newTodo.save()
-  
     await User.findByIdAndUpdate(id,{$push:{todo:savedTask._id}})
-    console.log("done")
   }catch(err){
     console.log(err)
   }
@@ -106,14 +102,11 @@ router.post("/saveTask/:id",async(req,res)=>{
 
 router.get("/fetchTask/:id",async(req,res)=>{
   try {
-    console.log("hello")
     const { id } = req.params;
     const user = await User.findById(id).populate('todo');
     if (!user) {
-      console.log("not done")
       return res.status(404).json({ error: 'User not found' });
     }
-    console.log(user.todo[0])
     res.status(200).json({message:"Done",data:user.todo});
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -122,7 +115,6 @@ router.get("/fetchTask/:id",async(req,res)=>{
 
 router.put("/updateTask/:taskId", async (req, res) => {
   const { taskId } = req.params;
-  console.log(req.body)
   const { status} = req.body;
 
   try {
@@ -136,16 +128,13 @@ router.put("/updateTask/:taskId", async (req, res) => {
 
     res.status(200).send({ message: "Task updated successfully", data:updatedTask });
   } catch (error) {
-    console.log(error);
     res.status(500).send({ error: "Error updating task" });
   }
 });
  
 router.put('/updateChecklistItem/:taskId/:itemId', async (req, res) => {
-  // console.log("update")
   const { taskId, itemId } = req.params;
   const { checked } = req.body;
-  console.log(taskId,itemId,checked)
 
   try {
     const task = await Todo.findById(taskId);
@@ -175,7 +164,6 @@ router.get('/generateShareLink/:taskId', async (req, res) => {
     if (!task) {
       return res.status(404).send({ error: "Task not found" });
     }
-    // Generate a unique shareable link (in production, use a secure method like UUID)
     const shareLink = `http://localhost:5173/task/${taskId}/readonly`; // Example link
     res.send({ shareLink });
   } catch (error) {
@@ -184,7 +172,6 @@ router.get('/generateShareLink/:taskId', async (req, res) => {
 });
 
 router.get("/fetchTaskById/:taskid",async(req,res)=>{
-  console.log("Inside")
   const {taskid}=req.params
   const task=await Todo.findById(taskid)
   if(!task){
@@ -201,7 +188,6 @@ router.put("/deleteTask/:userId/:taskId",async(req,res)=>{
     await Todo.findByIdAndDelete(taskId);
     res.status(200).send({message:"Done"})
   }catch(err){
-    console.log(err)
     res.status(400).send({error:"Failed to delete"})
   }
 })

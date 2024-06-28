@@ -7,11 +7,7 @@ import Arrow1 from "../../../assets/Arrow1.svg";
 import Arrow2 from "../../../assets/Arrow2.svg";
 import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchdata, updateTaskStatus, url } from "../../../redux/action";
-import Toast from "../../toasts/Toast";
-import usePopup from "../../usepopup/Popup";
-  import ConfirmationModal from "../../usepopup/Confarmation";
-
+import { fetchdata, updateTaskStatus } from "../../../redux/action";
 function Board() {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -70,100 +66,50 @@ function Board() {
   );
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
+  const [checked,setChecked]=useState()
+  const [taskId,setTaskid]=useState("")
+  const [itemId,setchecklistid]=useState("")
+ 
 
+  const handleDelete=async(taskid)=>{
+    const result=await fetch(`http://192.168.0.105:3200/deleteTask/${id}/${taskid}`,{
+      method:'PUT',
+      headers:{
+        "Content-Type":"application/json"
+      }
+    })
 
-  const handleCloseToast = () => {
-    setShowtoast(false);
-  };
+    const response=await result.json()
+    console.log(response)
+  }
 
-  const { isOpen, popupType, openPopup, closePopup } = usePopup();
+  const handleShare=async(taskid)=>{
+    const result=await fetch(`http://192.168.0.105:3200/generateShareLink/${taskid}`,{
+      method:'GET',
+      headers:{
+        "Content-Type":"application/json"
+      }
+    })
+    const {shareLink}=await result.json()
+    await navigator.clipboard.writeText(shareLink)
+    console.log("Link copied to clipboard successfully")
+  }
 
-  const handleDeleteClick = (taskId) => {
-    setTaskToDelete(taskId);
-    openPopup("DELETE"); 
-  };
-
-  const handleShowToast = (message) => {
-    setShowtoast(true);
-    setToastmessage(message);
-  };
-  
-
-  const handleDelete = async (taskIdToDelete) => {
-    if (!taskIdToDelete) return;
-
-    try {
-      const result = await fetch(`${url}/deleteTask/${id}/${taskIdToDelete}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+  useEffect(()=>{
+    const changeTickStatus=async()=>{
+      const result=await fetch(`http://192.168.0.105:3200/updateChecklistItem/${taskId}/${itemId}`,{
+        method:'PUT',
+        headers:{
+          'Content-Type':"application/json"
         },
-      });
-
-      if (result.ok) {
-        handleShowToast("Task deleted successfully");
-        closePopup(); // Close delete confirmation modal after successful deletion
-        dispatch(fetchdata(id));
-      } else {
-        handleShowToast("Failed to delete task");
-      }
-    } catch (error) {
-      console.error("Error deleting task:", error);
-      handleShowToast("Error deleting task");
+        body:JSON.stringify({checked})
+      })
+      const response=await result.json()
+      console.log(response)
     }
-  };
 
-  const handleShare = async (taskId) => {
-    try {
-      const result = await fetch(`${url}/generateShareLink/${taskId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (result.ok) {
-        handleShowToast("Link copied to clipboard");
-        const { shareLink } = await result.json();
-        await navigator.clipboard.writeText(shareLink);
-        console.log("hii jaydeep")
-      } else {
-        handleShowToast("Failed to generate share link");
-      }
-    } catch (error) {
-      console.error("Error fetching or copying link:", error);
-      handleShowToast("Error generating share link");
-    }
-  };
-
-  useEffect(() => {
-    const changeTickStatus = async () => {
-      try {
-        const result = await fetch(
-          `${url}/updateChecklistItem/${taskId}/${itemId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ checked }),
-          }
-        );
-
-        if (result.ok) {
-          const response = await result.json();
-          console.log(response);
-          dispatch(fetchdata());
-        } else {
-          console.error("Failed to update checklist item");
-        }
-      } catch (error) {
-        console.error("Error updating checklist item:", error);
-      }
-    };
-
-    changeTickStatus();
-  }, [checked, dispatch, taskId, itemId]);
+    changeTickStatus()
+  },[checked])
 
   return (
     <div className={Style.container}>
