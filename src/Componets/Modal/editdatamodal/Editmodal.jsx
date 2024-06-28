@@ -18,14 +18,20 @@ ReactModal.setAppElement('#root');
 const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const [inputValue, setInputValue] = useState(task?.title || '');
     const [checklist, setChecklist] = useState(task?.checklist || []);
-    const [id, setId] = useState(task?.id || '');
+    const [id, setId] = useState(task?._id || '');
     const [prior, setPrior] = useState(task?.priority || '');
-    const [selectedDate, setSelectedDate] = useState(task ? new Date(task.duedate) : null);
+    const [selectedDate, setSelectedDate] = useState(task && task.duedate ? new Date(task.duedate) : null);
     const [dateError, setDateError] = useState('');
     const [payload, setPayload] = useState({});
     const [titleError, setTitleError] = useState("");
     const [priorityError, setPriorityError] = useState("");
+   
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const id = localStorage.getItem("id");
+        setId(id);
+    }, []);
 
     useEffect(() => {
         dispatch(fetchdata());
@@ -79,7 +85,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         if (!valid) return;
 
         const payload = {
-            id,
+             
             title: inputValue,
             priority: prior,
             status:"",
@@ -88,12 +94,12 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         };
    console.log(payload)
         try {
-            await dispatch(edittasks(payload)); // Dispatch updateTask action
+            await dispatch(edittasks(id,payload)); 
             await dispatch(fetchdata());
-            onRequestClose(); // Close modal after successful submission
+            onRequestClose(); 
         } catch (error) {
             console.error('Error updating task:', error);
-            // Handle error state or display a message to the user
+           
         }
     };
 

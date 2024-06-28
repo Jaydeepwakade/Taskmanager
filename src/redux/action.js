@@ -1,4 +1,4 @@
-export const url ="http://192.168.0.107:4000";
+export const url ="http://192.168.0.105:4000";
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";
 export const getdataerror = "GETERROR";
@@ -74,24 +74,32 @@ export const edittaskerr =(payload)=>({
 })
 
 
-export const edittasks=(taskId,newdata)=>{
-
-   return (dispatch)=>{
-dispatch(edittaskreq())
-
-    fetch(`${url}/updateTaskDetails/${taskId}`,{
-      method:"PUT",
-      headers:{
-        "Content-Type":"application/json"
+export const edittasks = (taskId, newdata) => {
+  return (dispatch) => {
+    dispatch(edittaskreq());
+     
+       console.log(taskId)
+    fetch(`${url}/updateTaskDetails/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(newdata)
     })
-    .then((res)=>res.json())
-    .then ((data)=>dispatch(edittask(data.data)))
-    .catch((error)=>dispatch(edittaskerr(error.message)))
-   }
-}
- 
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        dispatch(edittask(data.data));
+        dispatch(fetchdata());
+      })
+      .catch((error) => dispatch(edittaskerr(error.message)));
+  };
+};
+
 
 
 export const fetchdata = (id) => {

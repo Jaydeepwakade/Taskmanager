@@ -270,7 +270,7 @@ function Board() {
             <div>
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
-              <Editmodal isOpen={modalIsOpen} onRequestClose={closeModal}/>
+             
               <img src={collapse} alt="" />
             </div>
           </div>
@@ -280,7 +280,9 @@ function Board() {
                 (item) => item.completed
               ).length;
               return (
+
                 <div key={ele._id} className={Style.todos}>
+                   <Editmodal isOpen={modalIsOpen} onRequestClose={closeModal} task={todoTasks}/>
                   <div>
                     <p>{ele.priority}</p>
                     <img
