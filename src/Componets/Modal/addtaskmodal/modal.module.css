@@ -14,23 +14,26 @@
     width: 100%;
 }
 
+
 .modal {
     background: white;
     padding: 20px;
-    border-radius: 8px;
-    width: 43%;
+    border-radius: 18px;
+
+    width: 666px;
     height: 600px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
 }
 
-input {
-    width: 94%;
+/* input {
+    width: 100%;
     padding: 16px;
     margin-bottom: 10px;
     overflow: hidden;
-}
+    border:2px solid red;
+} */
 
 .modal span {
     color: red;
@@ -42,12 +45,13 @@ button {
 
 .prioritydiv {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 10px;
 }
 
 .prioritydiv button {
-    width: 170px;
+    width: 200px;
     height: 40px;
     border: none;
     border-radius: 10px;
@@ -64,10 +68,12 @@ button {
     align-items: center;
     box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
     border: 1px solid grey;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px;
     gap: 10px;
+    height: 25px;
 }
+
 
 .inputdiv img {
     padding: 2px;
@@ -96,7 +102,8 @@ button {
 }
 
 .inputdiv2 {
-    height: 1px;
+    height: 0px;
+    border: 1px solid red;
     border: none;
     outline: none;
 

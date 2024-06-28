@@ -3,7 +3,13 @@ import styles from './addpopup.module.css';
 
 const AddEmailpopup = ({ isOpen, message, onClose, onConfirm,buttontxt}) => {
 const [email,setEmail]=useState('')
- console.log(email)
+
+
+const handleaddEmail=(e)=>{
+    setEmail(e)
+    console.log(email)
+    onClose()
+}
   return (
     <>
       {isOpen && (
@@ -16,7 +22,7 @@ const [email,setEmail]=useState('')
             <button onClick={onClose} className={styles.cancelButton}>
                 Cancel
               </button>
-            <button onClick={onConfirm} className={styles.confirmButton}>
+            <button onClick={handleaddEmail} className={styles.confirmButton}>
                Add Email
               </button>
              
