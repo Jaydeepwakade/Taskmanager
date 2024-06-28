@@ -17,6 +17,7 @@ import Ellipse2 from "../../../assets/Ellipse2.svg";
 import blue from "../../../assets/blue.svg";
 import green from "../../../assets/green.svg";
 import people from "../../../assets/people.svg";
+import AddEmailpopup from "../../emailpopup/Addemailpopup";
 
 function Board() {
   const [name, setName] = useState("");
@@ -101,6 +102,10 @@ function Board() {
 
   const { isOpen, popupType, openPopup, closePopup } = usePopup();
 
+
+   const handleaddemail =()=>{
+    openPopup("ADDEMAIL")
+   }
   const handleDeleteClick = (taskId) => {
     setTaskToDelete(taskId);
     openPopup("DELETE");
@@ -197,7 +202,7 @@ function Board() {
           
           <div className={Style.addpeople}>
           <h2>Board</h2>
-          <button> <img src={people} alt="" /> Add people</button>
+          <button onClick={handleaddemail}> <img src={people} alt="" /> Add people</button>
           </div>
           
          </div>
@@ -212,6 +217,12 @@ function Board() {
         onConfirm={() => handleDelete(taskToDelete)}
         message="Are you sure you want to delete ?"
       />
+       <AddEmailpopup
+        isOpen={isOpen}
+        onClose={closePopup}
+        onConfirm={handleaddemail}
+       
+       />
 
       <div className={Style.main}>
         {/* Backlog Tasks */}
@@ -390,7 +401,7 @@ function Board() {
           </div>
         </div>
 
-        {/* In Progress Tasks */}
+        
         <div className={Style.taskcontainer}>
           <div>
             <h3>In Progress</h3>
