@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate,Outlet } from "react-router-dom";
 
 import style from "./Login.module.css";
@@ -17,6 +17,21 @@ function Login() {
   const navigate = useNavigate();
   const [user, setuser] = useState(true);
 
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  useEffect(()=>{
+    const taskId=localStorage.getItem('token')
+    console.log(taskId)
+    if(!taskId){
+      return
+    }else{
+      navigate('/dashboard')
+    }
+  },[])
 
   const handleLogin = async() => {
     // user ? navigate("/dashboard") : "";

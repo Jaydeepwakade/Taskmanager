@@ -11,6 +11,7 @@ import { fetchdata, updateTaskStatus, url } from "../../../redux/action";
 import Toast from "../../toasts/Toast";
 import usePopup from "../../usepopup/Popup";
   import ConfirmationModal from "../../usepopup/Confarmation";
+import { useNavigate } from "react-router-dom";
 
 function Board() {
   const [name, setName] = useState("");
@@ -24,7 +25,17 @@ function Board() {
   const [checked, setChecked] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
-  
+  const navigate=useNavigate()
+
+  useEffect(()=>{
+    const taskId=localStorage.getItem('token')
+    console.log(taskId)
+    if(!taskId){
+      navigate('/')
+      return
+    }
+  },[])
+
 
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
