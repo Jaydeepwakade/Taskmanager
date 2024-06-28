@@ -6,7 +6,11 @@ const mongoose = require("mongoose");
 const app=express()
 const cors=require('cors')
 const port=4000
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:5173', // Frontend URL
+    credentials: true // Allow cookies to be sent
+  }));
+  
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 const jwt=require('jsonwebtoken')

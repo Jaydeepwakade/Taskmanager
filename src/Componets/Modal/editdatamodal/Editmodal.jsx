@@ -29,6 +29,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log("Task",task)
         const id = localStorage.getItem("id");
         setId(id);
     }, []);
@@ -85,14 +86,14 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         if (!valid) return;
 
         const payload = {
-             
+            _id:task._id,
             title: inputValue,
             priority: prior,
             status:"",
             checklist: checklist,
             duedate: formattedDueDate
         };
-   console.log(payload)
+   console.log("Payload",payload)
         try {
             await dispatch(edittasks(id,payload)); 
             await dispatch(fetchdata());
