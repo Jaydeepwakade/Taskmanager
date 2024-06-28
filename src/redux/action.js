@@ -1,4 +1,4 @@
-export const url ="http://172.20.10.5:3200";
+export const url ="http://192.168.0.107:4000";
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";
 export const getdataerror = "GETERROR";
@@ -10,6 +10,12 @@ export const updatedataerror = "UPDATERROR";
 export const adddatarequest = "addatarequest";
 export const adddatasucces = "adddatasucces";
 export const adddataerror = "adddataerror";
+export const edittaskrequest = "edittaskrequest"
+export const edittasksucces= "edittasksucces"
+export const edittaskerror= "edittaskerror"
+
+
+
 
 
 export const getdatareq = (payload1) => {
@@ -50,6 +56,42 @@ export const addTaskError = (error) => ({
   type: adddataerror,
   payload: error,
 });
+
+export const edittaskreq =(data)=>({
+
+  type:edittaskrequest,
+  payload:data
+})
+export const edittask=(payload)=>({
+
+  type:edittasksucces,
+  payload:payload
+})
+
+export const edittaskerr =(payload)=>({
+ type:edittaskerror,
+ payload:payload,
+})
+
+
+export const edittasks=(taskId,newdata)=>{
+
+   return (dispatch)=>{
+dispatch(edittaskreq())
+
+    fetch(`${url}/updateTaskDetails/${taskId}`,{
+      method:"PUT",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify(newdata)
+    })
+    .then((res)=>res.json())
+    .then ((data)=>dispatch(edittask(data.data)))
+    .catch((error)=>dispatch(edittaskerr(error.message)))
+   }
+}
+ 
 
 
 export const fetchdata = (id) => {

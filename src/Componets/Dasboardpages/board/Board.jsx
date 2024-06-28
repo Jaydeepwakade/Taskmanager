@@ -5,12 +5,13 @@ import add from "../../../assets/add.svg";
 import dots from "../../../assets/dots.svg";
 import Arrow1 from "../../../assets/Arrow1.svg";
 import Arrow2 from "../../../assets/Arrow2.svg";
-import Modal from "../../Modal/Modal";
+import Modal from "../../Modal/addtaskmodal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchdata, updateTaskStatus, url } from "../../../redux/action";
 import Toast from "../../toasts/Toast";
 import usePopup from "../../usepopup/Popup";
   import ConfirmationModal from "../../usepopup/Confarmation";
+import Editmodal from "../../Modal/editdatamodal/Editmodal";
 
 function Board() {
   const [name, setName] = useState("");
@@ -24,7 +25,7 @@ function Board() {
   const [checked, setChecked] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
-
+  
 
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
@@ -269,6 +270,7 @@ function Board() {
             <div>
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
+              <Editmodal isOpen={modalIsOpen} onRequestClose={closeModal}/>
               <img src={collapse} alt="" />
             </div>
           </div>
@@ -290,7 +292,7 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button>Edit</button>
+                      <button onClick={openModal}>Edit</button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>

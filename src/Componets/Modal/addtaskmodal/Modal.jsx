@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import './Modal.css';
-import add from "../../assets/add.svg";
-import Delete from "../../assets/Delete.svg";
-import Ellipse2 from "../../assets/Ellipse2.svg";
-import blue from "../../assets/blue.svg";
-import green from "../../assets/green.svg";
+import add from "../../../assets/add.svg";
+import Delete from "../../../assets/Delete.svg";
+import Ellipse2 from "../../../assets/Ellipse2.svg";
+import blue from "../../../assets/blue.svg";
+import green from "../../../assets/green.svg";
 import DatePicker from 'react-datepicker'; // Import date picker component
 import 'react-datepicker/dist/react-datepicker.css'; // Import date picker styles
 
 import style from "./modal.module.css";
-import { addTask, fetchdata } from '../../redux/action';
+import { addTask, fetchdata } from '../../../redux/action';
 import { useDispatch } from 'react-redux';
 
 ReactModal.setAppElement('#root');

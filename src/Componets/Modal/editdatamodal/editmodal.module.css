@@ -1,0 +1,132 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.container {
+    width: 100%;
+}
+
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 43%;
+    height: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    width: 94%;
+    padding: 16px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.modal span {
+    color: red;
+}
+
+button {
+    margin-right: 10px;
+}
+
+.prioritydiv {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.prioritydiv button {
+    width: 170px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
+}
+
+.prioritydiv button img {
+    margin-right: 10px;
+    border: none;
+}
+
+.inputdiv {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 10px;
+    gap: 10px;
+}
+
+.inputdiv img {
+    padding: 2px;
+    margin-right: 5px;
+}
+
+.scroll {
+    max-height: 200px;
+    border: 2px solid rgb(32, 139, 32);
+}
+
+.inputdiv1 {
+    margin: 0;
+    padding: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.scrolldiv {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.inputdiv2 {
+    height: 1px;
+    border: none;
+    outline: none;
+
+}
+
+.assigndiv {
+    display: flex;
+    align-items: center;
+}
+
+.assigndiv h4 {
+    width: 80px;
+}
+
+.buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid;
+    padding: 10px;
+}
+
+.buttons input {
+    height: 40px;
+    width: 90px;
+}
+
+.buttons button {
+    height: 40px;
+    width: 90px;
+}
