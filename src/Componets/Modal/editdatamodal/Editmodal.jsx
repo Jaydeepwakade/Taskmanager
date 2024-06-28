@@ -89,13 +89,13 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             _id:task._id,
             title: inputValue,
             priority: prior,
-            status:"",
+            status:task.status,
             checklist: checklist,
             duedate: formattedDueDate
         };
    console.log("Payload",payload)
         try {
-            await dispatch(edittasks(id,payload)); 
+            await dispatch(edittasks(task._id,payload)); 
             await dispatch(fetchdata());
             onRequestClose(); 
         } catch (error) {
