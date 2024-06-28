@@ -30,7 +30,7 @@
   
   .inputDiv {
     display: flex;
-  
+    height: 40px;
     border-radius: 10px;
     padding: 5px;
     gap: 10px;
@@ -57,6 +57,7 @@
     gap: 10px;
     align-items: center;
     justify-content: center;
+    
   
   }
   
@@ -66,6 +67,6 @@
     border: none;
     border-radius: 10px;
     color: white;
-    width: 400px;
+    width: 420px;
     height: 30px;
   }

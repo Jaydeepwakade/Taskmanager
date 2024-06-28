@@ -61,7 +61,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const handleSubmit = async () => {
 
         const payload = {
-            _id:task_id,
+            _id:task._id,
             title: inputValue,
             priority: prior,
             status:task.status,
@@ -70,9 +70,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         };
    console.log(payload)
         try {
-            await dispatch(edittasks(id, payload)); // Dispatch edit task action
-            await dispatch(fetchdata()); // Fetch updated data
-            onRequestClose(); // Close modal after successful edit
+            await dispatch(edittasks(id,payload)); 
+            await dispatch(fetchdata()); 
+            onRequestClose();
         } catch (error) {
             console.error('Error updating task:', error);
         }
@@ -86,7 +86,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 className={style.modal}
                 overlayClassName="overlay"
             >
-                <h2>Title <span>*</span></h2>
+                <h2>Title jaydeep <span>*</span></h2>
                 <input
                     type="text"
                     value={inputValue}

@@ -18,6 +18,11 @@
   font-style: normal;
   font-weight: 600;
 }
+.header h2{
+  margin-top: 10px;
+  margin-left: 10px;
+  font-family: "Noto Sans", sans-serif;;
+}
 
 .main {
   height: 100vh;
@@ -27,18 +32,42 @@
 }
 
 .taskcontainer {
-  width: 400px; /* Fixed width for each task container */
-  height: 94%; /* Take full height of parent container */
-  margin-right: 20px; /* Space between each task container */
+  width: 450px;
+  height: 94%;
+  margin-right: 20px;
   background-color: #eef2f5;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto;
   display: inline-block;
-  white-space: normal; /* Ensure content wraps within the container */
+  white-space: normal;
   word-wrap: break-word;
   position: relative;
+
+
+  scrollbar-width:40px;
+  scrollbar-color: #9cb7c5; 
+
+  
+  &::-webkit-scrollbar {
+    width: 20px; 
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #eef2f5; 
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #9cb7c5;
+    border-radius: 30px; 
+    border: 2px solid #eef2f5; 
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #9cb7c5;
+  }
 }
 
 .taskcontainer div {
@@ -163,6 +192,9 @@
   width: 130px; /* Adjust width as needed */
   max-width: 100%; /* Ensure it doesn't overflow */
   height: auto; /* Adjust height as needed */
+}
+.optionsDropdown.show {
+  display: block;
 }
 
 .optionsDropdown button {
