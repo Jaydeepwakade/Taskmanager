@@ -23,7 +23,8 @@ function Navbar() {
     };
 
     const cancelLogout = () => {
-        setShowPopup(false); // Hide the popup if cancelled
+        setShowPopup(false);
+         // Hide the popup if cancelled
     };
 
     return (
@@ -83,7 +84,7 @@ function Navbar() {
             <ConfirmationModal
              isOpen={showPopup}
              message="Are you sure you want to logout?"
-             onCancel={cancelLogout}
+             onClose={cancelLogout}
              onConfirm={confirmLogout}
              />
         </div>

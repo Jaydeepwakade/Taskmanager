@@ -25,14 +25,11 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       console.log(id)
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        const id = localStorage.getItem("id");
-        setId(id);
-    }, []);
+
 
     useEffect(() => {
         dispatch(fetchdata());
-    }, [payload, dispatch]);
+    }, [dispatch]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -64,10 +61,10 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const handleSubmit = async () => {
 
         const payload = {
-             
+            _id:task_id,
             title: inputValue,
             priority: prior,
-            status: "",
+            status:task.status,
             checklist: checklist,
             duedate: formattedDueDate
         };
