@@ -17,6 +17,7 @@ function Navbar() {
     };
 
     const confirmLogout = () => {
+        localStorage.clear()
         navigate("/"); // Navigate to home or logout endpoint
         // Perform logout logic here if needed
     };
