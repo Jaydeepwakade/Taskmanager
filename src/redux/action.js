@@ -15,9 +15,7 @@ export const edittasksucces= "edittasksucces"
 export const edittaskerror= "edittaskerror"
 
 
-
-
-
+//hashra
 export const getdatareq = (payload1) => {
   return { type: getdatarequest, payload: payload1 };
 };
