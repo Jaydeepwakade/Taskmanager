@@ -260,6 +260,7 @@ router.post("/fetchAllEmails/:userId",async(req,res)=>{
   try{
     const user=await User.findById(userId)
     if(user){
+      console.log(user.assignedTo)
       res.status(200).send({data:user.assignedTo})
     }
   }catch(err){
@@ -267,5 +268,26 @@ router.post("/fetchAllEmails/:userId",async(req,res)=>{
   }
 })
 
+router.post("/addData/:userId/:taskid",async(req,res)=>{
+  const {userId,taskid}=req.params
+  const {email}=req.body
+  try{
+    const user=await User.findOne({email})
+    if(!user){
+      return res.status(400).send({error:"Invalid Email"})
+    }else{
+      const task=await Todo.findById(taskid)
+      if(!task){
+        return res.status(400).send({error:"Error"})
+      }else{
+        user.todo.push(task._id)
+        await user.save()
+        res.status(200).json({ message: 'Task assigned successfully', user });
+      }
+    }
+  }catch(err){
+    console.log(err)
+  }
+})
 
-module.exports=router
+module.exports=router 

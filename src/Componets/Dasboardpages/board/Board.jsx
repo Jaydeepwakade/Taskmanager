@@ -259,7 +259,9 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button onClick={editmodalisopen}>Edit</button>
+                      <button onClick={()=>{
+                        setOptionsDropdownId("sads")
+                        editmodalisopen()}}>Edit</button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
