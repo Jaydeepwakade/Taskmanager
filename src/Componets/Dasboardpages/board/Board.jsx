@@ -7,7 +7,7 @@ import Arrow1 from "../../../assets/Arrow1.svg";
 import Arrow2 from "../../../assets/Arrow2.svg";
 import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchdata, updateTaskStatus } from "../../../redux/action";
+import { fetchdata, updateTaskStatus, url } from "../../../redux/action";
 function Board() {
 
 
@@ -75,7 +75,7 @@ function Board() {
  
 
   const handleDelete=async(taskid)=>{
-    const result=await fetch(`http://192.168.0.105:3200/deleteTask/${id}/${taskid}`,{
+    const result=await fetch(`${url}/deleteTask/${id}/${taskid}`,{
       method:'PUT',
       headers:{
         "Content-Type":"application/json"
@@ -87,7 +87,7 @@ function Board() {
   }
 
   const handleShare=async(taskid)=>{
-    const result=await fetch(`http://192.168.0.105:3200/generateShareLink/${taskid}`,{
+    const result=await fetch(`${url}/generateShareLink/${taskid}`,{
       method:'GET',
       headers:{
         "Content-Type":"application/json"

@@ -5,7 +5,7 @@ const mongoose=require('mongoose')
 
 const app=express()
 const cors=require('cors')
-const port=3200
+const port=4000
 app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
