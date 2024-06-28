@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-
-import add from "../../../assets/add.svg";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import Delete from "../../../assets/Delete.svg";
 import Ellipse2 from "../../../assets/Ellipse2.svg";
 import blue from "../../../assets/blue.svg";
 import green from "../../../assets/green.svg";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
+import add from "../../../assets/add.svg";
 import style from "./editmodal.module.css";
 import { edittasks, fetchdata } from '../../../redux/action'; // Import updateTask action
 import { useDispatch } from 'react-redux';
@@ -16,31 +14,26 @@ import { useDispatch } from 'react-redux';
 ReactModal.setAppElement('#root');
 
 const Editmodal = ({ isOpen, onRequestClose, task }) => {
-    const [inputValue, setInputValue] = useState(task?.title || '');
-    const [checklist, setChecklist] = useState(task?.checklist || []);
-    const [id, setId] = useState(task?._id || '');
-    const [prior, setPrior] = useState(task?.priority || '');
-    const [selectedDate, setSelectedDate] = useState(task && task.duedate ? new Date(task.duedate) : null);
+    const [inputValue, setInputValue] = useState('');
+    const [checklist, setChecklist] = useState([]);
+    const [id, setId] = useState('');
+    const [prior, setPrior] = useState('');
+    const [selectedDate, setSelectedDate] = useState(null);
     const [dateError, setDateError] = useState('');
-    const [payload, setPayload] = useState({});
     const [titleError, setTitleError] = useState("");
     const [priorityError, setPriorityError] = useState("");
-   
+      console.log(id)
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        console.log("Task",task)
-        const id = localStorage.getItem("id");
-        setId(id);
-    }, []);
+
 
     useEffect(() => {
         dispatch(fetchdata());
-    }, [payload, dispatch]);
+    }, [dispatch]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
-        if (titleError) setTitleError(""); // Clear error on input change
+        if (titleError) setTitleError("");
     };
 
     const handleChecklistTaskChange = (id, value) => {
@@ -66,41 +59,22 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     });
 
     const handleSubmit = async () => {
-        let valid = true;
-
-        if (!inputValue) {
-            setTitleError("Please add the title");
-            valid = false;
-        }
-
-        if (!selectedDate) {
-            setDateError('Please select a due date.');
-            valid = false;
-        }
-
-        if (!prior) {
-            setPriorityError('Please select a priority.');
-            valid = false;
-        }
-
-        if (!valid) return;
 
         const payload = {
-            _id:task._id,
+            _id:task_id,
             title: inputValue,
             priority: prior,
             status:task.status,
             checklist: checklist,
             duedate: formattedDueDate
         };
-   console.log("Payload",payload)
+   console.log(payload)
         try {
             await dispatch(edittasks(task._id,payload)); 
-            await dispatch(fetchdata());
-            onRequestClose(); 
+            await dispatch(fetchdata()); 
+            onRequestClose(); // Close modal after successful edit
         } catch (error) {
             console.error('Error updating task:', error);
-           
         }
     };
 
@@ -134,7 +108,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 <h3>Checklist <span>{`(${checklist.length})`}</span></h3>
                 <div className={style.scrolldiv}>
                     {checklist.map(item => (
-                        <div className={style.inputdiv} key={item.id}>
+                        <div className={style.inputdiv} key={item._id}>
                             <input
                                 className={style.inputdiv1}
                                 type="checkbox"

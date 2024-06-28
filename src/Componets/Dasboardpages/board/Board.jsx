@@ -26,16 +26,14 @@ function Board() {
   const [checked, setChecked] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
-  const [editModal, setEditModal] = useState(false);
-  const [editModalTaskId, setEditModalTaskId] = useState(null);
-  const navigate = useNavigate();
+  const navigate=useNavigate()
 
-  useEffect(() => {
-    const taskId = localStorage.getItem("token");
-    console.log("Inside", taskId);
-    if (!taskId) {
-      navigate("/");
-      return;
+  useEffect(()=>{
+    const taskId=localStorage.getItem('token')
+    console.log(taskId)
+    if(!taskId){
+      navigate('/')
+      return
     }
   }, []);
 
@@ -282,13 +280,13 @@ function Board() {
             </div>
           </div>
           <div className={Style.taskshow}>
-            {todoTasks.map((ele, index) => {
+            {todoTasks.map((ele) => {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
-                  {/* {editModal?(<Editmodal isOpen={editModal} onRequestClose={closeModal} task={todoTasks[index]}/>):null} */}
+                   <Editmodal isOpen={modalIsOpen} onRequestClose={closeModal} task={todoTasks}/>
                   <div>
                     <p>{ele.priority}</p>
                     <img
@@ -300,9 +298,7 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button onClick={() => setEditModalTaskId(ele._id)}>
-                        Edit
-                      </button>
+                      <button onClick={openModal}>Edit</button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
@@ -310,13 +306,6 @@ function Board() {
                         Share
                       </button>
                     </div>
-                  )}
-                  {editModalTaskId === ele._id && (
-                    <Editmodal
-                      isOpen={true}
-                      onRequestClose={() => setEditModalTaskId(null)}
-                      task={ele}
-                    />
                   )}
 
                   <div>
