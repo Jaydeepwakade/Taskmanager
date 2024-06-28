@@ -6,8 +6,8 @@ import Delete from "../../../assets/Delete.svg";
 import Ellipse2 from "../../../assets/Ellipse2.svg";
 import blue from "../../../assets/blue.svg";
 import green from "../../../assets/green.svg";
-import DatePicker from "react-datepicker"; // Import date picker component
-import "react-datepicker/dist/react-datepicker.css"; // Import date picker styles
+import DatePicker from "react-datepicker"; 
+import "react-datepicker/dist/react-datepicker.css"; 
 
 import style from "./modal.module.css";
 import { addTask, fetchdata } from "../../../redux/action";
@@ -81,9 +81,9 @@ const Modal = ({ isOpen, onRequestClose }) => {
       duedate: formattedDueDate,
     };
 
-    const response = dispatch(addTask(payload, id)); // Dispatch addTask action
-    setTaskList([...taskList, response.payload]); // Update taskList state directly
-    onRequestClose(); // Close modal after successful submission
+    const response = dispatch(addTask(payload, id)); 
+    setTaskList([...taskList, response.payload]); 
+    onRequestClose(); 
   };
   return (
     <div className={style.container}>
@@ -93,6 +93,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
         className={style.modal}
         overlayClassName="overlay"
       >
+        <div className={style.titlediv}>
         <h2>
           Title <span>*</span>
         </h2>
@@ -102,6 +103,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           onChange={handleInputChange}
           placeholder="Enter Task title"
         />
+        </div>
         <div className={style.prioritydiv}>
           <h3>Select Priority</h3>
           <button
@@ -183,6 +185,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
         <div className={style.buttons}>
           <div>
             <DatePicker
+            className={style.datepicker}
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
               placeholderText="Select due date"
@@ -190,8 +193,9 @@ const Modal = ({ isOpen, onRequestClose }) => {
             {dateError && <p className={style.error}>{dateError}</p>}
           </div>
           <div>
-            <button onClick={handleSubmit}>Submit</button>
-            <button onClick={onRequestClose}>Close</button>
+          <button onClick={onRequestClose}>Close</button>
+            <button onClick={handleSubmit}>Save</button>
+       
           </div>
         </div>
       </ReactModal>

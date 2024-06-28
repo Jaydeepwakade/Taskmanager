@@ -1,16 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../usepopup/ConfirmationModal.module.css';
+import styles from './addpopup.module.css';
 import { url } from '../../redux/action';
+import Succesfullpopup from './Succesfullpopup';
 
-const AddEmailpopup = ({ isOpen, message, onClose,buttontxt}) => {
+const AddEmailpopup = ({ isOpen, onClose}) => {
 const [email,setEmail]=useState('')
+const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+const id=localStorage.getItem('id')
 
+ const onConfirm=async()=>{
+  console.log(id)
+  const result=await fetch(`${url}/addEmails/${id}`,{
+    method:'PUT',
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({email})
+  })
 
-const handleaddEmail=(e)=>{
-    setEmail(e)
-    console.log(email)
-    onClose()
-}
+  if(result.ok){
+   setIsConfirmOpen(true)
+  }
+
+  onClose()
+  
+ }
+
+ const handleconfirmclose=()=>{
+    setIsConfirmOpen(false)
+ }
   return (
     <>
       {isOpen && (
@@ -23,7 +41,7 @@ const handleaddEmail=(e)=>{
             <button onClick={onClose} className={styles.cancelButton}>
                 Cancel
               </button>
-            <button onClick={handleaddEmail} className={styles.confirmButton}>
+            <button onClick={onConfirm} className={styles.confirmButton}>
                Add Email
               </button>
              
@@ -32,6 +50,8 @@ const handleaddEmail=(e)=>{
           </div>
         </div>
       )}
+
+      <Succesfullpopup isOpen={isConfirmOpen} onClose={handleconfirmclose} email={email}/>
     </>
   );
 };
