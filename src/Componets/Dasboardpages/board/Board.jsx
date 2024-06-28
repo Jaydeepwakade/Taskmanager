@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchdata, updateTaskStatus, url } from "../../../redux/action";
 import Toast from "../../toasts/Toast";
 import usePopup from "../../usepopup/Popup";
-  import ConfirmationModal from "../../usepopup/Confarmation";
+import ConfirmationModal from "../../usepopup/Confarmation";
 import { useNavigate } from "react-router-dom";
 import Editmodal from "../../Modal/editdatamodal/Editmodal";
 
@@ -26,19 +26,16 @@ function Board() {
   const [checked, setChecked] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
-  const [editModal,setEditModal]=useState(false)
-  const [editModalTaskId, setEditModalTaskId] = useState(null);
   const navigate=useNavigate()
 
   useEffect(()=>{
     const taskId=localStorage.getItem('token')
-    console.log("Inside",taskId)
+    console.log(taskId)
     if(!taskId){
       navigate('/')
       return
     }
-  },[])
-
+  }, []);
 
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
@@ -84,8 +81,6 @@ function Board() {
   );
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
-
-
   const handleCloseToast = () => {
     setShowtoast(false);
   };
@@ -94,14 +89,13 @@ function Board() {
 
   const handleDeleteClick = (taskId) => {
     setTaskToDelete(taskId);
-    openPopup("DELETE"); 
+    openPopup("DELETE");
   };
 
   const handleShowToast = (message) => {
     setShowtoast(true);
     setToastmessage(message);
   };
-  
 
   const handleDelete = async (taskIdToDelete) => {
     if (!taskIdToDelete) return;
@@ -140,7 +134,7 @@ function Board() {
         handleShowToast("Link copied to clipboard");
         const { shareLink } = await result.json();
         await navigator.clipboard.writeText(shareLink);
-        console.log("hii jaydeep")
+        console.log("hii jaydeep");
       } else {
         handleShowToast("Failed to generate share link");
       }
@@ -191,7 +185,6 @@ function Board() {
         onConfirm={() => handleDelete(taskToDelete)}
         message="Are you sure you want to delete this task?"
       />
-    
 
       <div className={Style.main}>
         {/* Backlog Tasks */}
@@ -223,7 +216,9 @@ function Board() {
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
-                      <button onClick={() => handleShare(ele._id)}>Share</button>
+                      <button onClick={() => handleShare(ele._id)}>
+                        Share
+                      </button>
                     </div>
                   )}
 
@@ -269,33 +264,29 @@ function Board() {
 
         {/* To Do Tasks */}
         <div className={Style.taskcontainer}>
-
-          <Toast 
-          
-          message={toastmessage}
-          show={showtoast}
-          duration={3000}
-           onClose={handleCloseToast}
-          
+          <Toast
+            message={toastmessage}
+            show={showtoast}
+            duration={3000}
+            onClose={handleCloseToast}
           />
           <div>
             <h3>To Do</h3>
             <div>
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
-             
+
               <img src={collapse} alt="" />
             </div>
           </div>
           <div className={Style.taskshow}>
-            {todoTasks.map((ele,index) => {
+            {todoTasks.map((ele) => {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
               return (
-
                 <div key={ele._id} className={Style.todos}>
-                  {editModal?(<Editmodal isOpen={editModal} onRequestClose={closeModal} task={todoTasks[index]}/>):null}
+                   <Editmodal isOpen={modalIsOpen} onRequestClose={closeModal} task={todoTasks}/>
                   <div>
                     <p>{ele.priority}</p>
                     <img
@@ -307,22 +298,15 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button onClick={() => setEditModalTaskId(ele._id)}>
-                        Edit
-                      </button>
+                      <button onClick={openModal}>Edit</button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
-                      <button onClick={()=> handleShare(ele._id)}>Share</button>
+                      <button onClick={() => handleShare(ele._id)}>
+                        Share
+                      </button>
                     </div>
                   )}
-                  {editModalTaskId === ele._id && (
-                    <Editmodal
-                      isOpen={true}
-                      onRequestClose={() => setEditModalTaskId(null)}
-                      task={ele}
-                    />
-                  )}
 
                   <div>
                     <h3>
@@ -399,7 +383,9 @@ function Board() {
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
-                      <button onClick={()=> handleShare(ele._id)}>Share</button>
+                      <button onClick={() => handleShare(ele._id)}>
+                        Share
+                      </button>
                     </div>
                   )}
 
@@ -471,7 +457,9 @@ function Board() {
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
-                      <button onClick={()=> handleShare(ele._id)}>Share</button>
+                      <button onClick={() => handleShare(ele._id)}>
+                        Share
+                      </button>
                     </div>
                   )}
 

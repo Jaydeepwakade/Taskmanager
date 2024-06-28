@@ -26,15 +26,13 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (task) {
-            setId(task._id || '');
-            setInputValue(task.title || '');
-            setChecklist(task.checklist || []);
-            setPrior(task.priority || '');
-            setSelectedDate(task.duedate ? new Date(task.duedate) : null);
-        }
-        console.log(task)
-    }, [task]);
+        const id = localStorage.getItem("id");
+        setId(id);
+    }, []);
+
+    useEffect(() => {
+        dispatch(fetchdata());
+    }, [payload, dispatch]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -66,13 +64,14 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const handleSubmit = async () => {
 
         const payload = {
+             
             title: inputValue,
             priority: prior,
             status: "",
             checklist: checklist,
             duedate: formattedDueDate
         };
-
+   console.log(payload)
         try {
             await dispatch(edittasks(id, payload)); // Dispatch edit task action
             await dispatch(fetchdata()); // Fetch updated data
