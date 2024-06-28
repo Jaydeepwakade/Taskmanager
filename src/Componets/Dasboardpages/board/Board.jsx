@@ -26,14 +26,15 @@ function Board() {
   const [checked, setChecked] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const [editModalTaskId, setEditModalTaskId] = useState(null);
 
-  useEffect(()=>{
-    const taskId=localStorage.getItem('token')
-    console.log(taskId)
-    if(!taskId){
-      navigate('/')
-      return
+  useEffect(() => {
+    const taskId = localStorage.getItem("token");
+    console.log(taskId);
+    if (!taskId) {
+      navigate("/");
+      return;
     }
   }, []);
 
@@ -191,7 +192,13 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>Backlog</h3>
-            <img src={collapse} alt="" />
+            <img
+              src={collapse}
+              alt=""
+              onClick={() => {
+                setOpenDropdownId(null);
+              }}
+            />
           </div>
           <div className={Style.taskshow}>
             {backlogTasks.map((ele) => {
@@ -212,14 +219,39 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button>Edit</button>
-                      <button onClick={() => handleDeleteClick(ele._id)}>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit        
+                      </button>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          handleDeleteClick(ele._id);
+                        }}
+                      >
                         Delete
                       </button>
-                      <button onClick={() => handleShare(ele._id)}>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          handleShare(ele._id);
+                        }}
+                      >
                         Share
                       </button>
                     </div>
+                  )}
+
+                  {editModalTaskId === ele._id && (
+                    <Editmodal
+                      isOpen={true}
+                      onRequestClose={() => setEditModalTaskId(null)}
+                      task={ele}
+                    />
                   )}
 
                   <div>
@@ -276,7 +308,13 @@ function Board() {
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
 
-              <img src={collapse} alt="" />
+              <img
+                src={collapse}
+                alt=""
+                onClick={() => {
+                  setOpenDropdownId(null);
+                }}
+              />
             </div>
           </div>
           <div className={Style.taskshow}>
@@ -286,7 +324,6 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
-                   <Editmodal isOpen={modalIsOpen} onRequestClose={closeModal} task={todoTasks}/>
                   <div>
                     <p>{ele.priority}</p>
                     <img
@@ -298,14 +335,39 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button onClick={openModal}>Edit</button>
-                      <button onClick={() => handleDeleteClick(ele._id)}>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit        
+                      </button>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          handleDeleteClick(ele._id);
+                        }}
+                      >
                         Delete
                       </button>
-                      <button onClick={() => handleShare(ele._id)}>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          handleShare(ele._id);
+                        }}
+                      >
                         Share
                       </button>
                     </div>
+                  )}
+
+                  {editModalTaskId === ele._id && (
+                    <Editmodal
+                      isOpen={true}
+                      onRequestClose={() => setEditModalTaskId(null)}
+                      task={ele}
+                    />
                   )}
 
                   <div>
@@ -359,7 +421,13 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>In Progress</h3>
-            <img src={collapse} alt="" />
+            <img
+              src={collapse}
+              alt=""
+              onClick={() => {
+                setOpenDropdownId(null);
+              }}
+            />
           </div>
           <div className={Style.taskshow}>
             {inProgressTasks.map((ele) => {
@@ -379,14 +447,39 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button>Edit</button>
-                      <button onClick={() => handleDeleteClick(ele._id)}>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit        
+                      </button>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          handleDeleteClick(ele._id);
+                        }}
+                      >
                         Delete
                       </button>
-                      <button onClick={() => handleShare(ele._id)}>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          handleShare(ele._id);
+                        }}
+                      >
                         Share
                       </button>
                     </div>
+                  )}
+
+                  {editModalTaskId === ele._id && (
+                    <Editmodal
+                      isOpen={true}
+                      onRequestClose={() => setEditModalTaskId(null)}
+                      task={ele}
+                    />
                   )}
 
                   <div>
@@ -433,7 +526,13 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>Done</h3>
-            <img src={collapse} alt="" />
+            <img
+              src={collapse}
+              alt=""
+              onClick={() => {
+                setOpenDropdownId(null);
+              }}
+            />
           </div>
           <div className={Style.taskshow}>
             {doneTasks.map((ele) => {
@@ -453,14 +552,39 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button>Edit</button>
-                      <button onClick={() => handleDeleteClick(ele._id)}>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit        
+                      </button>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          handleDeleteClick(ele._id);
+                        }}
+                      >
                         Delete
                       </button>
-                      <button onClick={() => handleShare(ele._id)}>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("ssa");
+                          handleShare(ele._id);
+                        }}
+                      >
                         Share
                       </button>
                     </div>
+                  )}
+
+                  {editModalTaskId === ele._id && (
+                    <Editmodal
+                      isOpen={true}
+                      onRequestClose={() => setEditModalTaskId(null)}
+                      task={ele}
+                    />
                   )}
 
                   <div>
