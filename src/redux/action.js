@@ -1,4 +1,4 @@
-export const url ="https://workserver-1.onrender.com";
+export const url ="http://192.168.0.105:5000";
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";
 export const getdataerror = "GETERROR";

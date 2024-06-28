@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
-import styles from './addpopup.module.css';
+import React, { useEffect, useState } from 'react';
+import styles from '../usepopup/ConfirmationModal.module.css';
+import { url } from '../../redux/action';
 
-const AddEmailpopup = ({ isOpen, message, onClose, onConfirm,buttontxt}) => {
+const AddEmailpopup = ({ isOpen, message, onClose,buttontxt}) => {
 const [email,setEmail]=useState('')
- console.log(email)
+const id=localStorage.getItem('id')
+
+ const onConfirm=async()=>{
+  console.log(id)
+  const result=await fetch(`${url}/addEmails/${id}`,{
+    method:'PUT',
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({email})
+  })
+  const response=await result.json()
+  alert(response)
+ }
   return (
     <>
       {isOpen && (
