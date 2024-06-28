@@ -71,6 +71,7 @@ function Board() {
     setModalIsOpen(true);
   };
 
+  //DOne
   const closeModal = () => {
     setModalIsOpen(false);
   };
