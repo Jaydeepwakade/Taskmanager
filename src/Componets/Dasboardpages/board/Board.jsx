@@ -194,6 +194,10 @@ function Board() {
     changeTickStatus();
   }, [checked, dispatch, taskId, itemId]);
 
+
+   const handleAddEmail =()=>{
+    console.log("hello jaydeep")
+   }
   return (
     <div className={Style.container}>
       <div className={Style.header}>
@@ -217,12 +221,12 @@ function Board() {
         onConfirm={() => handleDelete(taskToDelete)}
         message="Are you sure you want to delete ?"
       />
-       <AddEmailpopup
-        isOpen={isOpen}
+      <AddEmailpopup
+        isOpen={isOpen && popupType === "ADDEMAIL"}
         onClose={closePopup}
-        onConfirm={handleaddemail}
-       
-       />
+        onConfirm={handleAddEmail}
+      />
+
 
       <div className={Style.main}>
         {/* Backlog Tasks */}
