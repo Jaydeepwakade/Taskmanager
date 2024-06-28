@@ -25,6 +25,8 @@
     gap: 10px;
     border: 1PX SOLID grey;
     align-items: center;
+    height: 35px;
+    width: 416px;
 
     /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
 }
@@ -32,12 +34,14 @@ span {
 
     height: 30px;
     width: 30px;
+    margin-bottom: 8px;
 }
 
 .inputDiv input {
     border: none;
     width: 300px;
     outline: none;
+    height: 3px;
 }
 
 .mainDiv {
@@ -50,18 +54,37 @@ span {
 .btndiv {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     align-items: center;
     justify-content: center;
 
+    width: 400px;
+    gap: 20px;
+   
 }
 
-.btndiv button {
+ .loginbtn{
     background-color: #17a2b8;
     padding: 10px;
     border: none;
-    border-radius: 10px;
+    font-size: 16px;
+    border-radius: 18px;
     color: white;
-    width: 400px;
-    height: 30px;
+    width: 425px;
+    height: 40px;
+}
+.regbtn{
+    background-color: rgb(255, 255, 255);
+    
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    border-radius: 18px;
+    color: #17a2b8;
+    width: 425px;
+    height: 40px; 
+    border: 2px solid  #17a2b8;
+}
+ .loginDiv p{
+  font-weight: 400;
+  color: rgb(58, 65, 71);
 }

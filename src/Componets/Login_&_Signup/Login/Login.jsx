@@ -87,9 +87,9 @@ function Login() {
           </div>
         </form>
         <div className={style.btndiv}>
-            <button onClick={handleLogin}>Login</button>
+            <button className={style.loginbtn}  onClick={handleLogin}>Log in</button>
             <p>Have no account yet ?</p>
-            <button onClick={handlesignup}>signup</button>
+            <button className={style.regbtn} onClick={handlesignup}>Register</button>
           </div>
       </div>
       <Outlet/>

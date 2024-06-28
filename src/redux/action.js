@@ -1,4 +1,4 @@
-export const url ="http://192.168.0.105:4000";
+export const url ="http://172.20.10.5:4000";
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";
 export const getdataerror = "GETERROR";
@@ -74,31 +74,7 @@ export const edittaskerr =(payload)=>({
 })
 
 
-export const edittasks = (taskId, newdata) => {
-  return (dispatch) => {
-    dispatch(edittaskreq());
-     
-       console.log("ID:",taskId)
-    fetch(`${url}/updateTaskDetails/${taskId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newdata)
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        dispatch(edittask(data.data));
-        dispatch(fetchdata());
-      })
-      .catch((error) => dispatch(edittaskerr(error.message)));
-  };
-};
+
 
 
 
@@ -170,8 +146,35 @@ export const addTask = (payload, id) => {
 
       const newTask = await response.json();
       dispatch(addTaskSuccess(newTask));
+      dispatch(fetchdata())
+      console.log(data)
     } catch (error) {
       dispatch(addTaskError(error.message));
     }
+  };
+};
+export const edittasks = (taskId, newdata) => {
+  return (dispatch) => {
+    dispatch(edittaskreq());
+     
+       console.log(taskId)
+    fetch(`${url}/updateTaskDetails/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newdata)
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        dispatch(edittask(data.data));
+        dispatch(fetchdata());
+      })
+      .catch((error) => dispatch(edittaskerr(error.message)));
   };
 };

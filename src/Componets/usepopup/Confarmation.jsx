@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './ConfirmationModal.module.css';
 
-
-const ConfirmationModal = ({ isOpen, message, onClose, onConfirm }) => {
+const ConfirmationModal = ({ isOpen, message, onClose, onConfirm,buttontxt}) => {
   return (
     <>
       {isOpen && (
@@ -10,12 +9,13 @@ const ConfirmationModal = ({ isOpen, message, onClose, onConfirm }) => {
           <div className={styles.modalContent}>
             <p>{message}</p>
             <div className={styles.buttons}>
+            <button onClick={onConfirm} className={styles.confirmButton}>
+                {buttontxt}
+              </button>
               <button onClick={onClose} className={styles.cancelButton}>
                 Cancel
               </button>
-              <button onClick={onConfirm} className={styles.confirmButton}>
-                Confirm
-              </button>
+              
             </div>
           </div>
         </div>

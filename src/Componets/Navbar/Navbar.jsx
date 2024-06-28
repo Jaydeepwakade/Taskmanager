@@ -85,6 +85,7 @@ function Navbar() {
              isOpen={showPopup}
              message="Are you sure you want to logout?"
              onClose={cancelLogout}
+             buttontxt={"Yes, Logout"}
              onConfirm={confirmLogout}
              />
         </div>
