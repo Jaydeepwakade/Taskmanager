@@ -236,9 +236,9 @@ router.put("/updateTaskDetails/:taskId",async(req,res)=>{
   }
 })
 
-router.post("addEmails/:userId",async(req,res)=>{
-  const userId="667b0d37a0f03c0b5f454718"
-  const email="jaydeep"
+router.put("/addEmails/:userId",async(req,res)=>{
+  const {userId}=req.params
+  const {email}=req.body
   try{
     const user=await User.findById(userId)
     if(user){
@@ -246,6 +246,7 @@ router.post("addEmails/:userId",async(req,res)=>{
         res.status(400).send({error:"Email already exists"})
       }else{
         user.assignedTo.push(email)
+        await user.save()
         res.status(200).send({message:"Email Added"})
       }
     }

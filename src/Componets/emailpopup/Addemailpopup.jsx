@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import styles from './addpopup.module.css';
+import React, { useEffect, useState } from 'react';
+import styles from '../usepopup/ConfirmationModal.module.css';
+import { url } from '../../redux/action';
 
-const AddEmailpopup = ({ isOpen, message, onClose, onConfirm,buttontxt}) => {
+const AddEmailpopup = ({ isOpen, message, onClose,buttontxt}) => {
 const [email,setEmail]=useState('')
 
 
