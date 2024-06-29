@@ -55,7 +55,7 @@ font-size: 16px;
   width: 450px;
   height: 94%;
   margin-right: 20px;
-  background-color: #eef2f5;
+  background-color: #EEF2F5;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -166,7 +166,7 @@ font-size: 16px;
 }
 
 .date {
-  background-color: red;
+  background-color: #CF3636;
   color: white;
 }
 

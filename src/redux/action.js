@@ -76,11 +76,10 @@ export const edittaskerr =(payload)=>({
 
 
 
-export const fetchdata = (id,filter) => {
+export const fetchdata = (id) => {
   return (dispatch) => {
     dispatch(getdatareq());
     const data = localStorage.getItem('id');
-    console.log("Filter:",filter);
     fetch(`${url}/fetchTask/${data}`, {
       method: 'GET',
       headers: { "Content-Type":"application/json" }
