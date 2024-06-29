@@ -251,18 +251,21 @@ font-size: 16px;
 }
 
 .optionsDropdown button:nth-last-child(2) {
-  border-bottom: none; /* Remove bottom border for the second-to-last button */
-  margin-top: -20px; /* Adjust margin to eliminate gap */
- /* Just for visibility, can be removed */
+  border-bottom: none; 
+  margin-top: -20px; 
 }
 .optionsDropdown button:nth-last-child() {
-  border-bottom: none; /* Remove bottom border for the second-to-last button */
-  margin-top: -20px; /* Adjust margin to eliminate gap */
- /* Just for visibility, can be removed */
+  border-bottom: none; 
+  margin-top: -20px;
 }
 
 
 .optionsDropdown button:hover {
   background-color: #e8e5e5;
 }
-
+.priorityCircle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}

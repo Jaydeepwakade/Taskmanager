@@ -23,7 +23,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const [titleError, setTitleError] = useState("");
     const [priorityError, setPriorityError] = useState("");
     const [allEmails,setallEmails]=useState([])
+    const [taskList,setTaskList]=useState([])
     const dispatch = useDispatch();
+    console.log(taskList)
 
     useEffect(()=>{
       const temp=localStorage.getItem('id')
@@ -44,7 +46,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
 
     useEffect(() => {
         dispatch(fetchdata());
-    }, [dispatch]);
+    }, [taskList.length]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -84,13 +86,12 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             duedate: formattedDueDate
         };
    console.log(payload)
-        try {
-            await dispatch(edittasks(id, payload)); // Dispatch edit task action
-            await dispatch(fetchdata()); // Fetch updated data
-            onRequestClose(); // Close modal after successful edit
-        } catch (error) {
+      
+          dispatch(edittasks(task._id, payload)); 
+           dispatch(fetchdata())
+            onRequestClose();
             console.error('Error updating task:', error);
-        }
+      
     };
 
     return (

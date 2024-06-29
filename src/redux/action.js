@@ -1,4 +1,4 @@
-export const url ="http://192.168.0.105:4000";
+export const url ="http://172.20.10.5:4000";
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";
 export const getdataerror = "GETERROR";
@@ -137,15 +137,16 @@ export const addTask = (payload, id) => {
         },
         body: JSON.stringify(payload),
       });
-
+   
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
       const newTask = await response.json();
       dispatch(addTaskSuccess(newTask));
       dispatch(fetchdata())
       console.log(data)
+
+   
     } catch (error) {
       dispatch(addTaskError(error.message));
     }

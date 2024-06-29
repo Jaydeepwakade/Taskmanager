@@ -34,7 +34,7 @@ function Board() {
 
   const [editmodal, setditmodal] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const taskId = localStorage.getItem("token");
     if (!taskId) {
@@ -43,7 +43,9 @@ function Board() {
     }
   }, [navigate]);
 
-  const dispatch = useDispatch();
+
+
+ 
   const tasks = useSelector((state) => state.tasks);
 
   useEffect(() => {
@@ -52,13 +54,12 @@ function Board() {
       const storedId = localStorage.getItem("id");
       setName(storedName);
       setId(storedId);
+      dispatch(fetchdata())
     };
     fetchDataFromLocalStorage();
   }, []);
 
-  useEffect(() => {
-    dispatch(fetchdata(id));
-  }, [dispatch, id]);
+
 
   const toggleDropdown = (id) => {
     setOpenDropdownIds((prevIds) => {
@@ -194,6 +195,27 @@ function Board() {
   const handleAddEmail = () => {
     console.log("hello jaydeep");
   };
+
+  const renderPriorityCircle = (tasks) => {
+    let circleColor = "";
+    switch (tasks.priority) {
+      case "HIGH":
+        circleColor = "red";
+        break;
+      case "MODERATE":
+        circleColor = "blue";
+        break;
+      case "LOW":
+        circleColor = "green";
+        break;
+      default:
+        circleColor = "black";
+        break;
+    }
+    console.log("Priority:", tasks.priority); // Log priority value
+    return <div className={Style.priorityCircle} style={{ backgroundColor: circleColor }} />;
+  };
+
   return (
     <div className={Style.container}>
       <div className={Style.header}>
@@ -206,6 +228,12 @@ function Board() {
               {" "}
               <img src={people} alt="" /> Add people
             </button>
+            <Toast
+            message={toastmessage}
+            show={showtoast}
+            duration={3000}
+            onClose={handleCloseToast}
+          />
           </div>
         </div>
       </div>
@@ -223,7 +251,7 @@ function Board() {
       />
 
       <div className={Style.main}>
-        {/* Backlog Tasks */}
+      
         <div className={Style.taskcontainer}>
           <div>
             <h3>Backlog</h3>
@@ -235,14 +263,14 @@ function Board() {
               const completedCount = ele.checklist.filter(
                 (item) => item.completed
               ).length;
-
+            
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                    <p>
-                      <img src={ele.img} alt="" />
-                      {ele.priority}
-                    </p>
+                  <div>
+                 {renderPriorityCircle(ele)} 
+                 <p>{ele.priority}</p>
+                 </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
@@ -252,12 +280,7 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button
-                        onClick={() => {
-                          setOptionsDropdownId("sads");
-                          editmodalisopen();
-                        }}
-                      >
+                      <button onClick={editmodalisopen}>
                         Edit
                       </button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
@@ -283,7 +306,13 @@ function Board() {
                     {openDropdownIds.includes(ele._id) &&
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
-                          <input type="checkbox" />
+                          <input type="checkbox" 
+                              onChange={(e) => {
+                                setChecked(e.target.checked);
+                                setTaskId(ele._id);
+                                setItemId(item._id);
+                              }}
+                          />
                           <h3>{item.task}</h3>
                         </div>
                       ))}
@@ -310,12 +339,7 @@ function Board() {
 
         {/* To Do Tasks */}
         <div className={Style.taskcontainer}>
-          <Toast
-            message={toastmessage}
-            show={showtoast}
-            duration={3000}
-            onClose={handleCloseToast}
-          />
+         
           <div>
             <h3>To Do</h3>
             <div>
@@ -341,7 +365,10 @@ function Board() {
                     task={ele}
                   />
                   <div>
-                    <p>{ele.priority}</p>
+                  <div>
+                 {renderPriorityCircle(ele)} 
+                 <p>{ele.priority}</p>
+                 </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
@@ -361,7 +388,7 @@ function Board() {
                     </div>
                   )}
 
-                  <div>
+                  <div className={Style.checklist}>
                   <h3>
                       Checklist ({completedCount}/{ele.checklist.length})
                     </h3>
@@ -419,8 +446,12 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
+         
                   <div>
-                    <p>{ele.priority}</p>
+                  <div>
+                 {renderPriorityCircle(ele)} 
+                 <p>{ele.priority}</p>
+                 </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
@@ -430,7 +461,7 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button>Edit</button>
+                      <button onClick={editmodalisopen}>Edit</button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
@@ -440,7 +471,7 @@ function Board() {
                     </div>
                   )}
 
-                  <div>
+                  <div className={Style.checklist}>
                   <h3>
                       Checklist ({completedCount}/{ele.checklist.length})
                     </h3>
@@ -454,7 +485,14 @@ function Board() {
                     {openDropdownIds.includes(ele._id) &&
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
-                          <input type="checkbox" />
+                          <input
+                           onChange={(e) => {
+                            setChecked(e.target.checked);
+                            setTaskId(ele._id);
+                            setItemId(item._id);
+                          }}
+                          
+                          type="checkbox" />
                           <h3>{item.task}</h3>
                         </div>
                       ))}
@@ -493,7 +531,10 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                    <p>{ele.priority}</p>
+                 <div>
+                 {renderPriorityCircle(ele)} 
+                 <p>{ele.priority}</p>
+                 </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
@@ -503,7 +544,7 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button>Edit</button>
+                      <button onClick={editmodalisopen}>Edit</button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>

@@ -23,16 +23,19 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const [selectedDate, setSelectedDate] = useState(null); // Track selected date
   const [dateError, setDateError] = useState("");
   const [taskList, setTaskList] = useState([]);
-
+  console.log(taskList)
   const dispatch = useDispatch();
 
   useEffect(() => {
     const id = localStorage.getItem("id");
     setId(id);
 
-    dispatch(fetchdata()); 
-    
   }, [dispatch]);
+
+  useEffect(() => {
+   dispatch(fetchdata())
+  }, [taskList])
+  
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -81,7 +84,8 @@ const Modal = ({ isOpen, onRequestClose }) => {
       duedate: formattedDueDate,
     };
 
-    const response = dispatch(addTask(payload, id)); 
+    const response = dispatch(addTask(payload, id))
+    dispatch(fetchdata()) 
     setTaskList([...taskList, response.payload]); 
     onRequestClose(); 
   };
