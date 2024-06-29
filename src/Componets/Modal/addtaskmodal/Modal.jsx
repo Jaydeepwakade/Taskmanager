@@ -156,7 +156,8 @@ const Modal = ({ isOpen, onRequestClose }) => {
         </div>
         <div className={style.assigndiv}>
           <h4>Assign to</h4>
-          <Select
+         
+           <Select
             options={emailOptions}
             components={{ Option: customOption }}
             value={assignee}
@@ -165,6 +166,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
             isClearable
             className={style.select}
           />
+           
         </div>
         <h3>
           Checklist <span>{`(${checklist.length})`}</span>

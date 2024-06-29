@@ -28,16 +28,18 @@ function Task() {
     fetchTask();
   }, [taskid]);
 
+
+
   const renderPriorityCircle = () => {
     let circleColor = "";
     switch (task.priority) {
-      case "HIGH":
+      case "HIGH PRIORITY":
         circleColor = "red";
         break;
-      case "MODERATE":
+      case "MODERATE PRIORITY":
         circleColor = "blue";
         break;
-      case "LOW":
+      case "LOW PRIORITY":
         circleColor = "green";
         break;
       default:
@@ -46,6 +48,12 @@ function Task() {
     }
     console.log("Priority:", task.priority); // Log priority value
     return <div className={Style.priorityCircle} style={{ backgroundColor: circleColor }} />;
+  };
+  const formatDate = (dueDate) => {
+    const date = new Date(dueDate);
+    const month = date.toLocaleString('default', { month: 'short' });
+    const day = date.getDate();
+    return `${month} ${day}`;
   };
 
   return (
@@ -79,13 +87,15 @@ function Task() {
           </>
         )}
 
-        {/* Due Date */}
-        <div className={Style.dueDate}>
-          <p>Due Date: <span>{task.dueDate}</span></p>
-        </div>
+{task.dueDate && (
+          <div className={Style.dueDate}>
+            <p>Due Date: <span>{formatDate(task.dueDate)}</span></p>
+          </div>
+        )}
       </div>
     </div>
   );
+  
 }
 
 export default Task;
