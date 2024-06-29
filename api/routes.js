@@ -58,14 +58,12 @@ router.post("/login", async (req, res) => {
         });
         res.cookie("id", savedUser._id);
         res.cookie("name", savedUser.name);
-        return res
-          .status(422)
-          .send({
-            message: "Logged IN",
-            data: token,
-            id: savedUser._id,
-            name: savedUser.name,
-          });
+        return res.status(422).send({
+          message: "Logged IN",
+          data: token,
+          id: savedUser._id,
+          name: savedUser.name,
+        });
       } else {
         return res.status(422).send({ error: "Invalid Credentials2" });
       }
@@ -116,13 +114,14 @@ router.post("/updateProfile", async (req, res) => {
 router.post("/saveTask/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, priority, status, checklist, dueDate } = req.body;
+    const { title, priority, status, checklist, duedate } = req.body;
+    console.log(duedate);
     const newTodo = await Todo({
       title,
       priority,
       status,
       checklist,
-      dueDate,
+      dueDate: duedate,
     });
 
     const savedTask = await newTodo.save();
@@ -314,16 +313,17 @@ router.post("/addData/:userId/:taskid", async (req, res) => {
 router.get("/tasks/next-week", async (req, res) => {
   try {
     const today = new Date();
-    const nextWeek = new Date();
+    today.setHours(0, 0, 0, 0);
+    const nextWeek = new Date(today);
     nextWeek.setDate(today.getDate() + 7);
+    console.log(today," ",nextWeek)
 
-    const tasksNextWeek = await Task.find({
-      date: {
+    const tasksNextWeek = await Todo.find({
+      dueDate: {
         $gte: today,
         $lt: nextWeek,
       },
     });
-
     console.log(tasksNextWeek);
     res.status(200).json(tasksNextWeek);
   } catch (error) {
@@ -337,8 +337,8 @@ router.get("/tasks/next-month", async (req, res) => {
     const nextMonth = new Date();
     nextMonth.setMonth(today.getMonth() + 1);
 
-    const tasksNextMonth = await Task.find({
-      date: {
+    const tasksNextMonth = await Todo.find({
+      dueDate: {
         $gte: today,
         $lt: nextMonth,
       },

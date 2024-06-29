@@ -69,11 +69,11 @@ const Modal = ({ isOpen, onRequestClose }) => {
     }
 
     const formattedDueDate = new Date(selectedDate).toLocaleDateString(
-      "en-US",
-      {
-        month: "short",
-        day: "numeric",
-      }
+      // "en-US",
+      // {
+      //   month: "short",
+      //   day: "numeric",
+      // }  
     );
 
     const payload = {
@@ -83,7 +83,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
       checklist: checklist,
       duedate: formattedDueDate,
     };
-
+    console.log("payload:",payload)
     const response = dispatch(addTask(payload, id))
     dispatch(fetchdata()) 
     setTaskList([...taskList, response.payload]); 
