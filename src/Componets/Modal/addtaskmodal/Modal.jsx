@@ -23,7 +23,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const [selectedDate, setSelectedDate] = useState(null); // Track selected date
   const [dateError, setDateError] = useState("");
   const [taskList, setTaskList] = useState([]);
-  console.log(taskList)
+  // console.log(taskList) This line runs multiple times
   const dispatch = useDispatch();
 
   useEffect(() => {

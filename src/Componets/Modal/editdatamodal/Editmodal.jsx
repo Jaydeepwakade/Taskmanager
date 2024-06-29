@@ -25,9 +25,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const [allEmails,setallEmails]=useState([])
     const [taskList,setTaskList]=useState([])
     const dispatch = useDispatch();
-    console.log(taskList)
 
     useEffect(()=>{
+      console.log(task)
       const temp=localStorage.getItem('id')
       const fetchAllEmails=async()=>{
         const result=await fetch(`${url}/fetchAllEmails/${temp}`,{
@@ -76,7 +76,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     });
 
     const handleSubmit = async () => {
-
+      console.log(task)
         const payload = {
             _id:task._id,
             title: inputValue,
@@ -85,7 +85,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             checklist: checklist,
             duedate: formattedDueDate
         };
-   console.log(payload)
+        console.log("Payload: ",payload)
       
           dispatch(edittasks(task._id, payload)); 
            dispatch(fetchdata())
