@@ -91,7 +91,6 @@ export const fetchdata = (id) => {
         return res.json();
       })
       .then((data) => {
-        console.log("Data", data);
         dispatch(getdatasuccesres(data.data));
       })
       .catch((error) => dispatch(geterordata(error.message)));
@@ -136,15 +135,16 @@ export const addTask = (payload, id) => {
         },
         body: JSON.stringify(payload),
       });
-
+   
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
       const newTask = await response.json();
       dispatch(addTaskSuccess(newTask));
       dispatch(fetchdata())
       console.log(data)
+
+   
     } catch (error) {
       dispatch(addTaskError(error.message));
     }

@@ -23,9 +23,11 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const [titleError, setTitleError] = useState("");
     const [priorityError, setPriorityError] = useState("");
     const [allEmails,setallEmails]=useState([])
+    const [taskList,setTaskList]=useState([])
     const dispatch = useDispatch();
 
     useEffect(()=>{
+      console.log(task)
       const temp=localStorage.getItem('id')
       const fetchAllEmails=async()=>{
         const result=await fetch(`${url}/fetchAllEmails/${temp}`,{
@@ -44,7 +46,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
 
     useEffect(() => {
         dispatch(fetchdata());
-    }, [dispatch]);
+    }, [taskList.length]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -74,7 +76,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     });
 
     const handleSubmit = async () => {
-
+      console.log(task)
         const payload = {
             _id:task._id,
             title: inputValue,
@@ -83,14 +85,13 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             checklist: checklist,
             duedate: formattedDueDate
         };
-   console.log(payload)
-        try {
-            await dispatch(edittasks(id, payload)); // Dispatch edit task action
-            await dispatch(fetchdata()); // Fetch updated data
-            onRequestClose(); // Close modal after successful edit
-        } catch (error) {
+        console.log("Payload: ",payload)
+      
+          dispatch(edittasks(task._id, payload)); 
+           dispatch(fetchdata())
+            onRequestClose();
             console.error('Error updating task:', error);
-        }
+      
     };
 
     return (

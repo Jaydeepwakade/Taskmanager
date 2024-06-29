@@ -23,16 +23,19 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const [selectedDate, setSelectedDate] = useState(null); // Track selected date
   const [dateError, setDateError] = useState("");
   const [taskList, setTaskList] = useState([]);
-
+  // console.log(taskList) This line runs multiple times
   const dispatch = useDispatch();
 
   useEffect(() => {
     const id = localStorage.getItem("id");
     setId(id);
 
-    dispatch(fetchdata()); 
-    
   }, [dispatch]);
+
+  useEffect(() => {
+   dispatch(fetchdata())
+  }, [taskList])
+  
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -81,7 +84,8 @@ const Modal = ({ isOpen, onRequestClose }) => {
       duedate: formattedDueDate,
     };
 
-    const response = dispatch(addTask(payload, id)); 
+    const response = dispatch(addTask(payload, id))
+    dispatch(fetchdata()) 
     setTaskList([...taskList, response.payload]); 
     onRequestClose(); 
   };
@@ -108,7 +112,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           <h3>Select Priority</h3>
           <button
             onClick={() => {
-                setPrior("HIGH")
+                setPrior("HIGH PRIORITY")
             //   setPrior({img:Ellipse2,text:"HIGH"});
             }}
           >
@@ -118,7 +122,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           </button>
           <button
             onClick={() => {
-            setPrior("MODERATE")
+            setPrior("MODERATE PRIORITY")
             //   setPrior({img:blue,text:"MODERATE"});
             }}
           >
@@ -128,7 +132,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           </button>
           <button
             onClick={() => {
-                setPrior("LOW")
+                setPrior("LOW PRIORITY")
         //    setPrior({img:green,text:"LOW"});
             }}
           >
