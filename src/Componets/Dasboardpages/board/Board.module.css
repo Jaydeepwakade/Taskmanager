@@ -43,6 +43,11 @@ font-size: 16px;
   margin-left: 10px;
   font-family: "Noto Sans", sans-serif;;
 }
+.checklist h3{
+  font-weight: 600;
+  font-size: 18px;
+  font-family: "Noto Sans", sans-serif;
+}
 
 .main {
   height: 100vh;
@@ -52,10 +57,10 @@ font-size: 16px;
 }
 
 .taskcontainer {
-  width: 450px;
+  width: 420px;
   height: 94%;
   margin-right: 20px;
-  background-color: #eef2f5;
+  background-color: #e8eaeb;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -111,17 +116,22 @@ font-size: 16px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   position: relative; /* Ensure parent container is relative */
 }
 
-/* .todos div {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-} */
+.todos p{
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.todos h2{
+  font-size: 19px;
+  font-family: "Noto Sans", sans-serif;
+  
+}
 
 .dropdowndiv {
   display: flex;
@@ -147,6 +157,9 @@ font-size: 16px;
 
 .dropdown h3 {
   width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Noto Sans", sans-serif;
 }
 
 .divbuttons {
@@ -166,19 +179,22 @@ font-size: 16px;
 }
 
 .date {
+  width: 100px;
   background-color: red;
   color: white;
 }
 
 .btns {
-  margin-left: 50px;
+  margin-left: 20px;
+ 
 }
 
 .divbuttons div button {
   font-size: 12px;
   padding: 6px;
+  width: 100px;
   border: none;
-  width: 80px;
+  margin-right: 0px;
 }
 .optionsDropdown {
   position: absolute;

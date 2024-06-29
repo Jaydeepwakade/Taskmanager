@@ -108,7 +108,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           <h3>Select Priority</h3>
           <button
             onClick={() => {
-                setPrior("HIGH")
+                setPrior("HIGH PRIORITY")
             //   setPrior({img:Ellipse2,text:"HIGH"});
             }}
           >
@@ -118,7 +118,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           </button>
           <button
             onClick={() => {
-            setPrior("MODERATE")
+            setPrior("MODERATE PRIORITY")
             //   setPrior({img:blue,text:"MODERATE"});
             }}
           >
@@ -128,7 +128,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           </button>
           <button
             onClick={() => {
-                setPrior("LOW")
+                setPrior("LOW PRIORITY")
         //    setPrior({img:green,text:"LOW"});
             }}
           >

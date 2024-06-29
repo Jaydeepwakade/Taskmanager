@@ -97,7 +97,7 @@ function Board() {
   );
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
-  console.log(backlogTasks)
+  console.log
   const handleCloseToast = () => {
     setShowtoast(false);
   };
@@ -263,10 +263,9 @@ function Board() {
                     </div>
                   )}
 
-                  <div>
-                    <h3>
-                      Checklist (<span>{completedCount}</span>/{" "}
-                      <span>{ele.checklist.length}</span>)
+                  <div className={Style.checklist}>
+                    <h3 >
+                      Checklist{"  "}({completedCount}/{ele.checklist.length})
                     </h3>
                     <img
                       onClick={() => toggleDropdown(ele._id)}
@@ -357,9 +356,8 @@ function Board() {
                   )}
 
                   <div>
-                    <h3>
-                      Checklist (<span>{completedCount}</span>/{" "}
-                      <span>{ele.checklist.length}</span>)
+                  <h3>
+                      Checklist ({completedCount}/{ele.checklist.length})
                     </h3>
                     <img
                       onClick={() => toggleDropdown(ele._id)}
@@ -437,9 +435,8 @@ function Board() {
                   )}
 
                   <div>
-                    <h3>
-                      Checklist (<span>{completedCount}</span>/{" "}
-                      <span>{ele.checklist.length}</span>)
+                  <h3>
+                      Checklist ({completedCount}/{ele.checklist.length})
                     </h3>
                     <img
                       onClick={() => toggleDropdown(ele._id)}
@@ -511,9 +508,8 @@ function Board() {
                   )}
 
                   <div>
-                    <h3>
-                      Checklist (<span>{completedCount}</span>/{" "}
-                      <span>{ele.checklist.length}</span>)
+                  <h3>
+                      Checklist ({completedCount} / {ele.checklist.length})
                     </h3>
                     <img
                       onClick={() => toggleDropdown(ele._id)}
