@@ -31,9 +31,11 @@ function Board() {
   const [checked, setChecked] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
-
+  const [filter, setFilter] = useState('today');
   const [editmodal, setditmodal] = useState(false);
   const navigate = useNavigate();
+
+  
 
   useEffect(() => {
     const taskId = localStorage.getItem("token");
@@ -194,6 +196,10 @@ function Board() {
   const handleAddEmail = () => {
     console.log("hello jaydeep");
   };
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
   return (
     <div className={Style.container}>
       <div className={Style.header}>
@@ -221,6 +227,14 @@ function Board() {
         onClose={closePopup}
         onConfirm={handleAddEmail}
       />
+
+<div>
+        <select>
+          <option value="today">Today</option>
+          <option value="next-week">Next Week</option>
+          <option value="next-month">Next Month</option>
+        </select>
+      </div>
 
       <div className={Style.main}>
         {/* Backlog Tasks */}
