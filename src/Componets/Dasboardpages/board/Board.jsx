@@ -33,6 +33,7 @@ function Board() {
   const [itemId, setItemId] = useState("");
   const [filter, setFilter] = useState("today");
   const [editmodal, setditmodal] = useState(false);
+  const [editModalTaskId, setEditModalTaskId] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -272,11 +273,6 @@ function Board() {
 
               return (
                 <div key={ele._id} className={Style.todos}>
-                  <Editmodal
-                    isOpen={editmodal}
-                    onRequestClose={editmodalclose}
-                    task={ele}
-                  />
                   <div>
                     <div>
                       {renderPriorityCircle(ele)}
@@ -293,11 +289,11 @@ function Board() {
                     <div className={Style.optionsDropdown}>
                       <button
                         onClick={() => {
-                          setOptionsDropdownId(null);
-                          editmodalisopen();
+                          setOptionsDropdownId([]);
+                          setEditModalTaskId(ele._id);
                         }}
                       >
-                        Edit
+                        Edit        
                       </button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
@@ -306,6 +302,13 @@ function Board() {
                         Share
                       </button>
                     </div>
+                  )}
+                  {editModalTaskId === ele._id && (
+                    <Editmodal
+                      isOpen={true}
+                      onRequestClose={() => setEditModalTaskId(null)}
+                      task={ele}
+                    />
                   )}
 
                   <div className={Style.checklist}>
@@ -375,11 +378,6 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
-                  <Editmodal
-                    isOpen={editmodal}
-                    onRequestClose={editmodalclose}
-                    task={ele}
-                  />
                   <div>
                     <div>
                       {renderPriorityCircle(ele)}
@@ -394,7 +392,14 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button onClick={editmodalisopen}>Edit</button>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId([]);
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit        
+                      </button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
@@ -403,7 +408,13 @@ function Board() {
                       </button>
                     </div>
                   )}
-
+                  {editModalTaskId === ele._id && (
+                    <Editmodal
+                      isOpen={true}
+                      onRequestClose={() => setEditModalTaskId(null)}
+                      task={ele}
+                    />
+                  )}
                   <div className={Style.checklist}>
                     <h3>
                       Checklist ({completedCount}/{ele.checklist.length})
@@ -462,11 +473,6 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
-                  <Editmodal
-                    isOpen={editmodal}
-                    onRequestClose={editmodalclose}
-                    task={ele}
-                  />
                   <div>
                     <div>
                       {renderPriorityCircle(ele)}
@@ -481,7 +487,14 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button onClick={editmodalisopen}>Edit</button>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId([]);
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit        
+                      </button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
@@ -489,6 +502,13 @@ function Board() {
                         Share
                       </button>
                     </div>
+                  )}
+                  {editModalTaskId === ele._id && (
+                    <Editmodal
+                      isOpen={true}
+                      onRequestClose={() => setEditModalTaskId(null)}
+                      task={ele}
+                    />
                   )}
 
                   <div className={Style.checklist}>
@@ -550,11 +570,6 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
-                  <Editmodal
-                    isOpen={editmodal}
-                    onRequestClose={editmodalclose}
-                    task={ele}
-                  />
                   <div>
                     <div>
                       {renderPriorityCircle(ele)}
@@ -569,7 +584,14 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button onClick={editmodalisopen}>Edit</button>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId([]);
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit        
+                      </button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
@@ -578,7 +600,13 @@ function Board() {
                       </button>
                     </div>
                   )}
-
+                  {editModalTaskId === ele._id && (
+                    <Editmodal
+                      isOpen={true}
+                      onRequestClose={() => setEditModalTaskId(null)}
+                      task={ele}
+                    />
+                  )}
                   <div>
                     <h3>
                       Checklist ({completedCount} / {ele.checklist.length})

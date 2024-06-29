@@ -27,7 +27,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-      console.log(task)
+      console.log("Tasks",task)
       const temp=localStorage.getItem('id')
       const fetchAllEmails=async()=>{
         const result=await fetch(`${url}/fetchAllEmails/${temp}`,{
