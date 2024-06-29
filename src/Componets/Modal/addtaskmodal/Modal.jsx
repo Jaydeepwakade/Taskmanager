@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactModal from "react-modal";
 import "./Modal.css";
 import add from "../../../assets/add.svg";
@@ -6,35 +6,35 @@ import Delete from "../../../assets/Delete.svg";
 import Ellipse2 from "../../../assets/Ellipse2.svg";
 import blue from "../../../assets/blue.svg";
 import green from "../../../assets/green.svg";
-import DatePicker from "react-datepicker"; 
-import "react-datepicker/dist/react-datepicker.css"; 
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import style from "./modal.module.css";
 import { addTask, fetchdata } from "../../../redux/action";
 import { useDispatch } from "react-redux";
+import Select from 'react-select';
+import useAllEmails from '../Allmails/useAllEmails';
 
 ReactModal.setAppElement("#root");
 
 const Modal = ({ isOpen, onRequestClose }) => {
   const [inputValue, setInputValue] = useState("");
   const [checklist, setChecklist] = useState([]);
-  const [id, setId] = useState("");
   const [prior, setPrior] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null); // Track selected date
+  const [selectedDate, setSelectedDate] = useState(null);
   const [dateError, setDateError] = useState("");
-  const [taskList, setTaskList] = useState([]);
-  // console.log(taskList) This line runs multiple times
+  const [assignee, setAssignee] = useState(null);
   const dispatch = useDispatch();
+  const allEmails = useAllEmails();
+   const [payloadnew,setpayloadnew]=useState([])
+   const [userid,setuserid]=useState("")
+   console.log(payloadnew)
 
   useEffect(() => {
-    const id = localStorage.getItem("id");
-    setId(id);
+    const id = localStorage.getItem("id")
+    setuserid(id)
+    dispatch(fetchdata());
+  }, [payloadnew]);
 
-  }, [dispatch]);
-
-  useEffect(() => {
-   dispatch(fetchdata())
-  }, [taskList])
   
 
   const handleInputChange = (e) => {
@@ -82,13 +82,44 @@ const Modal = ({ isOpen, onRequestClose }) => {
       status: "TO-DO",
       checklist: checklist,
       duedate: formattedDueDate,
+      assignee: assignee ? assignee.value : null
     };
-    console.log("payload:",payload)
-    const response = dispatch(addTask(payload, id))
-    dispatch(fetchdata()) 
-    setTaskList([...taskList, response.payload]); 
-    onRequestClose(); 
+        // console.log("payload:",payload)
+    // const response = dispatch(addTask(payload, id))
+    // dispatch(fetchdata()) 
+    // setTaskList([...taskList, response.payload]); 
+    // onRequestClose(); 
+     setpayloadnew(payload)
+    dispatch(addTask(payload,userid));
+    dispatch(fetchdata());
+    onRequestClose();
   };
+
+  const customOption = ({ data, innerRef, innerProps }) => (
+    <div {...innerProps} ref={innerRef} className={style.selectOption}>
+      <div className={style.avatar}>
+        {data.value.label.substring(0, 2).toUpperCase()}
+      </div>
+      <div className={style.emaildiv}>
+        <span className={style.email}>{data.label}</span>
+      </div>
+      <button
+        className={style.assignButton}
+        onClick={(e) => {
+          e.stopPropagation();
+          setAssignee(data.value);
+        }}
+      >
+        Assign
+      </button>
+    </div>
+  );
+
+  const emailOptions = allEmails.map(email => ({
+    value: { value: email, label: email },
+    label: email
+  }));
+
   return (
     <div className={style.container}>
       <ReactModal
@@ -98,52 +129,42 @@ const Modal = ({ isOpen, onRequestClose }) => {
         overlayClassName="overlay"
       >
         <div className={style.titlediv}>
-        <h2>
-          Title <span>*</span>
-        </h2>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Enter Task title"
-        />
+          <h2>
+            Title <span>*</span>
+          </h2>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="Enter Task title"
+          />
         </div>
         <div className={style.prioritydiv}>
           <h3>Select Priority</h3>
-          <button
-            onClick={() => {
-                setPrior("HIGH PRIORITY")
-            //   setPrior({img:Ellipse2,text:"HIGH"});
-            }}
-          >
-            {" "}
+          <button onClick={() => setPrior("HIGH PRIORITY")}>
             <img src={Ellipse2} alt="" />
             HIGH PRIORITY
           </button>
-          <button
-            onClick={() => {
-            setPrior("MODERATE PRIORITY")
-            //   setPrior({img:blue,text:"MODERATE"});
-            }}
-          >
-            {" "}
+          <button onClick={() => setPrior("MODERATE PRIORITY")}>
             <img src={blue} alt="" />
             MODERATE PRIORITY
           </button>
-          <button
-            onClick={() => {
-                setPrior("LOW PRIORITY")
-        //    setPrior({img:green,text:"LOW"});
-            }}
-          >
-            {" "}
+          <button onClick={() => setPrior("LOW PRIORITY")}>
             <img src={green} alt="" />
             LOW PRIORITY
           </button>
         </div>
         <div className={style.assigndiv}>
           <h4>Assign to</h4>
-          <input type="text" placeholder="Add assigne" />
+          <Select
+            options={emailOptions}
+            components={{ Option: customOption }}
+            value={assignee}
+            onChange={setAssignee}
+            placeholder="Select assignee"
+            isClearable
+            className={style.select}
+          />
         </div>
         <h3>
           Checklist <span>{`(${checklist.length})`}</span>
@@ -189,7 +210,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
         <div className={style.buttons}>
           <div>
             <DatePicker
-            className={style.datepicker}
+              className={style.datepicker}
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
               placeholderText="Select due date"
@@ -197,9 +218,8 @@ const Modal = ({ isOpen, onRequestClose }) => {
             {dateError && <p className={style.error}>{dateError}</p>}
           </div>
           <div>
-          <button onClick={onRequestClose}>Close</button>
+            <button onClick={onRequestClose}>Close</button>
             <button onClick={handleSubmit}>Save</button>
-       
           </div>
         </div>
       </ReactModal>

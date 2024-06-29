@@ -81,7 +81,7 @@ function Task() {
 
         {/* Due Date */}
         <div className={Style.dueDate}>
-          <p>Due Date: <span>Jan 16</span></p>
+          <p>Due Date: <span>{task.dueDate}</span></p>
         </div>
       </div>
     </div>
