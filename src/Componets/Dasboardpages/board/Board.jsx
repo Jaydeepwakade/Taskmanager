@@ -53,6 +53,10 @@ function Board() {
     fetchDataFromLocalStorage();
   }, []);
 
+  useEffect(() => {
+    dispatch(fetchdata(filter));
+  }, [filter]);
+
   const toggleDropdown = (id) => {
     setOpenDropdownIds((prevIds) => {
       if (prevIds.includes(id)) {
@@ -82,7 +86,6 @@ function Board() {
   );
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
-  console.log;
   const handleCloseToast = () => {
     setShowtoast(false);
   };
@@ -148,43 +151,44 @@ function Board() {
     }
   };
 
-  const handleWeek=async()=>{
-    console.log("here")
-    const result=await fetch(`${url}/tasks/next-week`,{
-      method:'GET',
-      headers:{
-        "Content-Type":"application/json"
-      }
-    })
-    const response=await result.json()
-    const data=response
-    console.log(data)
-  }
+  const handleWeek = async () => {
+    console.log("here");
+    const result = await fetch(`${url}/tasks/next-week`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const response = await result.json();
+    const data = response;
+    console.log(data);
+  };
 
-  const handleMonth=async()=>{
-    console.log("here")
-    const result=await fetch(`${url}/tasks/next-month`,{
-      method:'GET',
-      headers:{
-        "Content-Type":"application/json"
-      }
-    })
-    const response=await result.json()
-    const data=response
-    console.log(data)
-  }
+  const handleMonth = async () => {
+    console.log("here");
+    const result = await fetch(`${url}/tasks/next-month`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const response = await result.json();
+    const data = response;
+    console.log(data);
+  };
 
   const handleFilterChange = (event) => {
     const value = event.target.value;
     setFilter(value);
     switch (value) {
-      case 'today':
+      case "today":
+        // dispatch(fetchdata(filter));
         break;
-      case 'next-week':
-          handleWeek()
+      case "next-week":
+        // dispatch(fetchdata(filter));
         break;
-      case 'next-month':
-        handleMonth()
+      case "next-month":
+        // dispatch(fetchdata(filter));
         // Call your function for "Next Month"
         break;
       default:
@@ -397,7 +401,7 @@ function Board() {
             <div>
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
-            
+
               <img
                 onClick={() => setOpenDropdownIds([])}
                 src={collapse}

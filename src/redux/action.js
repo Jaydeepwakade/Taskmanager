@@ -73,14 +73,13 @@ export const edittaskerr =(payload)=>({
 
 
 
-
-
-
-export const fetchdata = (id) => {
+export const fetchdata = (day2) => {
   return (dispatch) => {
     dispatch(getdatareq());
     const data = localStorage.getItem('id');
-    fetch(`${url}/fetchTask/${data}`, {
+    const day='today'
+    console.log(day2)
+    fetch(`${url}/fetchTask/${data}/${day2}`, {
       method: 'GET',
       headers: { "Content-Type":"application/json" }
     })
@@ -91,6 +90,7 @@ export const fetchdata = (id) => {
         return res.json();
       })
       .then((data) => {
+        console.log(data.data)
         dispatch(getdatasuccesres(data.data));
       })
       .catch((error) => dispatch(geterordata(error.message)));
