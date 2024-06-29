@@ -45,7 +45,6 @@ function Board() {
 
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
-  
 
   useEffect(() => {
     const fetchDataFromLocalStorage = () => {
@@ -97,7 +96,7 @@ function Board() {
   );
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
-  console.log(backlogTasks)
+  console.log(backlogTasks);
   const handleCloseToast = () => {
     setShowtoast(false);
   };
@@ -253,7 +252,14 @@ function Board() {
                   <h2>{ele.title}</h2>
                   {optionsDropdownid === ele._id && (
                     <div className={Style.optionsDropdown}>
-                      <button onClick={editmodalisopen}>Edit</button>
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId("sads");
+                          editmodalisopen();
+                        }}
+                      >
+                        Edit
+                      </button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
                       </button>
