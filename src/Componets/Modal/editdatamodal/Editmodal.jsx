@@ -8,7 +8,7 @@ import blue from "../../../assets/blue.svg";
 import green from "../../../assets/green.svg";
 import add from "../../../assets/add.svg";
 import style from "./editmodal.module.css";
-import { edittasks, fetchdata } from '../../../redux/action'; // Import updateTask action
+import { edittasks, fetchdata, url } from '../../../redux/action'; // Import updateTask action
 import { useDispatch } from 'react-redux';
 
 ReactModal.setAppElement('#root');
@@ -22,9 +22,24 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const [dateError, setDateError] = useState('');
     const [titleError, setTitleError] = useState("");
     const [priorityError, setPriorityError] = useState("");
-      console.log(id)
+    const [allEmails,setallEmails]=useState([])
     const dispatch = useDispatch();
 
+    useEffect(()=>{
+      const temp=localStorage.getItem('id')
+      const fetchAllEmails=async()=>{
+        const result=await fetch(`${url}/fetchAllEmails/${temp}`,{
+          method:'POST',
+          headers:{
+            "Content-Type":"application/json"
+          }
+        })
+        const response=await result.json()
+        const data=response.data
+        setallEmails(data)
+      }
+      fetchAllEmails()
+    },[])
 
 
     useEffect(() => {

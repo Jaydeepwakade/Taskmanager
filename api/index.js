@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 const app=express()
 const cors=require('cors')
-const port=5000
+const port=4000
 app.use(cors({
   origin: 'http://localhost:5173', // or use '*' to allow all origins
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
