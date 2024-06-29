@@ -68,12 +68,14 @@ const Modal = ({ isOpen, onRequestClose }) => {
       return;
     }
 
-    const formattedDueDate = selectedDate.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
-       const id = localStorage.getItem("id")
-       console.log(id)
+    const formattedDueDate = new Date(selectedDate).toLocaleDateString(
+      // "en-US",
+      // {
+      //   month: "short",
+      //   day: "numeric",
+      // }  
+    );
+
     const payload = {
       title: inputValue,
       priority: prior,
@@ -82,6 +84,11 @@ const Modal = ({ isOpen, onRequestClose }) => {
       duedate: formattedDueDate,
       assignee: assignee ? assignee.value : null
     };
+        // console.log("payload:",payload)
+    // const response = dispatch(addTask(payload, id))
+    // dispatch(fetchdata()) 
+    // setTaskList([...taskList, response.payload]); 
+    // onRequestClose(); 
      setpayloadnew(payload)
     dispatch(addTask(payload,userid));
     dispatch(fetchdata());

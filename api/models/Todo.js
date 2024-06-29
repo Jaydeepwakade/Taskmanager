@@ -26,9 +26,13 @@ const TodoSchema=new mongoose.Schema({
 
     checklist:[checklistSchema],
 
-    dueData:{
+    dueDate:{
         type:Date,
         required:false
+    },
+
+    assignedFrom:{
+      type:String,
     }
 })
 

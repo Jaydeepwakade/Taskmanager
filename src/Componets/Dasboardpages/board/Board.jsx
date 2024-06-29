@@ -13,9 +13,6 @@ import usePopup from "../../usepopup/Popup";
 import ConfirmationModal from "../../usepopup/Confarmation";
 import { useNavigate } from "react-router-dom";
 import Editmodal from "../../Modal/editdatamodal/Editmodal";
-import Ellipse2 from "../../../assets/Ellipse2.svg";
-import blue from "../../../assets/blue.svg";
-import green from "../../../assets/green.svg";
 import people from "../../../assets/people.svg";
 import AddEmailpopup from "../../emailpopup/Addemailpopup";
 
@@ -32,7 +29,6 @@ function Board() {
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
   const [filter, setFilter] = useState("today");
-  const [editmodal, setditmodal] = useState(false);
   const [editModalTaskId, setEditModalTaskId] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,6 +53,10 @@ function Board() {
     fetchDataFromLocalStorage();
   }, []);
 
+  useEffect(() => {
+    dispatch(fetchdata(filter));
+  }, [filter]);
+
   const toggleDropdown = (id) => {
     setOpenDropdownIds((prevIds) => {
       if (prevIds.includes(id)) {
@@ -79,13 +79,6 @@ function Board() {
     setModalIsOpen(false);
   };
 
-  const editmodalisopen = () => {
-    setditmodal(true);
-  };
-  const editmodalclose = () => {
-    setditmodal(false);
-  };
-
   const backlogTasks = tasks.tasks.filter((task) => task.status === "BACKLOG");
   const todoTasks = tasks.tasks.filter((task) => task.status === "TO-DO");
   const inProgressTasks = tasks.tasks.filter(
@@ -93,7 +86,6 @@ function Board() {
   );
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
-  console.log(todoTasks)
   const handleCloseToast = () => {
     setShowtoast(false);
   };
@@ -157,6 +149,51 @@ function Board() {
     } catch (error) {
       console.error("Error fetching or copying link:", error);
       handleShowToast("Error generating share link");
+    }
+  };
+
+  const handleWeek = async () => {
+    console.log("here");
+    const result = await fetch(`${url}/tasks/next-week`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const response = await result.json();
+    const data = response;
+    console.log(data);
+  };
+
+  const handleMonth = async () => {
+    console.log("here");
+    const result = await fetch(`${url}/tasks/next-month`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const response = await result.json();
+    const data = response;
+    console.log(data);
+  };
+
+  const handleFilterChange = (event) => {
+    const value = event.target.value;
+    setFilter(value);
+    switch (value) {
+      case "today":
+        // dispatch(fetchdata(filter));
+        break;
+      case "next-week":
+        // dispatch(fetchdata(filter));
+        break;
+      case "next-month":
+        // dispatch(fetchdata(filter));
+        // Call your function for "Next Month"
+        break;
+      default:
+        break;
     }
   };
 
@@ -264,6 +301,14 @@ function Board() {
         onConfirm={handleAddEmail}
       />
 
+
+      <div>
+        <select value={filter} onChange={handleFilterChange}>
+          <option value="today">Today</option>
+          <option value="next-week">Next Week</option>
+          <option value="next-month">Next Month</option>
+        </select>
+      </div>
 
 
 
@@ -373,7 +418,7 @@ function Board() {
             <div>
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
-            
+
               <img
                 onClick={() => setOpenDropdownIds([])}
                 src={collapse}
@@ -600,7 +645,7 @@ function Board() {
                           setEditModalTaskId(ele._id);
                         }}
                       >
-                        Edit        
+                        Edit
                       </button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete

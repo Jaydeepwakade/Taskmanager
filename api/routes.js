@@ -58,14 +58,12 @@ router.post("/login", async (req, res) => {
         });
         res.cookie("id", savedUser._id);
         res.cookie("name", savedUser.name);
-        return res
-          .status(422)
-          .send({
-            message: "Logged IN",
-            data: token,
-            id: savedUser._id,
-            name: savedUser.name,
-          });
+        return res.status(422).send({
+          message: "Logged IN",
+          data: token,
+          id: savedUser._id,
+          name: savedUser.name,
+        });
       } else {
         return res.status(422).send({ error: "Invalid Credentials2" });
       }
@@ -116,32 +114,61 @@ router.post("/updateProfile", async (req, res) => {
 router.post("/saveTask/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, priority, status, checklist, dueDate } = req.body;
+    const { title, priority, status, checklist, duedate, assignee } = req.body;
+
     const newTodo = await Todo({
       title,
       priority,
       status,
       checklist,
-      dueDate,
+      dueDate: duedate,
     });
-
     const savedTask = await newTodo.save();
     await User.findByIdAndUpdate(id, { $push: { todo: savedTask._id } });
+    const user = await User.findOne({ email: assignee });
+    if (user) {
+      user.todo.push(savedTask._id);
+      await user.save();
+    }
   } catch (err) {
     console.log(err);
   }
 });
 
-router.get("/fetchTask/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
+router.get("/fetchTask/:id/:day", async (req, res) => {
+  const { id, day } = req.params;
+  if (day === "today") {
     const user = await User.findById(id).populate("todo");
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
     res.status(200).json({ message: "Done", data: user.todo });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  } else if (day === "next-week") {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const nextWeek = new Date(today);
+    nextWeek.setDate(today.getDate() + 7);
+    const tasksNextWeek = await Todo.find({
+      dueDate: {
+        $gte: today,
+        $lt: nextWeek,
+      },
+    });
+    res.status(200).json({ message: "Done", data: tasksNextWeek });
+  } else if (day === "next-month") {
+    const today = new Date();
+    const nextMonth = new Date();
+    nextMonth.setMonth(today.getMonth() + 1);
+
+    const tasksNextMonth = await Todo.find({
+      dueDate: {
+        $gte: today,
+        $lt: nextMonth,
+      },
+    });
+    res.status(200).json({ message: "Done", data: tasksNextMonth });
+  } else {
+    res.status(500).json({ error: "Hello"});
   }
 });
 
@@ -236,22 +263,35 @@ router.put("/deleteTask/:userId/:taskId", async (req, res) => {
 
 router.put("/updateTaskDetails/:taskId", async (req, res) => {
   const { taskId } = req.params;
-  const { title, priority, id, status, checklist, duedate } = req.body;
+  const { title, priority, status, checklist, duedate, assignee } = req.body;
+
   try {
     const task = await Todo.findById(taskId);
     if (!task) {
-      // task.title=title
-      console.log("Error");
-    } else {
-      const updatedTask = await Todo.findByIdAndUpdate(
-        taskId,
-        { title, priority, status, checklist, duedate },
-        { new: true } // To return the updated document
-      );
-      console.log("Done:", updatedTask);
+      return res.status(404).json({ message: "Task not found" });
     }
+
+    const updatedTask = await Todo.findByIdAndUpdate(
+      taskId,
+      { title, priority, status, checklist, duedate },
+      { new: true }
+    );
+
+    if (assignee) {
+      const user = await User.findOne({ email: assignee });
+      if (user) {
+        user.todo.push(updatedTask._id);
+        await user.save();
+      } else {
+        return res.status(404).json({ message: "Assignee not found" });
+      }
+    }
+
+    res
+      .status(200)
+      .json({ message: "Task updated successfully", task: updatedTask });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
@@ -261,10 +301,10 @@ router.put("/addEmails/:userId", async (req, res) => {
   try {
     const user = await User.findById(userId);
     if (user) {
-      if (user.assignedTo.includes(email)) {
+      if (user.friends.includes(email)) {
         res.status(400).send({ error: "Email already exists" });
       } else {
-        user.assignedTo.push(email);
+        user.friends.push(email);
         await user.save();
         res.status(200).send({ message: "Email Added" });
       }
@@ -281,8 +321,8 @@ router.post("/fetchAllEmails/:userId", async (req, res) => {
   try {
     const user = await User.findById(userId);
     if (user) {
-      console.log(user.assignedTo);
-      res.status(200).send({ data: user.assignedTo });
+      // console.log(user.assignedTo);
+      res.status(200).send({ data: user.friends });
     }
   } catch (err) {
     res.status(500).send({ error: "Something went wrong" });
@@ -314,16 +354,17 @@ router.post("/addData/:userId/:taskid", async (req, res) => {
 router.get("/tasks/next-week", async (req, res) => {
   try {
     const today = new Date();
-    const nextWeek = new Date();
+    today.setHours(0, 0, 0, 0);
+    const nextWeek = new Date(today);
     nextWeek.setDate(today.getDate() + 7);
+    console.log(today, " ", nextWeek);
 
-    const tasksNextWeek = await Task.find({
-      date: {
+    const tasksNextWeek = await Todo.find({
+      dueDate: {
         $gte: today,
         $lt: nextWeek,
       },
     });
-
     console.log(tasksNextWeek);
     res.status(200).json(tasksNextWeek);
   } catch (error) {
@@ -337,8 +378,8 @@ router.get("/tasks/next-month", async (req, res) => {
     const nextMonth = new Date();
     nextMonth.setMonth(today.getMonth() + 1);
 
-    const tasksNextMonth = await Task.find({
-      date: {
+    const tasksNextMonth = await Todo.find({
+      dueDate: {
         $gte: today,
         $lt: nextMonth,
       },

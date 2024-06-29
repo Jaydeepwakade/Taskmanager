@@ -54,10 +54,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         setChecklist((prevChecklist) => prevChecklist.filter(item => item.id !== id));
     };
 
-    const formattedDueDate = selectedDate?.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-    });
+    const formattedDueDate = selectedDate?.toLocaleDateString();
 
     const handleSubmit = async () => {
         const payload = {
@@ -92,7 +89,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 className={style.assignButton}
                 onClick={(e) => {
                     e.stopPropagation();
-                    setAssignee(data.value); // Set assignee to full email
+                    setAssignee(data.value);
                 }}
             >
                 Assign
