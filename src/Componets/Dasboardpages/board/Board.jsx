@@ -31,7 +31,7 @@ function Board() {
   const [checked, setChecked] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
-
+  const [filter, setFilter] = useState('today');
   const [editmodal, setditmodal] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -249,6 +249,14 @@ function Board() {
         onClose={closePopup}
         onConfirm={handleAddEmail}
       />
+
+<div>
+        <select>
+          <option value="today">Today</option>
+          <option value="next-week">Next Week</option>
+          <option value="next-month">Next Month</option>
+        </select>
+      </div>
 
       <div className={Style.main}>
       
