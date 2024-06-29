@@ -60,7 +60,7 @@ font-size: 16px;
   width: 420px;
   height: 94%;
   margin-right: 20px;
-  background-color: #e8eaeb;
+  background-color: #eef2f5;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -179,7 +179,6 @@ font-size: 16px;
 }
 
 .date {
-  width: 100px;
   background-color: red;
   color: white;
 }

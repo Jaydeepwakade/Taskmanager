@@ -1,4 +1,4 @@
-export const url ="http://172.20.10.5:4000";
+export const url ="http://192.168.0.105:4000";
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";
 export const getdataerror = "GETERROR";
@@ -76,11 +76,10 @@ export const edittaskerr =(payload)=>({
 
 
 
-export const fetchdata = (id,filter) => {
+export const fetchdata = (id) => {
   return (dispatch) => {
     dispatch(getdatareq());
     const data = localStorage.getItem('id');
-    console.log("Filter:",filter);
     fetch(`${url}/fetchTask/${data}`, {
       method: 'GET',
       headers: { "Content-Type":"application/json" }
@@ -92,7 +91,6 @@ export const fetchdata = (id,filter) => {
         return res.json();
       })
       .then((data) => {
-        console.log("Data", data);
         dispatch(getdatasuccesres(data.data));
       })
       .catch((error) => dispatch(geterordata(error.message)));
