@@ -15,11 +15,12 @@
 }
 
 
+
+
 .modal {
     background: white;
     padding: 20px;
     border-radius: 18px;
-
     width: 686px;
     height: 600px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -95,12 +96,8 @@ button {
     padding: 2px;
     margin-right: 5px;
 }
-/* 
-.scroll {
-    margin: 20px;
-    max-height: 200px;
-    border: 2px solid rgb(32, 139, 32);
-} */
+
+
 
 .inputdiv1 {
     margin: 0;
@@ -132,6 +129,7 @@ button {
     gap: 20px;
     align-items: center;
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .assigndiv h4 {
@@ -140,10 +138,7 @@ button {
     margin-bottom: 10px;
     font-size: 20px;
 }
-.assigndiv input{
-    width: 540px;
-    height: 30px;
-}
+
 
 .buttons {
     margin-top: auto;
@@ -179,9 +174,80 @@ button {
      font-family: "Noto Sans", sans-serif;
 }
 .datepicker{
-    height: 20px;
+    height: 10px;
     width: 120px;
     font-size: 16px;
     text-align: center;
 
+}
+.select {
+   
+    width: 540px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    position: relative;
+    width: 550px;
+
+}
+.select img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    
+}
+
+.selectOption {
+    display: flex;
+    align-items: center;
+     gap: 30px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 300px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #e1b8b8;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+
+}
+.emaildiv{
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.email{
+     width: 300px;
+     word-wrap: break-word;
+     white-space: s;
+    border: 1px solid;
+}
+
+.assignButton {
+    background-color: #fdfdfd;
+    color: rgb(0, 0, 0);
+
+    border: 1px solid grey;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    width:120px
+}
+
+.assignButton:hover {
+    background-color: #0056b3;
 }

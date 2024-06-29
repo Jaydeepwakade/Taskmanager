@@ -250,6 +250,7 @@ function Board() {
         onConfirm={handleAddEmail}
       />
 
+
 <div>
         <select>
           <option value="today">Today</option>
@@ -353,6 +354,7 @@ function Board() {
             <div>
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
+            
               <img
                 onClick={() => setOpenDropdownIds([])}
                 src={collapse}
