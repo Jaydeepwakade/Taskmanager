@@ -26,13 +26,13 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
   const allEmails = useAllEmails();
    const [payloadnew,setpayloadnew]=useState([])
-   const [userid,setuserid]=useState("")
+  const [userid,setuserid]=useState("")
    console.log(payloadnew)
 
   useEffect(() => {
     const id = localStorage.getItem("id")
     setuserid(id)
-    dispatch(fetchdata());
+    dispatch(fetchdata("today"));
   }, [payloadnew]);
 
   
@@ -91,7 +91,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
     // onRequestClose(); 
      setpayloadnew(payload)
     dispatch(addTask(payload,userid));
-    dispatch(fetchdata());
+    dispatch(fetchdata("today"));
     onRequestClose();
   };
 
@@ -210,7 +210,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           <img src={add} alt="Add new" /> Add new
         </h2>
         <div className={style.buttons}>
-          <div>
+          <div className={style.datediv}>
             <DatePicker
               className={style.datepicker}
               selected={selectedDate}
@@ -221,7 +221,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           </div>
           <div>
             <button onClick={onRequestClose}>Close</button>
-            <button onClick={handleSubmit}>Save</button>
+            <button className={style.savebtn} onClick={handleSubmit}>Save</button>
           </div>
         </div>
       </ReactModal>

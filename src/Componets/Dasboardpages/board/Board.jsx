@@ -39,7 +39,9 @@ function Board() {
       return;
     }
   }, [navigate]);
-
+   useEffect(()=>{
+     dispatch(fetchdata())
+   },[])
   const tasks = useSelector((state) => state.tasks);
 
   useEffect(() => {
@@ -69,6 +71,7 @@ function Board() {
 
   const moveTask = (taskId, newStatus) => {
     dispatch(updateTaskStatus(taskId, newStatus));
+  
   };
 
   const openModal = () => {
@@ -120,7 +123,7 @@ function Board() {
       if (result.ok) {
         handleShowToast("Task deleted successfully");
         closePopup();
-        dispatch(fetchdata(id));
+        dispatch(fetchdata("today"));
       } else {
         handleShowToast("Failed to delete task");
       }
@@ -255,7 +258,7 @@ function Board() {
   const formatDate = (dueDate) => {
     const date = new Date(dueDate);
     const month = date.toLocaleString('default', { month: 'short' });
-    const day = date.getDate(); // Corrected typo: removed unnecessary extra character 'f' from 'formatDate' function
+    const day = date.getDate(); 
     return `${month} ${day}`;
   };
    console.log(formatDate())
@@ -279,11 +282,13 @@ function Board() {
               onClose={handleCloseToast}
             />
             <div>
-        <select className={Style.filtertag}>
+          
+        <select  className={Style.filtertag} value={filter} onChange={handleFilterChange}>
           <option value="today">Today</option>
           <option value="next-week">Next Week</option>
           <option value="next-month">Next Month</option>
         </select>
+     
       </div>
           </div>
         </div>
@@ -302,13 +307,7 @@ function Board() {
       />
 
 
-      <div>
-        <select value={filter} onChange={handleFilterChange}>
-          <option value="today">Today</option>
-          <option value="next-week">Next Week</option>
-          <option value="next-month">Next Month</option>
-        </select>
-      </div>
+     
 
 
 

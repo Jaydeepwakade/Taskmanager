@@ -137,41 +137,45 @@ router.post("/saveTask/:id", async (req, res) => {
 
 router.get("/fetchTask/:id/:day", async (req, res) => {
   const { id, day } = req.params;
-  if (day === "today") {
+
+  try {
     const user = await User.findById(id).populate("todo");
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    res.status(200).json({ message: "Done", data: user.todo });
-  } else if (day === "next-week") {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const nextWeek = new Date(today);
-    nextWeek.setDate(today.getDate() + 7);
-    const tasksNextWeek = await Todo.find({
-      dueDate: {
-        $gte: today,
-        $lt: nextWeek,
-      },
-    });
-    res.status(200).json({ message: "Done", data: tasksNextWeek });
-  } else if (day === "next-month") {
-    const today = new Date();
-    const nextMonth = new Date();
-    nextMonth.setMonth(today.getMonth() + 1);
 
-    const tasksNextMonth = await Todo.find({
-      dueDate: {
-        $gte: today,
-        $lt: nextMonth,
-      },
-    });
-    res.status(200).json({ message: "Done", data: tasksNextMonth });
-  } else {
-    res.status(500).json({ error: "Hello"});
-  }
+    const allTasks = user.todo;
+
+    if (day === "today") {
+      res.status(200).json({ message: "Done", data: allTasks });
+    } else if (day === "next-week") {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const nextWeek = new Date(today);
+      nextWeek.setDate(today.getDate() + 7);
+
+      const tasksNextWeek = allTasks.filter(task => {
+        const taskDate = new Date(task.dueDate);
+        return taskDate >= today && taskDate < nextWeek;
+      });
+      res.status(200).json({ message: "Done", data: tasksNextWeek });
+    } else if (day === "next-month") {
+      const today = new Date();
+      const nextMonth = new Date();
+      nextMonth.setMonth(today.getMonth() + 1);
+
+      const tasksNextMonth = allTasks.filter(task => {
+        const taskDate = new Date(task.dueDate);
+        return taskDate >= today && taskDate < nextMonth;
+      });
+      res.status(200).json({ message: "Done", data: tasksNextMonth });
+    } else {
+      res.status(400).json({ error: "Invalid day parameter" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: "Server error", message: err.message });
+  }
 });
-
 router.put("/updateTask/:taskId", async (req, res) => {
   const { taskId } = req.params;
   const { status } = req.body;

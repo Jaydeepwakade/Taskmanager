@@ -152,7 +152,7 @@ button {
 
 
 
-.buttons button:nth-child(2) {
+.savebtn {
     height: 40px;
     width: 90px;
     background-color: #17a2b8;
@@ -161,7 +161,7 @@ button {
     width: 140px;
     border-radius: 10px;
     font-size: 18px;
-     font-family: "Noto Sans", sans-serif;
+    font-family: "Noto Sans", sans-serif;
 }
 .buttons button:nth-child(1) {
     height: 40px;
@@ -173,8 +173,9 @@ button {
     font-size: 18px;
      font-family: "Noto Sans", sans-serif;
 }
+
 .datepicker{
-    height: 10px;
+    height: 25px;
     width: 120px;
     font-size: 16px;
     text-align: center;

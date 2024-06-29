@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { url } from "../../redux/action";
 import Style from "./sharetask.module.css";
+import sandbox from "../../assets/sandbox.svg";
 
 function Task() {
   const { taskid } = useParams();
@@ -58,6 +59,10 @@ function Task() {
 
   return (
     <div className={Style.container}>
+       <div className={Style.header}>
+                <span><img src={sandbox} alt="sandbox" /></span>
+                <h3> ProManager</h3>
+            </div>
       <div className={Style.todos}>
         <div>
           <p>
@@ -68,7 +73,7 @@ function Task() {
         </div>
         <h2>{task.title}</h2>
 
-        {/* Render Checklist if exists */}
+        
         {task.checklist && (
           <>
             <div className={Style.checklist}>
