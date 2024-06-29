@@ -6,10 +6,12 @@ import Delete from "../../../assets/Delete.svg";
 import add from "../../../assets/add.svg";
 import style from "./editmodal.module.css";
 import { edittasks, fetchdata } from '../../../redux/action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import useAllEmails from '../Allmails/useAllEmails';
-
+import Ellipse2 from "../../../assets/Ellipse2.svg";
+import blue from "../../../assets/blue.svg";
+import green from "../../../assets/green.svg";
 ReactModal.setAppElement('#root');
 
 const Editmodal = ({ isOpen, onRequestClose, task }) => {
@@ -20,7 +22,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const allEmails = useAllEmails();
     const [assignee, setAssignee] = useState(null);
     const dispatch = useDispatch();
-    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (task) {
@@ -31,6 +32,13 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             setAssignee(task.assignee ? { value: task.assignee, label: task.assignee } : null);
         }
     }, [task]);
+
+    useEffect(() => {
+        const id = localStorage.getItem("id");
+        if (id) {
+            dispatch(fetchdata("today"));
+        }
+    }, [dispatch]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -56,13 +64,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const formattedDueDate = selectedDate?.toLocaleDateString();
 
     const handleSubmit = async () => {
-        if(!inputValue || !prior){
-            const newErrors = {};
-            if(!inputValue) newErrors.inputValue="Please Enter Title"
-            if(!prior) newErrors.priority="Please Select Priority"
-            setErrors(newErrors)
-            return
-        }
         const payload = {
             _id: task._id,
             title: inputValue,
@@ -74,7 +75,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         };
         
         await dispatch(edittasks(task._id, payload));
-        await dispatch(fetchdata());
+        await dispatch(fetchdata()); // Refresh data after edit
+
+        console.log('Dispatched edit and fetch actions');
         
         onRequestClose();
     };
@@ -126,13 +129,16 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 {errors.inputValue && <p className="error">{errors.inputValue}</p>}
                 <div className={style.prioritydiv}>
                     <h3>Select Priority</h3>
-                    <button onClick={() => setPrior("HIGH")}>
+                    <button onClick={() => setPrior("HIGH PRIORITY")}>
+                        <img src={Ellipse2} alt="" />
                         HIGH PRIORITY
                     </button>
-                    <button onClick={() => setPrior("MODERATE")}>
+                    <button onClick={() => setPrior("MODERATE PRIORITY")}>
+                        <img src={blue} alt="" />
                         MODERATE PRIORITY
                     </button>
-                    <button onClick={() => setPrior("LOW")}>
+                    <button onClick={() => setPrior("LOW PRIORITY")}>
+                        <img src={green} alt="" />
                         LOW PRIORITY
                     </button>
                 </div>

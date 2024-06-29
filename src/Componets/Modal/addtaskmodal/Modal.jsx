@@ -25,13 +25,13 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const [assignee, setAssignee] = useState(null);
   const dispatch = useDispatch();
   const allEmails = useAllEmails();
-  const [payloadnew, setpayloadnew] = useState([]);
-  const [userid, setuserid] = useState("");
-  const [error,setErrors]=useState({})
+   const [payloadnew,setpayloadnew]=useState([])
+   const [userid,setuserid]=useState("")
+   console.log(payloadnew)
 
   useEffect(() => {
-    const id = localStorage.getItem("id");
-    setuserid(id);
+    const id = localStorage.getItem("id")
+    setuserid(id)
     dispatch(fetchdata());
   }, [payloadnew]);
 
@@ -84,10 +84,14 @@ const Modal = ({ isOpen, onRequestClose }) => {
       duedate: formattedDueDate,
       assignee: assignee ? assignee.value : null,
     };
-    setpayloadnew(payload);
-    dispatch(addTask(payload, userid));
+        // console.log("payload:",payload)
+    // const response = dispatch(addTask(payload, id))
+    // dispatch(fetchdata()) 
+    // setTaskList([...taskList, response.payload]); 
+    // onRequestClose(); 
+     setpayloadnew(payload)
+    dispatch(addTask(payload,userid));
     dispatch(fetchdata());
-    setErrors({})
     onRequestClose();
   };
 
@@ -152,7 +156,8 @@ const Modal = ({ isOpen, onRequestClose }) => {
         </div>
         <div className={style.assigndiv}>
           <h4>Assign to</h4>
-          <Select
+         
+           <Select
             options={emailOptions}
             components={{ Option: customOption }}
             value={assignee}
@@ -161,6 +166,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
             isClearable
             className={style.select}
           />
+           
         </div>
         <h3>
           Checklist <span>{`(${checklist.length})`}</span>
@@ -204,7 +210,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           <img src={add} alt="Add new" /> Add new
         </h2>
         <div className={style.buttons}>
-          <div>
+          <div className={style.datediv}>
             <DatePicker
               className={style.datepicker}
               selected={selectedDate}
@@ -215,7 +221,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
           </div>
           <div>
             <button onClick={onRequestClose}>Close</button>
-            <button onClick={handleSubmit}>Save</button>
+            <button className={style.savebtn} onClick={handleSubmit}>Save</button>
           </div>
         </div>
       </ReactModal>

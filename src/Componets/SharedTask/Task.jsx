@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { url } from "../../redux/action";
 import Style from "./sharetask.module.css";
+import sandbox from "../../assets/sandbox.svg";
 
 function Task() {
   const { taskid } = useParams();
@@ -28,16 +29,18 @@ function Task() {
     fetchTask();
   }, [taskid]);
 
+
+
   const renderPriorityCircle = () => {
     let circleColor = "";
     switch (task.priority) {
-      case "HIGH":
+      case "HIGH PRIORITY":
         circleColor = "red";
         break;
-      case "MODERATE":
+      case "MODERATE PRIORITY":
         circleColor = "blue";
         break;
-      case "LOW":
+      case "LOW PRIORITY":
         circleColor = "green";
         break;
       default:
@@ -47,9 +50,19 @@ function Task() {
     console.log("Priority:", task.priority); // Log priority value
     return <div className={Style.priorityCircle} style={{ backgroundColor: circleColor }} />;
   };
+  const formatDate = (dueDate) => {
+    const date = new Date(dueDate);
+    const month = date.toLocaleString('default', { month: 'short' });
+    const day = date.getDate();
+    return `${month} ${day}`;
+  };
 
   return (
     <div className={Style.container}>
+       <div className={Style.header}>
+                <span><img src={sandbox} alt="sandbox" /></span>
+                <h3> ProManager</h3>
+            </div>
       <div className={Style.todos}>
         <div>
           <p>
@@ -60,7 +73,7 @@ function Task() {
         </div>
         <h2>{task.title}</h2>
 
-        {/* Render Checklist if exists */}
+        
         {task.checklist && (
           <>
             <div className={Style.checklist}>
@@ -79,13 +92,15 @@ function Task() {
           </>
         )}
 
-        {/* Due Date */}
-        <div className={Style.dueDate}>
-          <p>Due Date: <span>{task.dueDate}</span></p>
-        </div>
+{task.dueDate && (
+          <div className={Style.dueDate}>
+            <p>Due Date: <span>{formatDate(task.dueDate)}</span></p>
+          </div>
+        )}
       </div>
     </div>
   );
+  
 }
 
 export default Task;
