@@ -25,10 +25,17 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const [assignee, setAssignee] = useState(null);
   const dispatch = useDispatch();
   const allEmails = useAllEmails();
+   const [payloadnew,setpayloadnew]=useState([])
+   const [userid,setuserid]=useState("")
+   console.log(payloadnew)
 
   useEffect(() => {
+    const id = localStorage.getItem("id")
+    setuserid(id)
     dispatch(fetchdata());
-  }, [dispatch]);
+  }, [payloadnew]);
+
+  
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -65,7 +72,8 @@ const Modal = ({ isOpen, onRequestClose }) => {
       month: "short",
       day: "numeric",
     });
-
+       const id = localStorage.getItem("id")
+       console.log(id)
     const payload = {
       title: inputValue,
       priority: prior,
@@ -74,8 +82,8 @@ const Modal = ({ isOpen, onRequestClose }) => {
       duedate: formattedDueDate,
       assignee: assignee ? assignee.value : null
     };
-
-    dispatch(addTask(payload));
+     setpayloadnew(payload)
+    dispatch(addTask(payload,userid));
     dispatch(fetchdata());
     onRequestClose();
   };

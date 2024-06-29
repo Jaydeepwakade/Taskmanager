@@ -3,12 +3,9 @@ import ReactModal from 'react-modal';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Delete from "../../../assets/Delete.svg";
-import Ellipse2 from "../../../assets/Ellipse2.svg";
-import blue from "../../../assets/blue.svg";
-import green from "../../../assets/green.svg";
 import add from "../../../assets/add.svg";
 import style from "./editmodal.module.css";
-import { edittasks, fetchdata, url } from '../../../redux/action';
+import { edittasks, fetchdata } from '../../../redux/action';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 import useAllEmails from '../Allmails/useAllEmails';
@@ -20,20 +17,22 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const [checklist, setChecklist] = useState([]);
     const [prior, setPrior] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
-    const [dateError, setDateError] = useState('');
-    const allEmails = useAllEmails()
+    const allEmails = useAllEmails();
     const [assignee, setAssignee] = useState(null);
     const dispatch = useDispatch();
 
-    
     useEffect(() => {
-        dispatch(fetchdata());
-    }, []);
+        if (task) {
+            setInputValue(task.title || '');
+            setChecklist(task.checklist || []);
+            setPrior(task.priority || '');
+            setSelectedDate(task.duedate ? new Date(task.duedate) : null);
+            setAssignee(task.assignee ? { value: task.assignee, label: task.assignee } : null);
+        }
+    }, [task]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
-        // Clear title error on input change
-        if (titleError) setTitleError("");
     };
 
     const handleChecklistTaskChange = (id, value) => {
@@ -68,8 +67,14 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             duedate: formattedDueDate,
             assignee: assignee ? assignee.value : null
         };
-        dispatch(edittasks(task._id, payload));
-        dispatch(fetchdata());
+
+        console.log('Submitting payload:', payload);
+        
+        await dispatch(edittasks(task._id, payload));
+        await dispatch(fetchdata()); // Refresh data after edit
+
+        console.log('Dispatched edit and fetch actions');
+        
         onRequestClose();
     };
 
@@ -79,7 +84,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 {data.value.label.substring(0, 2).toUpperCase()}
             </div>
             <div className={style.emaildiv}>
-            <span className={style.email}>{data.label}</span>
+                <span className={style.email}>{data.label}</span>
             </div>
             <button
                 className={style.assignButton}
@@ -141,11 +146,11 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                         className={style.select}
                     />
                 </div>
-        
+
                 <h3>
                     Checklist <span>{`(${checklist.length})`}</span>
                 </h3>
-        
+
                 <div className={style.scrolldiv}>
                     {checklist.map((item) => (
                         <div className={style.inputdiv} key={item.id}>
@@ -190,7 +195,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                             onChange={(date) => setSelectedDate(date)}
                             placeholderText="Select due date"
                         />
-                        {dateError && <p className={style.error}>{dateError}</p>}
                     </div>
                     <div>
                         <button onClick={onRequestClose}>Close</button>
