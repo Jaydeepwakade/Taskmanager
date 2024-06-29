@@ -127,6 +127,15 @@ router.post("/saveTask/:id", async (req, res) => {
     await User.findByIdAndUpdate(id, { $push: { todo: savedTask._id } });
     const user = await User.findOne({ email: assignee });
     if (user) {
+      const newTodo = await Todo({
+        title,
+        priority,
+        status,
+        checklist,
+        dueDate: duedate,
+        name: user.name,
+      });
+      const savedTask = await newTodo.save();
       user.todo.push(savedTask._id);
       await user.save();
     }
@@ -137,38 +146,43 @@ router.post("/saveTask/:id", async (req, res) => {
 
 router.get("/fetchTask/:id/:day", async (req, res) => {
   const { id, day } = req.params;
-  if (day === "today") {
+
+  try {
     const user = await User.findById(id).populate("todo");
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    res.status(200).json({ message: "Done", data: user.todo });
-  } else if (day === "next-week") {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const nextWeek = new Date(today);
-    nextWeek.setDate(today.getDate() + 7);
-    const tasksNextWeek = await Todo.find({
-      dueDate: {
-        $gte: today,
-        $lt: nextWeek,
-      },
-    });
-    res.status(200).json({ message: "Done", data: tasksNextWeek });
-  } else if (day === "next-month") {
-    const today = new Date();
-    const nextMonth = new Date();
-    nextMonth.setMonth(today.getMonth() + 1);
 
-    const tasksNextMonth = await Todo.find({
-      dueDate: {
-        $gte: today,
-        $lt: nextMonth,
-      },
-    });
-    res.status(200).json({ message: "Done", data: tasksNextMonth });
-  } else {
-    res.status(500).json({ error: "Hello"});
+    const allTasks = user.todo;
+
+    if (day === "today") {
+      res.status(200).json({ message: "Done", data: allTasks });
+    } else if (day === "next-week") {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const nextWeek = new Date(today);
+      nextWeek.setDate(today.getDate() + 7);
+
+      const tasksNextWeek = allTasks.filter((task) => {
+        const taskDate = new Date(task.dueDate);
+        return taskDate >= today && taskDate < nextWeek;
+      });
+      res.status(200).json({ message: "Done", data: tasksNextWeek });
+    } else if (day === "next-month") {
+      const today = new Date();
+      const nextMonth = new Date();
+      nextMonth.setMonth(today.getMonth() + 1);
+
+      const tasksNextMonth = allTasks.filter((task) => {
+        const taskDate = new Date(task.dueDate);
+        return taskDate >= today && taskDate < nextMonth;
+      });
+      res.status(200).json({ message: "Done", data: tasksNextMonth });
+    } else {
+      res.status(400).json({ error: "Invalid day parameter" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: "Server error", message: err.message });
   }
 });
 

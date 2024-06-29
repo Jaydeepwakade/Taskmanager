@@ -90,7 +90,6 @@ export const fetchdata = (day2) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data.data)
         dispatch(getdatasuccesres(data.data));
       })
       .catch((error) => dispatch(geterordata(error.message)));

@@ -20,6 +20,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const allEmails = useAllEmails();
     const [assignee, setAssignee] = useState(null);
     const dispatch = useDispatch();
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (task) {
@@ -55,6 +56,13 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const formattedDueDate = selectedDate?.toLocaleDateString();
 
     const handleSubmit = async () => {
+        if(!inputValue || !prior){
+            const newErrors = {};
+            if(!inputValue) newErrors.inputValue="Please Enter Title"
+            if(!prior) newErrors.priority="Please Select Priority"
+            setErrors(newErrors)
+            return
+        }
         const payload = {
             _id: task._id,
             title: inputValue,
@@ -64,13 +72,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             duedate: formattedDueDate,
             assignee: assignee ? assignee.value : null
         };
-
-        console.log('Submitting payload:', payload);
         
         await dispatch(edittasks(task._id, payload));
-        await dispatch(fetchdata()); // Refresh data after edit
-
-        console.log('Dispatched edit and fetch actions');
+        await dispatch(fetchdata());
         
         onRequestClose();
     };
@@ -119,6 +123,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                         placeholder="Enter Task title"
                     />
                 </div>
+                {errors.inputValue && <p className="error">{errors.inputValue}</p>}
                 <div className={style.prioritydiv}>
                     <h3>Select Priority</h3>
                     <button onClick={() => setPrior("HIGH")}>
@@ -131,6 +136,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                         LOW PRIORITY
                     </button>
                 </div>
+                {errors.prior && <p className="error">{errors.prior}</p>}
                 <div className={style.assigndiv}>
                     <h4>Assign to</h4>
                     <Select

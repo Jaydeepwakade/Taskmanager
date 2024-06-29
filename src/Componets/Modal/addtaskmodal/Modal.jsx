@@ -11,8 +11,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import style from "./modal.module.css";
 import { addTask, fetchdata } from "../../../redux/action";
 import { useDispatch } from "react-redux";
-import Select from 'react-select';
-import useAllEmails from '../Allmails/useAllEmails';
+import Select from "react-select";
+import useAllEmails from "../Allmails/useAllEmails";
 
 ReactModal.setAppElement("#root");
 
@@ -25,17 +25,15 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const [assignee, setAssignee] = useState(null);
   const dispatch = useDispatch();
   const allEmails = useAllEmails();
-   const [payloadnew,setpayloadnew]=useState([])
-   const [userid,setuserid]=useState("")
-   console.log(payloadnew)
+  const [payloadnew, setpayloadnew] = useState([]);
+  const [userid, setuserid] = useState("");
+  const [error,setErrors]=useState({})
 
   useEffect(() => {
-    const id = localStorage.getItem("id")
-    setuserid(id)
+    const id = localStorage.getItem("id");
+    setuserid(id);
     dispatch(fetchdata());
   }, [payloadnew]);
-
-  
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -68,13 +66,15 @@ const Modal = ({ isOpen, onRequestClose }) => {
       return;
     }
 
-    const formattedDueDate = new Date(selectedDate).toLocaleDateString(
-      // "en-US",
-      // {
-      //   month: "short",
-      //   day: "numeric",
-      // }  
-    );
+    if(!inputValue || !prior){
+      const newError={}
+      if(!inputValue) newError.inputValue="Please Enter Title"
+      if(!prior) newError.priority="Please Select Priority"
+      setErrors(newError)
+      return
+    }
+
+    const formattedDueDate = new Date(selectedDate).toLocaleDateString();
 
     const payload = {
       title: inputValue,
@@ -82,16 +82,12 @@ const Modal = ({ isOpen, onRequestClose }) => {
       status: "TO-DO",
       checklist: checklist,
       duedate: formattedDueDate,
-      assignee: assignee ? assignee.value : null
+      assignee: assignee ? assignee.value : null,
     };
-        // console.log("payload:",payload)
-    // const response = dispatch(addTask(payload, id))
-    // dispatch(fetchdata()) 
-    // setTaskList([...taskList, response.payload]); 
-    // onRequestClose(); 
-     setpayloadnew(payload)
-    dispatch(addTask(payload,userid));
+    setpayloadnew(payload);
+    dispatch(addTask(payload, userid));
     dispatch(fetchdata());
+    setErrors({})
     onRequestClose();
   };
 
@@ -115,9 +111,9 @@ const Modal = ({ isOpen, onRequestClose }) => {
     </div>
   );
 
-  const emailOptions = allEmails.map(email => ({
+  const emailOptions = allEmails.map((email) => ({
     value: { value: email, label: email },
-    label: email
+    label: email,
   }));
 
   return (

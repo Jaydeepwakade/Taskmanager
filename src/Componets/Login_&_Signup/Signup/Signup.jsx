@@ -42,8 +42,6 @@ function Signup() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Add your signup logic here
-      console.log("Signup clicked", { name, email, password, confirmPassword });
       const user = {
         name: name,
         email: email,
