@@ -83,7 +83,7 @@ export const fetchdata = (id) => {
     console.log("id", data);
     fetch(`${url}/fetchTask/${data}`, {
       method: 'GET',
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type":"application/json" }
     })
       .then((res) => {
         if (!res.ok) {
