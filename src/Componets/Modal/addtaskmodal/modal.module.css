@@ -111,7 +111,7 @@ button {
     flex-direction: column;
     gap: 10px;
     padding: 10px;
-    max-height: 200px;
+    max-height: 160px;
     overflow-y: scroll;
     margin: 10px;
 }
@@ -182,72 +182,87 @@ button {
 }
 .select {
    
-    width: 540px;
+    width: 560px;
     padding: 5px;
     font-size: 16px;
     border-radius: 5px;
     outline: none;
     position: relative;
-    width: 550px;
+   
+    
 
 }
-.select img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-    
-}
+
 
 .selectOption {
     display: flex;
     align-items: center;
+    justify-content: center;
+     color: black;
      gap: 30px;
     padding: 8px;
     cursor: pointer;
     font-size: 16px;
-    width: 300px;
+    margin-left: 60px;
+    width: 400px;
 }
 
 .avatar {
-    width: 40px;
+    width: 40px !important; 
     height: 40px;
-    background-color: #e1b8b8;
+    background-color:rgb(245, 225, 225);
+
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
     font-size: 14px;
-
+    margin-left: -50px;
+    margin-right: -10px;
+   
 }
-.emaildiv{
-    width: 400px;
+
+.emaildiv {
+    width: 220px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    align-items: start;
+    justify-content: flex-start;
+
+
 }
-.email{
-     width: 300px;
-     word-wrap: break-word;
-     white-space: s;
-    border: 1px solid;
+
+.emaildiv .email {
+    font-family: "Noto Sans", sans-serif;
+    width: 300px;
+    word-wrap: break-word;
+    color: black;
+    margin: 0; /* Reset margin */
+ 
+    font-size: 18px;
+    margin-left: 5px;
+    
+  
 }
+
+
 
 .assignButton {
     background-color: #fdfdfd;
     color: rgb(0, 0, 0);
-
+    border-radius: 12px;
     border: 1px solid grey;
     padding: 8px 12px;
-    border-radius: 4px;
+    
     cursor: pointer;
     font-size: 14px;
-    width:120px
+    width:150px;
+    margin-left: 30px;
+    margin-right: -40px;
 }
 
 .assignButton:hover {
-    background-color: #0056b3;
+    background-color: rgb(231, 223, 223);
+
 }

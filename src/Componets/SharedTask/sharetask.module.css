@@ -1,96 +1,101 @@
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  
-  .todos {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    border-radius: 25px;
-    gap: 40px;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    position: relative;
-    height: 500px;
-    width: 550px;
-  }
-  
-  .todos p {
-    font-weight: 400;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .todos h2 {
-    font-size: 19px;
-    font-family: "Noto Sans", sans-serif;
-  }
-  
-  .dropdowndiv {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    max-height: 300px;
-    overflow-y: scroll;
-    margin: 10px;
-  }
-  
-  .dropdowndiv input {
-    height: auto;
-    width: 20px;
-    margin: 10px;
-  }
-  
-  .dropdown {
-    display: flex;
-    font-size: 15px;
-    font-weight: 400;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    border-radius: 10px;
-    padding: 5px;
-    align-items: center;
-    justify-content: center;
-  
-  }
-  
-  .dropdown h3 {
-    width: 100%;
-    font-size: 18px;
-    font-weight: 500;
-    font-family: "Noto Sans", sans-serif;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    max-width: 100%;
-  }
-  
-  .dueDate {
-    display: flex;
-    justify-content: flex-start
-  }
-  
-  .dueDate span {
-    background-color: red;
-    padding: 8px;
-    color: white;
-    margin-left: 10px;
-    border-radius: 5px;
-    height: 20px;
-    width: 70px;
-    text-align: center;
-  }
-  
-  .priorityCircle {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 8px;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.todos {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 25px;
+  gap: 40px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  position: relative;
+  height: 500px;
+  width: 550px;
+}
+
+.todos p {
+  font-weight: 400;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.todos h2 {
+  font-size: 19px;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.dropdowndiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto; /* Add scrollbar when content exceeds max-height */
+  margin: 10px;
+}
+
+.dropdowndiv input {
+  height: auto;
+  width: 20px;
+  margin: 10px;
+}
+
+
+
+
+.dropdowndiv input {
+  height: auto;
+  width: 20px;
+  margin: 10px;
+}
+
+.dropdown {
+  display: flex;
+  font-size: 15px;
+  font-weight: 400;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.dropdown h3 {
+  width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Noto Sans", sans-serif;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.dueDate {
+  display: flex;
+  justify-content: flex-start
+}
+
+.dueDate span {
+  background-color: red;
+  padding: 8px;
+  color: white;
+  margin-left: 10px;
+  border-radius: 5px;
+  height: 20px;
+  width: 70px;
+  text-align: center;
+}
+
+.priorityCircle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}

@@ -93,7 +93,7 @@ function Board() {
   );
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
-  console.log;
+  console.log(todoTasks)
   const handleCloseToast = () => {
     setShowtoast(false);
   };
@@ -112,6 +112,7 @@ function Board() {
     setShowtoast(true);
     setToastmessage(message);
   };
+
 
   const handleDelete = async (taskIdToDelete) => {
     if (!taskIdToDelete) return;
@@ -192,16 +193,16 @@ function Board() {
     console.log("hello jaydeep");
   };
 
-  const renderPriorityCircle = (tasks) => {
+  const renderPriorityCircle = (tasks,msg) => {
     let circleColor = "";
     switch (tasks.priority) {
-      case "HIGH":
+      case "HIGH PRIORITY":
         circleColor = "red";
         break;
-      case "MODERATE":
+      case "MODERATE PRIORITY":
         circleColor = "blue";
         break;
-      case "LOW":
+      case "LOW PRIORITY":
         circleColor = "green";
         break;
       default:
@@ -209,12 +210,18 @@ function Board() {
         break;
     }
     return (
-      <div
-        className={Style.priorityCircle}
-        style={{ backgroundColor: circleColor }}
-      />
+       <div className={Style.prioritydiv}> <div className={Style.priorityCircle}
+       style={{ backgroundColor: circleColor }}></div>
+       <p>{msg}</p></div>
     );
   };
+  const formatDate = (dueDate) => {
+    const date = new Date(dueDate);
+    const month = date.toLocaleString('default', { month: 'short' });
+    const day = date.getDate(); // Corrected typo: removed unnecessary extra character 'f' from 'formatDate' function
+    return `${month} ${day}`;
+  };
+   console.log(formatDate())
 
   return (
     <div className={Style.container}>
@@ -234,6 +241,13 @@ function Board() {
               duration={3000}
               onClose={handleCloseToast}
             />
+            <div>
+        <select className={Style.filtertag}>
+          <option value="today">Today</option>
+          <option value="next-week">Next Week</option>
+          <option value="next-month">Next Month</option>
+        </select>
+      </div>
           </div>
         </div>
       </div>
@@ -251,13 +265,7 @@ function Board() {
       />
 
 
-<div>
-        <select>
-          <option value="today">Today</option>
-          <option value="next-week">Next Week</option>
-          <option value="next-month">Next Month</option>
-        </select>
-      </div>
+
 
       <div className={Style.main}>
         <div className={Style.taskcontainer}>
@@ -276,8 +284,8 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <div>
-                      {renderPriorityCircle(ele)}
-                      <p>{ele.priority}</p>
+                      {renderPriorityCircle(ele,ele.priority)}
+                      
                     </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
@@ -294,7 +302,7 @@ function Board() {
                           setEditModalTaskId(ele._id);
                         }}
                       >
-                        Edit        
+                        Edit
                       </button>
                       <button onClick={() => handleDeleteClick(ele._id)}>
                         Delete
@@ -339,7 +347,7 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                    <div className={Style.date}>date</div>
+                    <div className={Style.date}>{formatDate(ele.dueDate)}</div>
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
@@ -382,8 +390,8 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <div>
-                      {renderPriorityCircle(ele)}
-                      <p>{ele.priority}</p>
+                     
+                      <p>{renderPriorityCircle(ele,ele.priority)}</p>
                     </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
@@ -444,7 +452,7 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                    <div className={Style.date}>date</div>
+                    <div className={Style.date}>f{formatDate(ele.dueDate)}</div>
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
@@ -477,8 +485,8 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <div>
-                      {renderPriorityCircle(ele)}
-                      <p>{ele.priority}</p>
+                      {renderPriorityCircle(ele,ele.priority)}
+            
                     </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
@@ -574,8 +582,8 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <div>
-                      {renderPriorityCircle(ele)}
-                      <p>{ele.priority}</p>
+                      {renderPriorityCircle(ele,ele.priority)}
+                   
                     </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}

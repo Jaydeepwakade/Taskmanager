@@ -132,6 +132,9 @@ font-size: 16px;
   font-family: "Noto Sans", sans-serif;
   
 }
+.filtertag{
+  margin-left: 1230px;
+}
 
 .dropdowndiv {
   display: flex;
@@ -161,7 +164,9 @@ font-size: 16px;
   font-weight: 500;
   font-family: "Noto Sans", sans-serif;
 }
-
+.prioritydiv p{
+  margin-left: -20px;
+}
 .divbuttons {
   display: flex;
   gap: 30px;

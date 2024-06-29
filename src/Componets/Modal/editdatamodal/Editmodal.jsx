@@ -9,7 +9,9 @@ import { edittasks, fetchdata } from '../../../redux/action';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 import useAllEmails from '../Allmails/useAllEmails';
-
+import Ellipse2 from "../../../assets/Ellipse2.svg";
+import blue from "../../../assets/blue.svg";
+import green from "../../../assets/green.svg";
 ReactModal.setAppElement('#root');
 
 const Editmodal = ({ isOpen, onRequestClose, task }) => {
@@ -70,8 +72,8 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
 
         console.log('Submitting payload:', payload);
         
-        await dispatch(edittasks(task._id, payload));
-        await dispatch(fetchdata()); // Refresh data after edit
+         dispatch(edittasks(task._id, payload));
+     dispatch(fetchdata()); // Refresh data after edit
 
         console.log('Dispatched edit and fetch actions');
         
@@ -123,17 +125,20 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                     />
                 </div>
                 <div className={style.prioritydiv}>
-                    <h3>Select Priority</h3>
-                    <button onClick={() => setPrior("HIGH")}>
-                        HIGH PRIORITY
-                    </button>
-                    <button onClick={() => setPrior("MODERATE")}>
-                        MODERATE PRIORITY
-                    </button>
-                    <button onClick={() => setPrior("LOW")}>
-                        LOW PRIORITY
-                    </button>
-                </div>
+          <h3>Select Priority</h3>
+          <button onClick={() => setPrior("HIGH PRIORITY")}>
+            <img src={Ellipse2} alt="" />
+            HIGH PRIORITY
+          </button>
+          <button onClick={() => setPrior("MODERATE PRIORITY")}>
+            <img src={blue} alt="" />
+            MODERATE PRIORITY
+          </button>
+          <button onClick={() => setPrior("LOW PRIORITY")}>
+            <img src={green} alt="" />
+            LOW PRIORITY
+          </button>
+        </div>
                 <div className={style.assigndiv}>
                     <h4>Assign to</h4>
                     <Select
