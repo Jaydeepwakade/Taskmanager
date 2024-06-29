@@ -32,7 +32,7 @@ function Board() {
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
 
-  const [editmodal,setditmodal]=useState(false)
+  const [editmodal, setditmodal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,6 +45,7 @@ function Board() {
 
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
+  
 
   useEffect(() => {
     const fetchDataFromLocalStorage = () => {
@@ -82,12 +83,12 @@ function Board() {
     setModalIsOpen(false);
   };
 
-  const editmodalisopen=()=>{
-     setditmodal(true)
-  }
-  const editmodalclose=()=>{
-     setditmodal(false)
-  }
+  const editmodalisopen = () => {
+    setditmodal(true);
+  };
+  const editmodalclose = () => {
+    setditmodal(false);
+  };
 
   const backlogTasks = tasks.tasks.filter((task) => task.status === "BACKLOG");
   const todoTasks = tasks.tasks.filter((task) => task.status === "TO-DO");
@@ -96,16 +97,16 @@ function Board() {
   );
   const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
+  console.log(backlogTasks)
   const handleCloseToast = () => {
     setShowtoast(false);
   };
 
   const { isOpen, popupType, openPopup, closePopup } = usePopup();
 
-
-   const handleaddemail =()=>{
-    openPopup("ADDEMAIL")
-   }
+  const handleaddemail = () => {
+    openPopup("ADDEMAIL");
+  };
   const handleDeleteClick = (taskId) => {
     setTaskToDelete(taskId);
     openPopup("DELETE");
@@ -120,15 +121,12 @@ function Board() {
     if (!taskIdToDelete) return;
 
     try {
-      const result = await fetch(
-        `${url}/deleteTask/${id}/${taskIdToDelete}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const result = await fetch(`${url}/deleteTask/${id}/${taskIdToDelete}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (result.ok) {
         handleShowToast("Task deleted successfully");
@@ -194,25 +192,23 @@ function Board() {
     changeTickStatus();
   }, [checked, dispatch, taskId, itemId]);
 
-
-   const handleAddEmail =()=>{
-    console.log("hello jaydeep")
-   }
+  const handleAddEmail = () => {
+    console.log("hello jaydeep");
+  };
   return (
     <div className={Style.container}>
       <div className={Style.header}>
-         <div>
-         <h2>Welcome! {name}</h2>
-          
+        <div>
+          <h2>Welcome! {name}</h2>
+
           <div className={Style.addpeople}>
-          <h2>Board</h2>
-          <button onClick={handleaddemail}> <img src={people} alt="" /> Add people</button>
+            <h2>Board</h2>
+            <button onClick={handleaddemail}>
+              {" "}
+              <img src={people} alt="" /> Add people
+            </button>
           </div>
-          
-         </div>
-         
-       
-         
+        </div>
       </div>
       <ConfirmationModal
         isOpen={isOpen && popupType === "DELETE"}
@@ -227,17 +223,12 @@ function Board() {
         onConfirm={handleAddEmail}
       />
 
-
       <div className={Style.main}>
         {/* Backlog Tasks */}
         <div className={Style.taskcontainer}>
           <div>
             <h3>Backlog</h3>
-            <img
-              src={collapse}
-              onClick={() => setOpenDropdownIds([])}
-              alt=""
-            />
+            <img src={collapse} onClick={() => setOpenDropdownIds([])} alt="" />
           </div>
 
           <div className={Style.taskshow}>
@@ -249,7 +240,10 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                    <p><img src={ele.img} alt="" />{ele.priority}</p>
+                    <p>
+                      <img src={ele.img} alt="" />
+                      {ele.priority}
+                    </p>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
@@ -322,7 +316,11 @@ function Board() {
             <div>
               <img onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
-              <img onClick={()=>setOpenDropdownIds([])} src={collapse} alt="" />
+              <img
+                onClick={() => setOpenDropdownIds([])}
+                src={collapse}
+                alt=""
+              />
             </div>
           </div>
           <div className={Style.taskshow}>
@@ -335,7 +333,7 @@ function Board() {
                   <Editmodal
                     isOpen={editmodal}
                     onRequestClose={editmodalclose}
-                      task={ele}
+                    task={ele}
                   />
                   <div>
                     <p>{ele.priority}</p>
@@ -405,11 +403,10 @@ function Board() {
           </div>
         </div>
 
-        
         <div className={Style.taskcontainer}>
           <div>
             <h3>In Progress</h3>
-            <img onClick={()=>setOpenDropdownIds([])} src={collapse} alt="" />
+            <img onClick={() => setOpenDropdownIds([])} src={collapse} alt="" />
           </div>
           <div className={Style.taskshow}>
             {inProgressTasks.map((ele) => {
@@ -483,7 +480,7 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>Done</h3>
-            <img onClick={()=> setOpenDropdownIds([])} src={collapse} alt="" />
+            <img onClick={() => setOpenDropdownIds([])} src={collapse} alt="" />
           </div>
           <div className={Style.taskshow}>
             {doneTasks.map((ele) => {

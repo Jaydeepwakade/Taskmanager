@@ -35,6 +35,7 @@
 }
 .titlediv input{
  width: 640px;
+ height: 30px;
 }
 .titlediv h2{
     font-size: 20px;
@@ -141,6 +142,7 @@ button {
 }
 .assigndiv input{
     width: 540px;
+    height: 30px;
 }
 
 .buttons {
