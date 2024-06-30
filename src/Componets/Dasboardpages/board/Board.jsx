@@ -350,8 +350,8 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   {/* {ele.name?<div>{ele.name}</div>:null} */}
-                  <div>
-                    <div>
+                  <div >
+                    <div className={Style.subheader}>
                       {renderPriorityCircle(ele, ele.priority)}
                       <div className={ele.name ? Style.avatar : ""}>
                         <h4>
