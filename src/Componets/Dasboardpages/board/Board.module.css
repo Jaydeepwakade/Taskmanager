@@ -9,6 +9,11 @@
   height: 100vh; /* Full viewport height */
   overflow: hidden;
 }
+.datenew{
+  margin-left: 700px;
+  background-color: red;
+  width: 30px;
+}
 
 .header {
   display: flex;

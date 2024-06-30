@@ -1,4 +1,4 @@
-export const url ="http://172.20.10.5:4000";
+export const url ="https://workserver-1.onrender.com";
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";
 export const getdataerror = "GETERROR";
@@ -15,7 +15,8 @@ export const edittasksucces= "edittasksucces"
 export const edittaskerror= "edittaskerror"
 
 
-//hashra
+//hashracvxdfgggggggg
+//gfhdhd
 export const getdatareq = (payload1) => {
   return { type: getdatarequest, payload: payload1 };
 };
@@ -90,7 +91,6 @@ export const fetchdata = (day2) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data.data)
         dispatch(getdatasuccesres(data.data));
       })
       .catch((error) => dispatch(geterordata(error.message)));

@@ -171,31 +171,6 @@ function Board() {
     }
   };
 
-  const handleWeek = async () => {
-    console.log("here");
-    const result = await fetch(`${url}/tasks/next-week`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const response = await result.json();
-    const data = response;
-    console.log(data);
-  };
-
-  const handleMonth = async () => {
-    console.log("here");
-    const result = await fetch(`${url}/tasks/next-month`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const response = await result.json();
-    const data = response;
-    console.log(data);
-  };
 
   const handleFilterChange = (event) => {
     const value = event.target.value;
@@ -209,7 +184,6 @@ function Board() {
         break;
       case "next-month":
         // dispatch(fetchdata(filter));
-        // Call your function for "Next Month"
         break;
       default:
         break;
@@ -290,6 +264,20 @@ function Board() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  const currentDate = new Date();
+
+  // Get day, month, and year
+  const day = currentDate.getDate();
+  const month = currentDate.getMonth() + 1; // Month is zero-indexed, so add 1
+  const year = currentDate.getFullYear();
+
+  // Format day and month to have two digits if needed
+  const formattedDay = day < 10 ? `0${day}` : day;
+  const formattedMonth = month < 10 ? `0${month}` : month;
+
+  // Combine into ddmmyy format
+  const ddmmyyDate = `${formattedDay}/${formattedMonth}/${year.toString().slice(-2)}`;
+
 
   return (
     <div className={Style.container}>
@@ -309,8 +297,10 @@ function Board() {
               duration={3000}
               onClose={handleCloseToast}
             />
+           
+           
             <div>
-          
+        
         <select  className={Style.filtertag} value={filter} onChange={handleFilterChange}>
           <option value="today">Today</option>
           <option value="next-week">Next Week</option>
@@ -357,6 +347,7 @@ function Board() {
                   <div>
                     <div>
                       {renderPriorityCircle(ele,ele.priority)}
+                      <div>{ele.name}</div>
                       
                     </div>
                     <img

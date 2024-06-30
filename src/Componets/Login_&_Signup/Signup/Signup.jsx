@@ -42,8 +42,6 @@ function Signup() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Add your signup logic here
-      console.log("Signup clicked", { name, email, password, confirmPassword });
       const user = {
         name: name,
         email: email,
@@ -89,9 +87,9 @@ function Signup() {
               />
              
             </div>
-            {errors.name && <p className={Style.signupform}>{errors.name}</p>}
+            {errors.name && <p className={Style.error}>{errors.name}</p>}
             <div className={Style.inputDiv}>
-              <span>
+              <span className={Style.spanimg}>
                 <img src={icon} alt="icon" />
               </span>
               <input
@@ -102,7 +100,7 @@ function Signup() {
               />
              
             </div>
-            {errors.email && <p className="error">{errors.email}</p>}
+            {errors.email && <p className={Style.error}>{errors.email}</p>}
             <div className={Style.inputDiv}>
               <span>
                 <img src={Group} alt="icon" />
@@ -118,7 +116,7 @@ function Signup() {
               </span>
   
             </div>
-            {errors.password && <p className="error">{errors.password}</p>}
+            {errors.password && <p className={Style.error}>{errors.password}</p>}
             <div className={Style.inputDiv}>
               <span>
                 <img src={Group} alt="icon" />
@@ -136,7 +134,7 @@ function Signup() {
              
             </div>
             {errors.confirmPassword && (
-                <p className="error">{errors.confirmPassword}</p>
+                <p className={Style.error}>{errors.confirmPassword}</p>
               )}
           </div>
         </form>

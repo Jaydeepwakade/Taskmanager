@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate,Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 import style from "./Login.module.css";
 import Group from "../../../assets/Group.svg";
@@ -9,55 +9,58 @@ import Vector from "../../../assets/Vector.svg";
 import { url } from "../../../redux/action";
 import Toast from "../../toasts/Toast";
 
-
 function Login() {
-   const[hideview ,sethideview] = useState(false)
-  const [email,setEmail]=useState("")
-  const [password,setPassword]=useState("")
-  const [ShowToast,setShowToast]=useState(false)
-  const [toastMessage,setToastMessage]=useState("")
+  const [hideview, sethideview] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [ShowToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
   const navigate = useNavigate();
-  const showToast=(message)=>{
-    setShowToast(true)
-    setToastMessage(message)
-  }
+  const showToast = (message) => {
+    setShowToast(true);
+    setToastMessage(message);
+  };
 
-
-  useEffect(()=>{
-    const taskId=localStorage.getItem('token')
-    console.log(taskId)
-    if(!taskId){
-      return
-    }else{
-      navigate('/dashboard')
+  const [errors, setErrors] = useState({});
+  useEffect(() => {
+    const taskId = localStorage.getItem("token");
+    console.log(taskId);
+    if (!taskId) {
+      return;
+    } else {
+      navigate("/dashboard");
     }
-  },[])
+  }, []);
 
-  const handleLogin = async() => {
-    const data={
-      email:email,
-      password:password
-    }
-    const response=await fetch(`${url}/login`,{
-      method:'POST',
-      credentials:'include',
-      headers:{
-        'Content-Type':'application/json'
+  const handleLogin = async () => {
+    const newErrors = {};
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
+    setErrors(newErrors);
+    const data = {
+      email: email,
+      password: password,
+    };
+    const response = await fetch(`${url}/login`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
 
-    const result=await response.json()
-
-    if(result.message){
-      localStorage.setItem("token",result.data)
-      localStorage.setItem("id",result.id)
-      localStorage.setItem("name",result.name)
-      console.log("Logged in")
-      setEmail("")
-      setPassword("")
-      showToast("Logged in successfully")
-      navigate("/dashboard")
+    if (result.message) {
+      setErrors({});
+      localStorage.setItem("token", result.data);
+      localStorage.setItem("id", result.id);
+      localStorage.setItem("name", result.name);
+      console.log("Logged in");
+      setEmail("");
+      setPassword("");
+      showToast("Logged in successfully");
+      navigate("/dashboard");
     }
   };
   const handlesignup = () => {
@@ -66,8 +69,12 @@ function Login() {
 
   return (
     <div className={style.container}>
-   
-    <Toast message={toastMessage} show={ShowToast} duration={3000} onClose={()=>ShowToast(false)}/>
+      <Toast
+        message={toastMessage}
+        show={ShowToast}
+        duration={3000}
+        onClose={() => ShowToast(false)}
+      />
       <div className={style.loginDiv}>
         <h2>Login</h2>
         <form action="">
@@ -76,37 +83,51 @@ function Login() {
               <span>
                 <img src={icon} alt="icon" />
               </span>
-              <input placeholder="Email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+              <input
+                placeholder="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
+            {errors.email && <p className={style.error}>{errors.email}</p>}
             <div className={style.inputDiv}>
               <span>
                 <img src={Group} alt="lock" />
               </span>
-              <input placeholder="Password" type={hideview?'text':'password'} value={password} onChange={(e)=>setPassword(e.target.value)} />
-             <span onClick={()=>sethideview(!hideview)}>{!hideview?<img src={view} alt="view" />:<img src={Vector} alt="view" />}</span></div>
+              <input
+                placeholder="Password"
+                type={hideview ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span onClick={() => sethideview(!hideview)}>
+                {!hideview ? (
+                  <img src={view} alt="view" />
+                ) : (
+                  <img src={Vector} alt="view" />
+                )}
+              </span>
+            </div>
           </div>
+          {errors.password && <p className={style.error}>{errors.password}</p>}
         </form>
         <div className={style.btndiv}>
-            <button className={style.loginbtn}  onClick={handleLogin}>Log in</button>
-            <p>Have no account yet ?</p>
-            <button className={style.regbtn} onClick={handlesignup}>Register</button>
-          </div>
+          <button className={style.loginbtn} onClick={handleLogin}>
+            Log in
+          </button>
+          <p>Have no account yet ?</p>
+          <button className={style.regbtn} onClick={handlesignup}>
+            Register
+          </button>
+        </div>
       </div>
-      <Outlet/>
+      <Outlet />
     </div>
   );
 }
 
 export default Login;
-
-
-
-
-
-
-
-
-
 
 //   return (
 //     <div className={style.container}>
@@ -125,8 +146,8 @@ export default Login;
 //               <span>
 //                 <img src={Group} alt="lock" />
 //               </span>
-//               
-//              
+//
+//
 //              </div>
 //           </div>
 //         </form>

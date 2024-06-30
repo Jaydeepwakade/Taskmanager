@@ -42,9 +42,13 @@
   border: none;
   width: 300px;
   outline: none;
+
  
 }
 
+.spanimg{
+ margin-left: 0px;
+}
 .mainDiv {
   display: flex;
   flex-direction: column;

@@ -21,8 +21,8 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const allEmails = useAllEmails();
     const [assignee, setAssignee] = useState(null);
+    const [errors,setError]=useState({})
     const dispatch = useDispatch();
-    const tasks = useSelector(state => state.tasks);
 
     useEffect(() => {
         if (task) {
@@ -62,7 +62,15 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
 
     const formattedDueDate = selectedDate?.toLocaleDateString();
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        if(!inputValue || !prior){
+            const newError={}
+            if(!inputValue) newError.inputValue="Please Enter Title"
+            if(!prior) newError.priority="Please Select Priority"
+            setError(newError)
+            return
+          }
+      
         const payload = {
             _id: task._id,
             title: inputValue,
@@ -134,6 +142,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                         placeholder="Enter Task title"
                     />
                 </div>
+                {errors.inputValue && <p className="error">{errors.inputValue}</p>}
                 <div className={style.prioritydiv}>
                     <h3>Select Priority</h3>
                     <button
@@ -158,6 +167,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                         LOW PRIORITY
                     </button>
                 </div>
+                {errors.prior && <p className="error">{errors.prior}</p>}
                 <div className={style.assigndiv}>
                     <h4>Assign to</h4>
                     <Select
