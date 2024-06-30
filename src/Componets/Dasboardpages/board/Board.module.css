@@ -10,9 +10,34 @@
   overflow: hidden;
 }
 .datenew{
-  margin-left: 700px;
-  background-color: red;
-  width: 30px;
+  margin-bottom:-30px;
+  width: 230px;
+  color: #777070;
+  margin-left: -30px;
+  font-size: 20px;
+}
+.filtering select{
+  margin-left: 10px;
+  width: 100px;
+ 
+  border: none;
+  text-align: center;
+  font-size: 14px;
+
+}
+.filtering select option{
+  border: none;
+}
+
+.filtering{
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+   gap: 40px;
+
+  height: 100px;
+  margin-top: -120px;
+
 }
 
 .header {
@@ -68,10 +93,7 @@ font-size: 16px;
 .addpeople h2{
   margin-bottom: 10px;
 }
-.filtering select{
-  margin-right: 50px;
 
-}
 
 .boarding{
   display: flex;

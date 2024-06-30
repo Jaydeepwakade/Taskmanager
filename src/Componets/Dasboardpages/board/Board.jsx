@@ -31,12 +31,21 @@ function Board() {
   const [filter, setFilter] = useState("today");
   const [editModalTaskId, setEditModalTaskId] = useState(null);
   const optionsDropdownRef = useRef(null);
-  const dateObj = new Date();
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const year = String(dateObj.getFullYear()).slice(-2); // Getting last two digits of the year
+  const formatedDate = (dateObj) => {
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const month = monthNames[dateObj.getMonth()];
+    const year = dateObj.getFullYear();
+  
+    return `${day} ${month} ${year}`;
+  };
 
-  const formattedDate = `${day}/${month}/${year}`;
+  const dateObj = new Date();
+  
+
+  const formattedDate = formatedDate(dateObj);
+  
+
 
   const editModalRef = useRef(null);
   const navigate = useNavigate();
@@ -292,7 +301,7 @@ function Board() {
             />
 
             <div className={Style.filtering}>
-              <h2></h2>
+              <h2 className={Style.datenew}>{formattedDate}</h2>
               <select value={filter} onChange={handleFilterChange}>
                 <option value="today">Today</option>
                 <option value="next-week">Next Week</option>
@@ -552,14 +561,16 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
-                  <div>
-                    {renderPriorityCircle(ele, ele.priority)}
-                    <div className={ele.name ? Style.avatar : ""}>
-                      <h4>
-                        {typeof ele.name === "string" && ele.name.length >= 2
-                          ? ele.name.substring(0, 2).toUpperCase()
-                          : ""}
-                      </h4>
+                   <div>
+                    <div>
+                      {renderPriorityCircle(ele, ele.priority)}
+                      <div className={ele.name ? Style.avatar : ""}>
+                        <h4>
+                          {typeof ele.name === "string" && ele.name.length >= 2
+                            ? ele.name.substring(0, 2).toUpperCase()
+                            : ""}
+                        </h4>
+                      </div>
                     </div>
                   </div>
                   <h2>{ele.title}</h2>

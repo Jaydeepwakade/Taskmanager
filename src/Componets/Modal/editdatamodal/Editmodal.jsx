@@ -122,6 +122,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         value: { value: email, label: email },
         label: email
     }));
+    const checkedListCount = checklist.filter((task) => task.completed).length;
 
     return (
         <div className={style.container}>
@@ -144,7 +145,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 </div>
                 {errors.inputValue && <p className="error">{errors.inputValue}</p>}
                 <div className={style.prioritydiv}>
-                    <h3>Select Priority</h3>
+                    <h3>Select Priority <span>*</span></h3>
                     <button
                         className={`${style.priorityButton} ${prior === "HIGH PRIORITY" ? style.selected : ''}`}
                         onClick={handleHighPriorityClick}
@@ -182,7 +183,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 </div>
 
                 <h3>
-                    Checklist <span>{`(${checklist.length})`}</span>
+                <h3 className={style.check}>
+          Checklist <span>{`(${checkedListCount}/${checklist.length})`}</span>
+        </h3>
                 </h3>
 
                 <div className={style.scrolldiv}>
