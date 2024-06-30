@@ -251,6 +251,7 @@ function Board() {
     const day = date.getDate(); 
     return `${month} ${day}`;
   };
+
    console.log(formatDate())
    useEffect(() => {
     const handleClickOutside = (event) => {
@@ -266,7 +267,6 @@ function Board() {
   }, []);
   const currentDate = new Date();
 
- 
 
   return (
     <div className={Style.container}>
