@@ -21,6 +21,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const allEmails = useAllEmails();
     const [assignee, setAssignee] = useState(null);
+    const [errors,setError]=useState({})
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -64,6 +65,14 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const formattedDueDate = selectedDate?.toLocaleDateString();
 
     const handleSubmit = async () => {
+        if(!inputValue || !prior){
+            const newError={}
+            if(!inputValue) newError.inputValue="Please Enter Title"
+            if(!prior) newError.priority="Please Select Priority"
+            setError(newError)
+            return
+          }
+      
         const payload = {
             _id: task._id,
             title: inputValue,

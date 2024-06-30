@@ -27,7 +27,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const allEmails = useAllEmails();
    const [payloadnew,setpayloadnew]=useState([])
    const [userid,setuserid]=useState("")
-   console.log(payloadnew)
+   cont [errors,setErrors]=useState({})
 
   useEffect(() => {
     const id = localStorage.getItem("id")
@@ -84,11 +84,6 @@ const Modal = ({ isOpen, onRequestClose }) => {
       duedate: formattedDueDate,
       assignee: assignee ? assignee.value : null,
     };
-        // console.log("payload:",payload)
-    // const response = dispatch(addTask(payload, id))
-    // dispatch(fetchdata()) 
-    // setTaskList([...taskList, response.payload]); 
-    // onRequestClose(); 
      setpayloadnew(payload)
     dispatch(addTask(payload,userid));
     dispatch(fetchdata());
