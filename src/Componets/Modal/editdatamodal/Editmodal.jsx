@@ -231,8 +231,8 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                         />
                     </div>
                     <div>
-                        <button onClick={onRequestClose}>Close</button>
-                        <button onClick={handleSubmit}>Save</button>
+                        <button  onClick={onRequestClose}>Close</button>
+                        <button className={style.savebtn}  onClick={handleSubmit}>Save</button>
                     </div>
                 </div>
             </ReactModal>

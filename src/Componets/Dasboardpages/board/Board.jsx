@@ -16,6 +16,7 @@ import Editmodal from "../../Modal/editdatamodal/Editmodal";
 import people from "../../../assets/people.svg";
 import AddEmailpopup from "../../emailpopup/Addemailpopup";
 
+
 function Board() {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -102,6 +103,7 @@ function Board() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
 
   const backlogTasks = tasks.tasks.filter((task) => task.status === "BACKLOG");
   const todoTasks = tasks.tasks.filter((task) => task.status === "TO-DO");
@@ -259,6 +261,14 @@ function Board() {
     const day = date.getDate();
     return `${month} ${day}`;
   };
+  
+  if(tasks.loading){
+    return (
+      <div className={Style.loaderContainer}>
+        <div className={Style.loader}></div>
+      </div>
+    );
+  }
 
   return (
     <div className={Style.container}>
@@ -267,11 +277,13 @@ function Board() {
           <h2>Welcome! {name}</h2>
 
           <div className={Style.addpeople}>
-            <h2>Board</h2>
+           <div className={Style.boarding}>
+           <h2>Board</h2>
             <button onClick={handleaddemail}>
               {" "}
               <img src={people} alt="" /> Add people
             </button>
+           </div>
             <Toast
               message={toastmessage}
               show={showtoast}
@@ -279,8 +291,9 @@ function Board() {
               onClose={handleCloseToast}
             />
 
-            <select
-              className={Style.filtertag}
+           <div className={Style.filtering}>
+           <select
+                
               value={filter}
               onChange={handleFilterChange}
             >
@@ -288,6 +301,7 @@ function Board() {
               <option value="next-week">Next Week</option>
               <option value="next-month">Next Month</option>
             </select>
+           </div>
           </div>
         </div>
       </div>
@@ -628,6 +642,7 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <div>{renderPriorityCircle(ele, ele.priority)}</div>
+                    <div>{ele.name}</div>
                     <img
                       onClick={() =>
                         setOptionsDropdownId(
@@ -695,7 +710,7 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                    <div className={Style.date}>{formatDate(ele.dueDate)}</div>
+                    <div className={Style.datedone}>{formatDate(ele.dueDate)}</div>
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "TO-DO")}>
                         TO-DO
