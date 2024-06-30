@@ -330,10 +330,15 @@ font-size: 16px;
   color: white;
 }
 .subheader{
-  background-color: red;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.subheader p{
+   font-size: 12px;
+}
+.titles{
+  font-family:"Noto Sans", sans-serif; ;
 }
 .btns {
   margin-left: 20px;
@@ -361,14 +366,15 @@ font-size: 16px;
   flex-direction: column;
   margin-top: 10px;
   align-items: stretch; 
-  border: 1px solid rgb(198, 190, 190);
+  
   box-sizing: border-box;
-  background-color: white;
+  background-color: rgb(118, 48, 48);
   z-index: 100;
   padding: 0; 
   width: 130px; 
   max-width: 100%; 
   height: auto; 
+  box-shadow: rgba(24, 7, 7, 0.02) 0px 1px 3px 0px, rgba(197, 200, 204, 0.15) 0px 0px 0px 1px;
 }
 
 .optionsDropdown.show {
@@ -410,4 +416,5 @@ font-size: 16px;
   height: 12px;
   border-radius: 50%;
   margin-right: 8px;
+  margin-top: 3px;
 }
