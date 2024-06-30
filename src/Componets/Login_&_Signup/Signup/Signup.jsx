@@ -76,7 +76,7 @@ function Signup() {
         <form action="">
           <div className={Style.mainDiv}>
             <div className={Style.inputDiv}>
-              <span>
+              <span className={Style.spanimg}>
                 <img src={namelogo} alt="name" />
               </span>
               <input
@@ -102,7 +102,7 @@ function Signup() {
             </div>
             {errors.email && <p className={Style.error}>{errors.email}</p>}
             <div className={Style.inputDiv}>
-              <span>
+            <span className={Style.spanimg}>
                 <img src={Group} alt="icon" />
               </span>
               <input
@@ -118,7 +118,7 @@ function Signup() {
             </div>
             {errors.password && <p className={Style.error}>{errors.password}</p>}
             <div className={Style.inputDiv}>
-              <span>
+              <span className={Style.spanimg}>
                 <img src={Group} alt="icon" />
               </span>
               <input

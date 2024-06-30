@@ -266,18 +266,7 @@ function Board() {
   }, []);
   const currentDate = new Date();
 
-  // Get day, month, and year
-  const day = currentDate.getDate();
-  const month = currentDate.getMonth() + 1; // Month is zero-indexed, so add 1
-  const year = currentDate.getFullYear();
-
-  // Format day and month to have two digits if needed
-  const formattedDay = day < 10 ? `0${day}` : day;
-  const formattedMonth = month < 10 ? `0${month}` : month;
-
-  // Combine into ddmmyy format
-  const ddmmyyDate = `${formattedDay}/${formattedMonth}/${year.toString().slice(-2)}`;
-
+ 
 
   return (
     <div className={Style.container}>
@@ -298,10 +287,7 @@ function Board() {
               onClose={handleCloseToast}
             />
             <div className={Style.datenew}>
-            <h2 >{ddmmyyDate}</h2>
-            </div>
-           
-            <div>
+          
         
         <select  className={Style.filtertag} value={filter} onChange={handleFilterChange}>
           <option value="today">Today</option>

@@ -80,7 +80,7 @@ function Login() {
         <form action="">
           <div className={style.mainDiv}>
             <div className={style.inputDiv}>
-              <span>
+              <span className={style.spanimg}>
                 <img src={icon} alt="icon" />
               </span>
               <input
@@ -92,7 +92,7 @@ function Login() {
             </div>
             {errors.email && <p className={style.error}>{errors.email}</p>}
             <div className={style.inputDiv}>
-              <span>
+              <span className={style.spanimg}>
                 <img src={Group} alt="lock" />
               </span>
               <input
