@@ -112,7 +112,6 @@ router.post("/saveTask/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { title, priority, status, checklist, duedate, assignee } = req.body;
-
     const newTodo = await Todo({
       title,
       priority,
@@ -120,11 +119,10 @@ router.post("/saveTask/:id", async (req, res) => {
       checklist,
       dueDate: duedate,
     });
-    const savedTask = await newTodo.save();
-    await User.findByIdAndUpdate(id, { $push: { todo: savedTask._id } });
-    const user = await User.findOne({ email: assignee });
+    console.log(assignee)
+    const user = await User.findOne({ email: assignee.value });
     if (user) {
-      const newTodo = await Todo({
+      const newTodo2 = await Todo({
         title,
         priority,
         status,
@@ -132,9 +130,14 @@ router.post("/saveTask/:id", async (req, res) => {
         dueDate: duedate,
         name: user.name,
       });
-      const savedTask = await newTodo.save();
+      const savedTask = await newTodo2.save();
+      await User.findByIdAndUpdate(id, { $push: { todo: savedTask._id } });
       user.todo.push(savedTask._id);
       await user.save();
+      console.log("Data:",user)
+    }else{
+    const savedTask = await newTodo.save();
+    await User.findByIdAndUpdate(id, { $push: { todo: savedTask._id } });
     }
   } catch (err) {
     console.log(err);

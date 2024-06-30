@@ -42,9 +42,11 @@ function Board() {
       return;
     }
   }, [navigate]);
+
   useEffect(() => {
     dispatch(fetchdata('today'));
   }, []);
+
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
     if (editModalTaskId !== null) {
@@ -63,6 +65,7 @@ function Board() {
       };
     }
   }, [editModalTaskId]);
+
   useEffect(() => {
     const fetchDataFromLocalStorage = () => {
       const storedName = localStorage.getItem("name");
@@ -116,6 +119,7 @@ function Board() {
   const handleaddemail = () => {
     openPopup("ADDEMAIL");
   };
+
   const handleDeleteClick = (taskId) => {
     setTaskToDelete(taskId);
     openPopup("DELETE");
@@ -425,6 +429,7 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
+                  {ele.name?<div>{ele.name}</div>:null}
                   <div>
                     <div>
                       <p>{renderPriorityCircle(ele, ele.priority)}</p>
