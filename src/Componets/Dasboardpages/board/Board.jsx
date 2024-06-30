@@ -204,7 +204,17 @@ function Board() {
         break;
     }
   };
-
+  const renderAvatar = (ele) => {
+    return (
+      <div className={ele.name ? Style.avatar : ""}>
+        <h4>
+          {typeof ele.name === "string" && ele.name.length >= 2
+            ? ele.name.substring(0, 2).toUpperCase()
+            : ""}
+        </h4>
+      </div>
+    );
+  };
   useEffect(() => {
     const changeTickStatus = async () => {
       try {
@@ -461,14 +471,12 @@ function Board() {
                       {renderPriorityCircle(ele, ele.priority)}
                       <div className={ele.name ? Style.avatar : ""}>
                         <h4>
-                          {typeof ele.name === "string" && ele.name.length >= 2
-                            ? ele.name.substring(0, 2).toUpperCase()
-                            : ""}
+                         {renderAvatar(ele)}
                         </h4>
                       </div>
                     </div>
                     <img
-                      onClick={() => setOptionsDropdownId(ele._id)}
+                      onClick={() =>setOptionsDropdownId(ele._id)}
                       src={dots}
                       alt=""
                     />
@@ -532,7 +540,7 @@ function Board() {
                   <div className={Style.divbuttons}>
                     <div className={Style.date}>{formatDate(ele.dueDate)}</div>
                     <div className={Style.btns}>
-                      <button onClick={() => moveTask(ele._id, "inProgress")}>
+                      <button  onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
                       </button>
                       <button onClick={() => moveTask(ele._id, "BACKLOG")}>
@@ -561,7 +569,7 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
-                   <div>
+                      <div>
                     <div>
                       {renderPriorityCircle(ele, ele.priority)}
                       <div className={ele.name ? Style.avatar : ""}>
@@ -572,6 +580,15 @@ function Board() {
                         </h4>
                       </div>
                     </div>
+                    <img
+                      onClick={() =>
+                        setOptionsDropdownId(
+                          optionsDropdownId === ele._id ? null : ele._id
+                        )
+                      }
+                      src={dots}
+                      alt=""
+                    />
                   </div>
                   <h2>{ele.title}</h2>
                   {optionsDropdownId === ele._id && (
@@ -746,10 +763,10 @@ function Board() {
                     </div>
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "TO-DO")}>
-                        TO-DO
+                        TODO
                       </button>
                       <button onClick={() => moveTask(ele._id, "inProgress")}>
-                        IN PROGRESS
+                        PROGRESS
                       </button>
                       <button onClick={() => moveTask(ele._id, "BACKLOG")}>
                         BACKLOG

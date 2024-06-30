@@ -8,6 +8,7 @@
   flex-direction: column;
   height: 100vh; /* Full viewport height */
   overflow: hidden;
+  
 }
 .datenew{
   margin-bottom:-30px;
@@ -112,12 +113,7 @@ font-size: 16px;
   font-family: "Noto Sans", sans-serif;
 }
 
-.main {
-  height: 100vh;
-  overflow-y: auto;
-  white-space: nowrap;
-  padding: 10px;
-}
+
 
 .taskcontainer {
   width: 420px;
@@ -134,8 +130,8 @@ font-size: 16px;
   position: relative;
 
 
-  scrollbar-width:40px;
-  scrollbar-color: #9cb7c5; 
+  scrollbar-width:15px;
+  scrollbar-color: #10a2eb; 
 
   
   &::-webkit-scrollbar {
@@ -143,7 +139,9 @@ font-size: 16px;
   }
 
   &::-webkit-scrollbar-track {
-    background: #eef2f5; 
+    width: 1px;
+    background:#ebeff0; 
+    
     border-radius: 20px;
   }
 
@@ -152,18 +150,56 @@ font-size: 16px;
     border-radius: 30px; 
     border: 2px solid #eef2f5; 
   }
-  .datedone{
+ 
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #8aa0ac;
+  }
+}
+
+.main {
+  height: 100vh;
+  overflow-y: auto;
+  white-space: nowrap;
+  padding: 10px;
+  scrollbar-color: blue;
+  scrollbar-width:15px;
+  scrollbar-color: rgba(156, 183, 197, 1);
+
+  
+  &::-webkit-scrollbar {
+    width: 15px; 
+  }
+
+  &::-webkit-scrollbar-track {
+    width: 1px;
+    background:#ebeff0; 
+    
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #9cb7c5;
+    border-radius: 30px; 
+    border: 2px solid #eef2f5; 
+  }
+
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #8aa0ac;
+  }
+ 
+}
+ .datedone{
     background-color: rgb(91, 177, 91);
     color: white;
-  
     font-family: "Noto Sans", sans-serif;
     font-optical-sizing: auto;
   }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #9cb7c5;
+  .newbutton{
+    background-color: red;
   }
-}
+
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid lightblue; /* Light blue */
@@ -221,9 +257,10 @@ font-size: 16px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
+  border: none;
   padding: 20px;
   border-radius: 25px;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  box-shadow: rgba(231, 226, 226, 0.02) 0px 1px 3px 0px;
   position: relative; /* Ensure parent container is relative */
 }
 
@@ -295,15 +332,21 @@ font-size: 16px;
 
 .btns {
   margin-left: 20px;
- 
 }
-
-.divbuttons div button {
+.btns button{
   font-size: 12px;
   padding: 6px;
-  width: 100px;
+  width: 150px;
   border: none;
   margin-right: 0px;
+  background-color: #e2e2e2;
+  border-radius: 18px;
+  text-align: center;
+ 
+  height:30px
+}
+.btnsdone{
+  width: 0px;
 }
 .optionsDropdown {
   position: absolute;
