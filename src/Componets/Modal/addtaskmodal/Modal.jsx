@@ -25,13 +25,13 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const [assignee, setAssignee] = useState(null);
   const dispatch = useDispatch();
   const allEmails = useAllEmails();
-   const [payloadnew,setpayloadnew]=useState([])
-   const [userid,setuserid]=useState("")
-   const [errors,setErrors]=useState({})
+  const [payloadnew, setPayloadnew] = useState([]);
+  const [userid, setUserid] = useState("");
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    const id = localStorage.getItem("id")
-    setuserid(id)
+    const id = localStorage.getItem("id");
+    setUserid(id);
     dispatch(fetchdata("today"));
   }, [payloadnew]);
 
@@ -59,18 +59,18 @@ const Modal = ({ isOpen, onRequestClose }) => {
       prevChecklist.filter((item) => item.id !== id)
     );
   };
+
   const handleHighPriorityClick = () => {
     setPrior("HIGH PRIORITY");
-};
+  };
 
-const handleModeratePriorityClick = () => {
+  const handleModeratePriorityClick = () => {
     setPrior("MODERATE PRIORITY");
-};
+  };
 
-const handleLowPriorityClick = () => {
+  const handleLowPriorityClick = () => {
     setPrior("LOW PRIORITY");
-};
-
+  };
 
   const handleSubmit = async () => {
     if (!selectedDate) {
@@ -78,12 +78,12 @@ const handleLowPriorityClick = () => {
       return;
     }
 
-    if(!inputValue || !prior){
-      const newError={}
-      if(!inputValue) newError.inputValue="Please Enter Title"
-      if(!prior) newError.priority="Please Select Priority"
-      setErrors(newError)
-      return
+    if (!inputValue || !prior) {
+      const newError = {};
+      if (!inputValue) newError.inputValue = "Please Enter Title";
+      if (!prior) newError.priority = "Please Select Priority";
+      setErrors(newError);
+      return;
     }
 
     const formattedDueDate = new Date(selectedDate).toLocaleDateString();
@@ -96,8 +96,8 @@ const handleLowPriorityClick = () => {
       duedate: formattedDueDate,
       assignee: assignee ? assignee.value : null,
     };
-     setpayloadnew(payload)
-    dispatch(addTask(payload,userid));
+    setPayloadnew(payload);
+    dispatch(addTask(payload, userid));
     dispatch(fetchdata("today"));
     onRequestClose();
   };
@@ -127,6 +127,8 @@ const handleLowPriorityClick = () => {
     label: email,
   }));
 
+  const checkedListCount = checklist.filter((task) => task.completed).length;
+
   return (
     <div className={style.container}>
       <ReactModal
@@ -137,7 +139,7 @@ const handleLowPriorityClick = () => {
       >
         <div className={style.titlediv}>
           <h2>
-            Title <span>*</span>
+            Title<span>*</span>
           </h2>
           <input
             type="text"
@@ -147,33 +149,40 @@ const handleLowPriorityClick = () => {
           />
         </div>
         <div className={style.prioritydiv}>
-                    <h3>Select Priority</h3>
-                    <button
-                        className={`${style.priorityButton} ${prior === "HIGH PRIORITY" ? style.selected : ''}`}
-                        onClick={handleHighPriorityClick}
-                    >
-                        <img src={Ellipse2} alt="" />
-                        HIGH PRIORITY
-                    </button>
-                    <button
-                        className={`${style.priorityButton} ${prior === "MODERATE PRIORITY" ? style.selected : ''}`}
-                        onClick={handleModeratePriorityClick}
-                    >
-                        <img src={blue} alt="" />
-                        MODERATE PRIORITY
-                    </button>
-                    <button
-                        className={`${style.priorityButton} ${prior === "LOW PRIORITY" ? style.selected : ''}`}
-                        onClick={handleLowPriorityClick}
-                    >
-                        <img src={green} alt="" />
-                        LOW PRIORITY
-                    </button>
-                </div>
+          <h3>
+            Select Priority<span>*</span>
+          </h3>
+          <button
+            className={`${style.priorityButton} ${
+              prior === "HIGH PRIORITY" ? style.selected : ""
+            }`}
+            onClick={handleHighPriorityClick}
+          >
+            <img src={Ellipse2} alt="" />
+            HIGH PRIORITY
+          </button>
+          <button
+            className={`${style.priorityButton} ${
+              prior === "MODERATE PRIORITY" ? style.selected : ""
+            }`}
+            onClick={handleModeratePriorityClick}
+          >
+            <img src={blue} alt="" />
+            MODERATE PRIORITY
+          </button>
+          <button
+            className={`${style.priorityButton} ${
+              prior === "LOW PRIORITY" ? style.selected : ""
+            }`}
+            onClick={handleLowPriorityClick}
+          >
+            <img src={green} alt="" />
+            LOW PRIORITY
+          </button>
+        </div>
         <div className={style.assigndiv}>
           <h4>Assign to</h4>
-         
-           <Select
+          <Select
             options={emailOptions}
             components={{ Option: customOption }}
             value={assignee}
@@ -182,10 +191,9 @@ const handleLowPriorityClick = () => {
             isClearable
             className={style.select}
           />
-           
         </div>
-        <h3>
-          Checklist <span>{`(${checklist.length})`}</span>
+        <h3 className={style.check}>
+          Checklist <span>{`(${checkedListCount}/${checklist.length})`}</span>
         </h3>
         <div className={style.scrolldiv}>
           {checklist.map((item) => (
@@ -223,7 +231,7 @@ const handleLowPriorityClick = () => {
           ))}
         </div>
         <h2 onClick={handleAddChecklistItem} className={style.addNew}>
-          <img src={add} alt="Add new" /> Add new
+          <img src={add} alt="Add new" /> Add
         </h2>
         <div className={style.buttons}>
           <div className={style.datediv}>
@@ -237,7 +245,9 @@ const handleLowPriorityClick = () => {
           </div>
           <div>
             <button onClick={onRequestClose}>Close</button>
-            <button className={style.savebtn} onClick={handleSubmit}>Save</button>
+            <button className={style.savebtn} onClick={handleSubmit}>
+              Save
+            </button>
           </div>
         </div>
       </ReactModal>
