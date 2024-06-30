@@ -121,6 +121,7 @@ router.post("/saveTask/:id", async (req, res) => {
       user = await User.findOne({ email: assignee.value });
     }
     if (user) {
+      const mainUser=await User.findById(id)
       const newTodo2 = await Todo({
         title,
         priority,
@@ -184,6 +185,7 @@ router.get("/fetchTask/:id/:day", async (req, res) => {
     res.status(500).json({ error: "Server error", message: err.message });
   }
 });
+
 router.put("/updateTask/:taskId", async (req, res) => {
   const { taskId } = req.params;
   const { status } = req.body;
@@ -284,7 +286,7 @@ router.put("/updateTaskDetails/:taskId", async (req, res) => {
 
     const updatedTask = await Todo.findByIdAndUpdate(
       taskId,
-      { title, priority, status, checklist, duedate },
+      { title, priority, status, checklist, dueDate:duedate },
       { new: true }
     );
 
