@@ -35,11 +35,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     }, [task]);
 
     useEffect(() => {
-        const id = localStorage.getItem("id");
-        if (id) {
-            dispatch(fetchdata("today"));
-        }
+        dispatch(fetchdata("today"));
     }, [dispatch]);
+
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -82,13 +80,22 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             duedate: formattedDueDate,
             assignee: assignee ? assignee.value : null
         };
-        
-        await dispatch(edittasks(task._id, payload));
-        await dispatch(fetchdata()); // Refresh data after edit
 
-        console.log('Dispatched edit and fetch actions');
-        
+        dispatch(edittasks(task._id, payload));
         onRequestClose();
+        dispatch(fetchdata("today"));
+    }
+
+    const handleHighPriorityClick = () => {
+        setPrior("HIGH PRIORITY");
+    };
+
+    const handleModeratePriorityClick = () => {
+        setPrior("MODERATE PRIORITY");
+    };
+
+    const handleLowPriorityClick = () => {
+        setPrior("LOW PRIORITY");
     };
 
     const customOption = ({ data, innerRef, innerProps }) => (
@@ -138,15 +145,24 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 {errors.inputValue && <p className="error">{errors.inputValue}</p>}
                 <div className={style.prioritydiv}>
                     <h3>Select Priority</h3>
-                    <button onClick={() => setPrior("HIGH PRIORITY")}>
+                    <button
+                        className={`${style.priorityButton} ${prior === "HIGH PRIORITY" ? style.selected : ''}`}
+                        onClick={handleHighPriorityClick}
+                    >
                         <img src={Ellipse2} alt="" />
                         HIGH PRIORITY
                     </button>
-                    <button onClick={() => setPrior("MODERATE PRIORITY")}>
+                    <button
+                        className={`${style.priorityButton} ${prior === "MODERATE PRIORITY" ? style.selected : ''}`}
+                        onClick={handleModeratePriorityClick}
+                    >
                         <img src={blue} alt="" />
                         MODERATE PRIORITY
                     </button>
-                    <button onClick={() => setPrior("LOW PRIORITY")}>
+                    <button
+                        className={`${style.priorityButton} ${prior === "LOW PRIORITY" ? style.selected : ''}`}
+                        onClick={handleLowPriorityClick}
+                    >
                         <img src={green} alt="" />
                         LOW PRIORITY
                     </button>

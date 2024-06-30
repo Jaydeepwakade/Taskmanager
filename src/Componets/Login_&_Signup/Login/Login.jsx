@@ -83,7 +83,7 @@ function Login() {
         <form action="">
           <div className={style.mainDiv}>
             <div className={style.inputDiv}>
-              <span>
+              <span className={style.spanimg}>
                 <img src={icon} alt="icon" />
               </span>
               <input
@@ -93,9 +93,9 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            {errors.email && <p className="error">{errors.email}</p>}
+            {errors.email && <p className={style.error}>{errors.email}</p>}
             <div className={style.inputDiv}>
-              <span>
+              <span className={style.spanimg}>
                 <img src={Group} alt="lock" />
               </span>
               <input
@@ -113,7 +113,7 @@ function Login() {
               </span>
             </div>
           </div>
-          {errors.password && <p className="error">{errors.password}</p>}
+          {errors.password && <p className={style.error}>{errors.password}</p>}
         </form>
         <div className={style.btndiv}>
           <button className={style.loginbtn} onClick={handleLogin}>

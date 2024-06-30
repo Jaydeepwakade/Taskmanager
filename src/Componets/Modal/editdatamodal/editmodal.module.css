@@ -59,6 +59,563 @@ button {
 }
 
 .prioritydiv button {
+    width: 170px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
+    color: rgb(54, 52, 52);
+}
+
+.prioritydiv button img {
+    margin-right: 10px;
+    border: none;
+}
+.prioritydiv h3{
+    width: 120px;
+    font-size: 18px;
+   
+
+}
+
+.inputdiv {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+    height: 25px;
+    color: rgb(54, 52, 52);
+   
+}
+
+
+.inputdiv img {
+    padding: 2px;
+    margin-right: 5px;
+}
+
+
+
+.inputdiv1 {
+    margin: 0;
+    padding: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.scrolldiv {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    max-height: 160px;
+    overflow-y: scroll;
+    margin: 10px;
+}
+
+.inputdiv2 {
+    height: 0px;
+    border: 1px solid red;
+    border: none;
+    outline: none;
+
+}
+
+.assigndiv {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.assigndiv h4 {
+    color: rgb(54, 52, 52);
+    width: 80px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+
+.buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 10px;
+}
+
+
+
+
+.buttons button:nth-child(2) {
+    height: 40px;
+    width: 90px;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    width: 140px;
+    border-radius: 10px;
+    font-size: 18px;
+     font-family: "Noto Sans", sans-serif;
+}
+.buttons button:nth-child(1) {
+    height: 40px;
+    width: 140px;
+    color: red;
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 18px;
+     font-family: "Noto Sans", sans-serif;
+}
+.datepicker{
+    height: 10px;
+    width: 120px;
+    font-size: 16px;
+    text-align: center;
+
+}
+.select {
+   
+    width: 560px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    position: relative;
+   
+    
+
+}
+
+
+.selectOption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     color: black;
+     gap: 30px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 60px;
+    width: 400px;
+}
+
+.avatar {
+    width: 40px !important; 
+    height: 40px;
+    background-color:rgb(245, 225, 225);
+
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: -50px;
+    margin-right: -10px;
+   
+}
+
+.emaildiv {
+    width: 220px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: flex-start;
+
+
+}
+
+.emaildiv .email {
+    font-family: "Noto Sans", sans-serif;
+    width: 300px;
+    word-wrap: break-word;
+    color: black;
+    margin: 0; /* Reset margin */
+ 
+    font-size: 18px;
+    margin-left: 5px;
+    
+  
+}
+
+
+
+.assignButton {
+    background-color: #fdfdfd;
+    color: rgb(0, 0, 0);
+    border-radius: 12px;
+    border: 1px solid grey;
+    padding: 8px 12px;
+    
+    cursor: pointer;
+    font-size: 14px;
+    width:150px;
+    margin-left: 30px;
+    margin-right: -40px;
+}
+
+.assignButton:hover {
+    background-color: rgb(231, 223, 223);
+
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+}
+
+
+
+
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    width: 686px;
+    height: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.titlediv{
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    
+}
+.titlediv input{
+ width: 640px;
+ height: 30px;
+}
+.titlediv h2{
+    font-size: 20px;
+    color: rgb(54, 53, 53);
+}
+
+.modal span {
+    color: red;
+}
+
+button {
+    margin-right: 10px;
+}
+
+
+
+.prioritydiv button {
+    width: 160px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
+    color: rgb(54, 52, 52);
+   
+}
+
+.prioritydiv button img {
+    margin-right: 10px;
+    border: none;
+}
+.prioritydiv h3{
+    width: 120px;
+    font-size: 18px;
+   
+
+}
+
+.inputdiv {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+    height: 25px;
+    color: rgb(54, 52, 52);
+   
+}
+
+
+.inputdiv img {
+    padding: 2px;
+    margin-right: 5px;
+}
+
+
+
+.inputdiv1 {
+    margin: 0;
+    padding: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.scrolldiv {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    max-height: 160px;
+    overflow-y: scroll;
+    margin: 10px;
+}
+
+.inputdiv2 {
+    height: 0px;
+    border: 1px solid red;
+    border: none;
+    outline: none;
+
+}
+
+.assigndiv {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.assigndiv h4 {
+    color: rgb(54, 52, 52);
+    width: 80px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+
+.buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 10px;
+}
+
+
+
+
+.buttons button:nth-child(2) {
+    height: 40px;
+    width: 90px;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    width: 140px;
+    border-radius: 10px;
+    font-size: 18px;
+     font-family: "Noto Sans", sans-serif;
+}
+.buttons button:nth-child(1) {
+    height: 40px;
+    width: 140px;
+    color: red;
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 18px;
+     font-family: "Noto Sans", sans-serif;
+}
+.datepicker{
+    height: 10px;
+    width: 120px;
+    font-size: 16px;
+    text-align: center;
+
+}
+.select {
+   
+    width: 560px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    position: relative;
+   
+    
+
+}
+
+
+.selectOption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     color: black;
+     gap: 30px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 60px;
+    width: 400px;
+}
+
+.avatar {
+    width: 40px !important; 
+    height: 40px;
+    background-color:rgb(245, 225, 225);
+
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: -50px;
+    margin-right: -10px;
+   
+}
+
+.emaildiv {
+    width: 220px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: flex-start;
+
+
+}
+
+.emaildiv .email {
+    font-family: "Noto Sans", sans-serif;
+    width: 300px;
+    word-wrap: break-word;
+    color: black;
+    margin: 0; /* Reset margin */
+ 
+    font-size: 18px;
+    margin-left: 5px;
+    
+  
+}
+
+
+
+.assignButton {
+    background-color: #fdfdfd;
+    color: rgb(0, 0, 0);
+    border-radius: 12px;
+    border: 1px solid grey;
+    padding: 8px 12px;
+    
+    cursor: pointer;
+    font-size: 14px;
+    width:150px;
+    margin-left: 30px;
+    margin-right: -40px;
+}
+
+.assignButton:hover {
+    background-color: rgb(231, 223, 223);
+
+}
+/* editmodal.module.css */
+
+/* .priorityButton {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+} */
+
+.priorityButton img {
+    margin-right: 10px;
+}
+
+.priorityButton:hover,
+.priorityButton.selected {
+    background-color: #f0f0f0;
+    border-color: #aaa;
+}
+
+.priorityButton.selected {
+    font-weight: bold;
+}.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+}
+
+
+
+
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    width: 686px;
+    height: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.titlediv{
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    
+}
+.titlediv input{
+ width: 640px;
+ height: 30px;
+}
+.titlediv h2{
+    font-size: 20px;
+    color: rgb(54, 53, 53);
+}
+
+.modal span {
+    color: red;
+}
+
+button {
+    margin-right: 10px;
+}
+
+.prioritydiv {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.prioritydiv button {
     width: 160px;
     height: 40px;
     border: none;
@@ -266,3 +823,22 @@ button {
     background-color: rgb(231, 223, 223);
 
 }
+/* editmodal.module.css */
+
+
+.priorityButton img {
+    margin-right: 10px;
+}
+
+.priorityButton:hover,
+.priorityButton.selected {
+    background-color: #cfcece;
+    border-color: #aaa;
+}
+
+.priorityButton.selected {
+    font-weight: bold;
+}
+
+
+
