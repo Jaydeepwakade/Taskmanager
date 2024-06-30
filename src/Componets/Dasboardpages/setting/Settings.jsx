@@ -128,7 +128,7 @@ function Settings() {
                 onChange={(e) => setNewPassword(e.target.value)}
               />
               <span onClick={() => sethideview2(!hideview2)}>
-                {!hideview ? (
+                {!hideview2 ? (
                   <img src={view} alt="view" />
                 ) : (
                   <img src={Vector} alt="view" />
