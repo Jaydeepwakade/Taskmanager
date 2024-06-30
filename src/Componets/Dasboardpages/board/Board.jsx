@@ -251,22 +251,6 @@ function Board() {
     const day = date.getDate(); 
     return `${month} ${day}`;
   };
-   console.log(formatDate())
-   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (optionsDropdownRef.current && !optionsDropdownRef.current.contains(event.target)) {
-        setOptionsDropdownId(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-  const currentDate = new Date();
-
- 
 
   return (
     <div className={Style.container}>

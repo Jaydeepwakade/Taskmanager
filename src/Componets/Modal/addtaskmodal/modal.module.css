@@ -104,8 +104,8 @@ button {
 .inputdiv {
     display: flex;
     align-items: center;
-    box-shadow: 0 5px 15px rgba(57, 55, 55, 0.3);
-    border: 1px solid grey;
+   
+    border: 1px solid rgb(214, 203, 203);
     border-radius: 10px;
     padding: 10px;
     gap: 10px;
@@ -123,10 +123,13 @@ button {
 
 
 .inputdiv1 {
+    border: 1px solid rgb(168, 18, 18);
+
     margin: 0;
     padding: 10px;
     height: 20px;
     width: 20px;
+   
 }
 
 .scrolldiv {
@@ -137,6 +140,28 @@ button {
     max-height: 160px;
     overflow-y: auto;
     margin: 10px;
+    scrollbar-width:40px;
+    scrollbar-color: #9cb7c5; 
+  
+    
+    &::-webkit-scrollbar {
+      width: 12px; 
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: #eef2f5; 
+      border-radius: 20px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #9cb7c5;
+      border-radius: 30px; 
+      border: 2px solid #eef2f5; 
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #9cb7c5;
+    }
 }
 
 .inputdiv2 {
@@ -312,4 +337,7 @@ button {
 
 .priorityButton.selected {
     font-weight: bold;
+}
+.adnew img{
+    font-weight: 500;
 }

@@ -81,7 +81,7 @@ font-size: 16px;
 
   
   &::-webkit-scrollbar {
-    width: 20px; 
+    width: 15px; 
   }
 
   &::-webkit-scrollbar-track {
