@@ -62,22 +62,17 @@ function Board() {
   }, []);
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
-    if (editModalTaskId !== null) {
-      const handleClickOutside = (event) => {
-        if (
-          editModalRef.current &&
-          !editModalRef.current.contains(event.target)
-        ) {
-          setEditModalTaskId(null);
-        }
-      };
-
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
+    function handleClickOutside(event) {
+      if (optionsDropdownRef.current && !optionsDropdownRef.current.contains(event.target)) {
+        setOptionsDropdownId(null);
+      }
     }
-  }, [editModalTaskId]);
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [optionsDropdownRef]);
   useEffect(() => {
     const fetchDataFromLocalStorage = () => {
       const storedName = localStorage.getItem("name");
@@ -367,7 +362,7 @@ function Board() {
                       alt=""
                     />
                   </div>
-                  <h2>{ele.title}</h2>
+                  <h2 className={Style.title}>{ele.title}</h2>
                   {optionsDropdownId === ele._id && (
                     <div
                       ref={optionsDropdownRef}
@@ -375,17 +370,18 @@ function Board() {
                     >
                       <button
                         onClick={() => {
-                          setOptionsDropdownId([]);
+                          setOptionsDropdownId(null);
                           setEditModalTaskId(ele._id);
                         }}
                       >
                         Edit
                       </button>
-                      <button onClick={() => handleDeleteClick(ele._id)}>
-                        Delete
-                      </button>
+                      
                       <button onClick={() => handleShare(ele._id)}>
                         Share
+                      </button>
+                      <button style={{color:"red"}} onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
                       </button>
                     </div>
                   )}
