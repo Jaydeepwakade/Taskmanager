@@ -333,6 +333,7 @@ function Board() {
 
               return (
                 <div key={ele._id} className={Style.todos}>
+                  {ele.name?<div>{ele.name}</div>:null}
                   <div>
                     <div>
                       {renderPriorityCircle(ele, ele.priority)}

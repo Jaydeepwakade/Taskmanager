@@ -8,30 +8,26 @@ const Todo = require("./models/Todo");
 
 router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
-  const user = await User.findOne({ email: email });
-  console.log(name);
-  if (user) {
-    res
-      .status(400)
-      .send({ error: "User with this email address already exists" });
-    return;
-  } else {
+
+  try {
+    const existingUser = await User.findOne({ email: email });
+    if (existingUser) {
+      return res.status(400).send({ error: "User with this email address already exists" });
+    }
+
     const hashedPass = await bcrypt.hash(password, 10);
+
     const newUser = new User({
       name: name,
       email: email,
       password: hashedPass,
+      friends: []
     });
-
-    try {
-      await newUser.save();
-      res.status(200).send({ message: "User Registered Successfully" });
-    } catch (err) {
-      console.log(err);
-      res
-        .status(400)
-        .send({ error: "Error occured while saving the user: ", err });
-    }
+    await newUser.save();
+    res.status(200).send({ message: "User Registered Successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ error: "Error occurred while saving the user: " + err.message });
   }
 });
 
@@ -108,7 +104,7 @@ router.post("/updateProfile", async (req, res) => {
   }
 });
 
-router.post("/saveTask/:id", async (req, res) => {
+router.post("/saveTask/:id", async (req, res) => {  
   try {
     const { id } = req.params;
     const { title, priority, status, checklist, duedate, assignee } = req.body;
@@ -119,8 +115,11 @@ router.post("/saveTask/:id", async (req, res) => {
       checklist,
       dueDate: duedate,
     });
-    console.log(assignee)
-    const user = await User.findOne({ email: assignee.value });
+
+    let user
+    if(assignee && assignee.value){
+      user = await User.findOne({ email: assignee.value });
+    }
     if (user) {
       const newTodo2 = await Todo({
         title,
