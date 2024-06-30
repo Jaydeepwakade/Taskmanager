@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Style from "./Board.module.css";
 import collapse from "../../../assets/collapse.svg";
 import add from "../../../assets/add.svg";
@@ -31,7 +31,7 @@ function Board() {
   const [filter, setFilter] = useState("today");
   const [editModalTaskId, setEditModalTaskId] = useState(null);
   const optionsDropdownRef = useRef(null);
- 
+
   const editModalRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,14 +42,17 @@ function Board() {
       return;
     }
   }, [navigate]);
-   useEffect(()=>{
-     dispatch(fetchdata())
-   },[])
+  useEffect(() => {
+    dispatch(fetchdata('today'));
+  }, []);
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
     if (editModalTaskId !== null) {
       const handleClickOutside = (event) => {
-        if (editModalRef.current && !editModalRef.current.contains(event.target)) {
+        if (
+          editModalRef.current &&
+          !editModalRef.current.contains(event.target)
+        ) {
           setEditModalTaskId(null);
         }
       };
@@ -66,7 +69,7 @@ function Board() {
       const storedId = localStorage.getItem("id");
       setName(storedName);
       setId(storedId);
-      dispatch(fetchdata());
+      dispatch(fetchdata('today'));
     };
     fetchDataFromLocalStorage();
   }, []);
@@ -87,7 +90,6 @@ function Board() {
 
   const moveTask = (taskId, newStatus) => {
     dispatch(updateTaskStatus(taskId, newStatus));
-  
   };
 
   const openModal = () => {
@@ -123,7 +125,6 @@ function Board() {
     setShowtoast(true);
     setToastmessage(message);
   };
-
 
   const handleDelete = async (taskIdToDelete) => {
     if (!taskIdToDelete) return;
@@ -171,7 +172,6 @@ function Board() {
     }
   };
 
-
   const handleFilterChange = (event) => {
     const value = event.target.value;
     setFilter(value);
@@ -207,9 +207,8 @@ function Board() {
         if (result.ok) {
           const response = await result.json();
           console.log(response);
-          dispatch(fetchdata());
+          dispatch(fetchdata('today'));
         } else {
-          console.error("Failed to update checklist item");
         }
       } catch (error) {
         console.error("Error updating checklist item:", error);
@@ -223,7 +222,7 @@ function Board() {
     console.log("hello jaydeep");
   };
 
-  const renderPriorityCircle = (tasks,msg) => {
+  const renderPriorityCircle = (tasks, msg) => {
     let circleColor = "";
     switch (tasks.priority) {
       case "HIGH PRIORITY":
@@ -240,15 +239,20 @@ function Board() {
         break;
     }
     return (
-       <div className={Style.prioritydiv}> <div className={Style.priorityCircle}
-       style={{ backgroundColor: circleColor }}></div>
-       <p>{msg}</p></div>
+      <div className={Style.prioritydiv}>
+        {" "}
+        <div
+          className={Style.priorityCircle}
+          style={{ backgroundColor: circleColor }}
+        ></div>
+        <p>{msg}</p>
+      </div>
     );
   };
   const formatDate = (dueDate) => {
     const date = new Date(dueDate);
-    const month = date.toLocaleString('default', { month: 'short' });
-    const day = date.getDate(); 
+    const month = date.toLocaleString("default", { month: "short" });
+    const day = date.getDate();
     return `${month} ${day}`;
   };
 
@@ -270,15 +274,16 @@ function Board() {
               duration={3000}
               onClose={handleCloseToast}
             />
-         
-          
-        
-        <select  className={Style.filtertag} value={filter} onChange={handleFilterChange}>
-          <option value="today">Today</option>
-          <option value="next-week">Next Week</option>
-          <option value="next-month">Next Month</option>
-        </select>
-   
+
+            <select
+              className={Style.filtertag}
+              value={filter}
+              onChange={handleFilterChange}
+            >
+              <option value="today">Today</option>
+              <option value="next-week">Next Week</option>
+              <option value="next-month">Next Month</option>
+            </select>
           </div>
         </div>
       </div>
@@ -294,11 +299,6 @@ function Board() {
         onClose={closePopup}
         onConfirm={handleAddEmail}
       />
-
-
-     
-
-
 
       <div className={Style.main}>
         <div className={Style.taskcontainer}>
@@ -317,9 +317,8 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <div>
-                      {renderPriorityCircle(ele,ele.priority)}
+                      {renderPriorityCircle(ele, ele.priority)}
                       <div>{ele.name}</div>
-                      
                     </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
@@ -328,24 +327,27 @@ function Board() {
                     />
                   </div>
                   <h2>{ele.title}</h2>
-                  {optionsDropdownId===(ele._id) && (
-            <div ref={optionsDropdownRef} className={Style.optionsDropdown}>
-              <button
-                onClick={() => {
-                  setOptionsDropdownId([]);
-                  setEditModalTaskId(ele._id);
-                }}
-              >
-                Edit
-              </button>
-              <button onClick={() => handleDeleteClick(ele._id)}>
-                Delete
-              </button>
-              <button onClick={() => handleShare(ele._id)}>
-                Share
-              </button>
-            </div>
-          )}
+                  {optionsDropdownId === ele._id && (
+                    <div
+                      ref={optionsDropdownRef}
+                      className={Style.optionsDropdown}
+                    >
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId([]);
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
+                      </button>
+                      <button onClick={() => handleShare(ele._id)}>
+                        Share
+                      </button>
+                    </div>
+                  )}
                   {editModalTaskId === ele._id && (
                     <Editmodal
                       isOpen={true}
@@ -370,6 +372,7 @@ function Board() {
                         <div key={item._id} className={Style.dropdown}>
                           <input
                             type="checkbox"
+                            checked={item.completed}
                             onChange={(e) => {
                               setChecked(e.target.checked);
                               setTaskId(ele._id);
@@ -424,34 +427,36 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <div>
-                     
-                      <p>{renderPriorityCircle(ele,ele.priority)}</p>
+                      <p>{renderPriorityCircle(ele, ele.priority)}</p>
                     </div>
                     <img
-                      onClick={() =>  setOptionsDropdownId(ele._id)}
+                      onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
                       alt=""
                     />
                   </div>
                   <h2>{ele.title}</h2>
-                  {optionsDropdownId===(ele._id) && (
-            <div ref={optionsDropdownRef} className={Style.optionsDropdown}>
-              <button
-                onClick={() => {
-                  setOptionsDropdownId([]);
-                  setEditModalTaskId(ele._id);
-                }}
-              >
-                Edit
-              </button>
-              <button onClick={() => handleDeleteClick(ele._id)}>
-                Delete
-              </button>
-              <button onClick={() => handleShare(ele._id)}>
-                Share
-              </button>
-            </div>
-          )}
+                  {optionsDropdownId === ele._id && (
+                    <div
+                      ref={optionsDropdownRef}
+                      className={Style.optionsDropdown}
+                    >
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId([]);
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
+                      </button>
+                      <button onClick={() => handleShare(ele._id)}>
+                        Share
+                      </button>
+                    </div>
+                  )}
                   {editModalTaskId === ele._id && (
                     <Editmodal
                       isOpen={true}
@@ -475,6 +480,7 @@ function Board() {
                         <div key={item._id} className={Style.dropdown}>
                           <input
                             type="checkbox"
+                            checked={item.completed}
                             onChange={(e) => {
                               setChecked(e.target.checked);
                               setTaskId(ele._id);
@@ -518,35 +524,35 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                    <div>
-                      {renderPriorityCircle(ele,ele.priority)}
-            
-                    </div>
+                    <div>{renderPriorityCircle(ele, ele.priority)}</div>
                     <img
-                      onClick={() =>   setOptionsDropdownId(ele._id)}
+                      onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
                       alt=""
                     />
                   </div>
                   <h2>{ele.title}</h2>
-                  {optionsDropdownId===(ele._id) && (
-            <div ref={optionsDropdownRef} className={Style.optionsDropdown}>
-              <button
-                onClick={() => {
-                  setOptionsDropdownId([]);
-                  setEditModalTaskId(ele._id);
-                }}
-              >
-                Edit
-              </button>
-              <button onClick={() => handleDeleteClick(ele._id)}>
-                Delete
-              </button>
-              <button onClick={() => handleShare(ele._id)}>
-                Share
-              </button>
-            </div>
-          )}
+                  {optionsDropdownId === ele._id && (
+                    <div
+                      ref={optionsDropdownRef}
+                      className={Style.optionsDropdown}
+                    >
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId([]);
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
+                      </button>
+                      <button onClick={() => handleShare(ele._id)}>
+                        Share
+                      </button>
+                    </div>
+                  )}
                   {editModalTaskId === ele._id && (
                     <Editmodal
                       isOpen={true}
@@ -570,12 +576,13 @@ function Board() {
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
                           <input
+                            type="checkbox"
+                            checked={item.completed}
                             onChange={(e) => {
                               setChecked(e.target.checked);
                               setTaskId(ele._id);
                               setItemId(item._id);
                             }}
-                            type="checkbox"
                           />
                           <h3>{item.task}</h3>
                         </div>
@@ -615,35 +622,39 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                    <div>
-                      {renderPriorityCircle(ele,ele.priority)}
-                   
-                    </div>
+                    <div>{renderPriorityCircle(ele, ele.priority)}</div>
                     <img
-                      onClick={() =>setOptionsDropdownId(optionsDropdownId === ele._id ? null : ele._id)}
+                      onClick={() =>
+                        setOptionsDropdownId(
+                          optionsDropdownId === ele._id ? null : ele._id
+                        )
+                      }
                       src={dots}
                       alt=""
                     />
                   </div>
                   <h2>{ele.title}</h2>
-                  {optionsDropdownId===(ele._id) && (
-            <div ref={optionsDropdownRef} className={Style.optionsDropdown}>
-              <button
-                onClick={() => {
-                  setOptionsDropdownId([]);
-                  setEditModalTaskId(ele._id);
-                }}
-              >
-                Edit
-              </button>
-              <button onClick={() => handleDeleteClick(ele._id)}>
-                Delete
-              </button>
-              <button onClick={() => handleShare(ele._id)}>
-                Share
-              </button>
-            </div>
-          )}
+                  {optionsDropdownId === ele._id && (
+                    <div
+                      ref={optionsDropdownRef}
+                      className={Style.optionsDropdown}
+                    >
+                      <button
+                        onClick={() => {
+                          setOptionsDropdownId([]);
+                          setEditModalTaskId(ele._id);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
+                      </button>
+                      <button onClick={() => handleShare(ele._id)}>
+                        Share
+                      </button>
+                    </div>
+                  )}
                   {editModalTaskId === ele._id && (
                     <Editmodal
                       isOpen={true}
@@ -665,7 +676,15 @@ function Board() {
                     {openDropdownIds.includes(ele._id) &&
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
-                          <input type="checkbox" />
+                          <input
+                            type="checkbox"
+                            checked={item.completed}
+                            onChange={(e) => {
+                              setChecked(e.target.checked);
+                              setTaskId(ele._id);
+                              setItemId(item._id);
+                            }}
+                          />
                           <h3>{item.task}</h3>
                         </div>
                       ))}
