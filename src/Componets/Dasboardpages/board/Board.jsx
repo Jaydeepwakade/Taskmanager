@@ -286,7 +286,7 @@ function Board() {
               duration={3000}
               onClose={handleCloseToast}
             />
-            <div className={Style.datenew}>
+         
           
         
         <select  className={Style.filtertag} value={filter} onChange={handleFilterChange}>
@@ -294,8 +294,7 @@ function Board() {
           <option value="next-week">Next Week</option>
           <option value="next-month">Next Month</option>
         </select>
-     
-      </div>
+   
           </div>
         </div>
       </div>
