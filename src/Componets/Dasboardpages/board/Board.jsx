@@ -42,9 +42,9 @@ function Board() {
       return;
     }
   }, [navigate]);
-   useEffect(()=>{
-     dispatch(fetchdata())
-   },[])
+  useEffect(() => {
+    dispatch(fetchdata());
+  }, []);
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
     if (editModalTaskId !== null) {
@@ -87,7 +87,6 @@ function Board() {
 
   const moveTask = (taskId, newStatus) => {
     dispatch(updateTaskStatus(taskId, newStatus));
-  
   };
 
   const openModal = () => {
@@ -123,7 +122,6 @@ function Board() {
     setShowtoast(true);
     setToastmessage(message);
   };
-
 
   const handleDelete = async (taskIdToDelete) => {
     if (!taskIdToDelete) return;
@@ -170,7 +168,6 @@ function Board() {
       handleShowToast("Error generating share link");
     }
   };
-
 
   const handleFilterChange = (event) => {
     const value = event.target.value;
@@ -223,7 +220,7 @@ function Board() {
     console.log("hello jaydeep");
   };
 
-  const renderPriorityCircle = (tasks,msg) => {
+  const renderPriorityCircle = (tasks, msg) => {
     let circleColor = "";
     switch (tasks.priority) {
       case "HIGH PRIORITY":
@@ -240,17 +237,23 @@ function Board() {
         break;
     }
     return (
-       <div className={Style.prioritydiv}> <div className={Style.priorityCircle}
-       style={{ backgroundColor: circleColor }}></div>
-       <p>{msg}</p></div>
+      <div className={Style.prioritydiv}>
+        {" "}
+        <div
+          className={Style.priorityCircle}
+          style={{ backgroundColor: circleColor }}
+        ></div>
+        <p>{msg}</p>
+      </div>
     );
   };
   const formatDate = (dueDate) => {
     const date = new Date(dueDate);
-    const month = date.toLocaleString('default', { month: 'short' });
-    const day = date.getDate(); 
+    const month = date.toLocaleString("default", { month: "short" });
+    const day = date.getDate();
     return `${month} ${day}`;
   };
+<<<<<<< HEAD
    console.log(formatDate())
    useEffect(() => {
     const handleClickOutside = (event) => {
@@ -278,6 +281,9 @@ function Board() {
   // Combine into ddmmyy format
   const ddmmyyDate = `${formattedDay}/${formattedMonth}/${year.toString().slice(-2)}`;
 
+=======
+  console.log(formatDate());
+>>>>>>> 4860c87081f7e96a4972fcf024a90ff972e753e5
 
   return (
     <div className={Style.container}>
@@ -300,6 +306,7 @@ function Board() {
            
            
             <div>
+<<<<<<< HEAD
         
         <select  className={Style.filtertag} value={filter} onChange={handleFilterChange}>
           <option value="today">Today</option>
@@ -308,6 +315,18 @@ function Board() {
         </select>
      
       </div>
+=======
+              <select
+                className={Style.filtertag}
+                value={filter}
+                onChange={handleFilterChange}
+              >
+                <option value="today">Today</option>
+                <option value="next-week">Next Week</option>
+                <option value="next-month">Next Month</option>
+              </select>
+            </div>
+>>>>>>> 4860c87081f7e96a4972fcf024a90ff972e753e5
           </div>
         </div>
       </div>
@@ -323,11 +342,6 @@ function Board() {
         onClose={closePopup}
         onConfirm={handleAddEmail}
       />
-
-
-     
-
-
 
       <div className={Style.main}>
         <div className={Style.taskcontainer}>
@@ -345,11 +359,15 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
+<<<<<<< HEAD
                     <div>
                       {renderPriorityCircle(ele,ele.priority)}
                       <div>{ele.name}</div>
                       
                     </div>
+=======
+                    <div>{renderPriorityCircle(ele, ele.priority)}</div>
+>>>>>>> 4860c87081f7e96a4972fcf024a90ff972e753e5
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
@@ -399,6 +417,7 @@ function Board() {
                         <div key={item._id} className={Style.dropdown}>
                           <input
                             type="checkbox"
+                            checked={item.completed}
                             onChange={(e) => {
                               setChecked(e.target.checked);
                               setTaskId(ele._id);
@@ -453,8 +472,7 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <div>
-                     
-                      <p>{renderPriorityCircle(ele,ele.priority)}</p>
+                      <p>{renderPriorityCircle(ele, ele.priority)}</p>
                     </div>
                     <img
                       onClick={() =>  setOptionsDropdownId(ele._id)}
@@ -504,6 +522,7 @@ function Board() {
                         <div key={item._id} className={Style.dropdown}>
                           <input
                             type="checkbox"
+                            checked={item.completed}
                             onChange={(e) => {
                               setChecked(e.target.checked);
                               setTaskId(ele._id);
@@ -547,10 +566,7 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                    <div>
-                      {renderPriorityCircle(ele,ele.priority)}
-            
-                    </div>
+                    <div>{renderPriorityCircle(ele, ele.priority)}</div>
                     <img
                       onClick={() =>   setOptionsDropdownId(ele._id)}
                       src={dots}
@@ -599,6 +615,7 @@ function Board() {
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
                           <input
+                            checked={item.completed}
                             onChange={(e) => {
                               setChecked(e.target.checked);
                               setTaskId(ele._id);
@@ -644,10 +661,7 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                    <div>
-                      {renderPriorityCircle(ele,ele.priority)}
-                   
-                    </div>
+                    <div>{renderPriorityCircle(ele, ele.priority)}</div>
                     <img
                       onClick={() =>setOptionsDropdownId(optionsDropdownId === ele._id ? null : ele._id)}
                       src={dots}
@@ -694,7 +708,15 @@ function Board() {
                     {openDropdownIds.includes(ele._id) &&
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
-                          <input type="checkbox" />
+                          <input
+                            checked={item.completed}
+                            onChange={(e) => {
+                              setChecked(e.target.checked);
+                              setTaskId(ele._id);
+                              setItemId(item._id);
+                            }}
+                            type="checkbox"
+                          />
                           <h3>{item.task}</h3>
                         </div>
                       ))}
