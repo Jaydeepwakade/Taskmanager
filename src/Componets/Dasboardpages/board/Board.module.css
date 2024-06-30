@@ -45,6 +45,26 @@ font-size: 16px;
   gap: 40px;
 }
 
+.avatar {
+  width: 30px ; 
+  height: 30px;
+  background-color:rgb(239, 220, 220);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 12px;
+
+
+  text-align: center;
+
+ 
+}
+.avatar h4{
+  text-align: center;
+  margin-left: 6px;
+}
 .addpeople h2{
   margin-bottom: 10px;
 }

@@ -32,6 +32,12 @@ function Board() {
   const [filter, setFilter] = useState("today");
   const [editModalTaskId, setEditModalTaskId] = useState(null);
   const optionsDropdownRef = useRef(null);
+  const dateObj = new Date();
+      const day = String(dateObj.getDate()).padStart(2, "0");
+      const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const year = String(dateObj.getFullYear()).slice(-2); // Getting last two digits of the year
+
+      const formattedDate = `${day}/${month}/${year}`;
 
   const editModalRef = useRef(null);
   const navigate = useNavigate();
@@ -43,11 +49,9 @@ function Board() {
       return;
     }
   }, [navigate]);
-
   useEffect(() => {
     dispatch(fetchdata('today'));
   }, []);
-
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
     if (editModalTaskId !== null) {
@@ -66,7 +70,6 @@ function Board() {
       };
     }
   }, [editModalTaskId]);
-
   useEffect(() => {
     const fetchDataFromLocalStorage = () => {
       const storedName = localStorage.getItem("name");
@@ -121,7 +124,6 @@ function Board() {
   const handleaddemail = () => {
     openPopup("ADDEMAIL");
   };
-
   const handleDeleteClick = (taskId) => {
     setTaskToDelete(taskId);
     openPopup("DELETE");
@@ -292,6 +294,7 @@ function Board() {
             />
 
            <div className={Style.filtering}>
+             <h2></h2>
            <select
                 
               value={filter}
@@ -337,8 +340,10 @@ function Board() {
                   <div>
                     <div>
                       {renderPriorityCircle(ele, ele.priority)}
-                      <div>{ele.name}</div>
-                    </div>
+                     <div className={Style.avatar}>
+                      <h4>{typeof ele.name === 'string' && ele.name.length >= 2 ? ele.name.substring(0, 2).toUpperCase() : ''}</h4>
+                      </div>
+                      </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
@@ -444,7 +449,6 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
-                  {ele.name?<div>{ele.name}</div>:null}
                   <div>
                     <div>
                       <p>{renderPriorityCircle(ele, ele.priority)}</p>
