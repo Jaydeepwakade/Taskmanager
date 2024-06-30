@@ -46,8 +46,8 @@ function Anylactics() {
           </div>
           <div className={Style.taskItem}>
             <h4>
-              <img src={Ellipse3} alt="icon" className={Style.icon} /> In-Progress
-              Tasks
+              <img src={Ellipse3} alt="icon" className={Style.icon} />{" "}
+              In-Progress Tasks
             </h4>
             <span>{inProgressTasks.length}</span>
           </div>
@@ -76,7 +76,10 @@ function Anylactics() {
               Priority
             </h4>
             <span>
-              {tasks.tasks.filter((task) => task.priority === "MODERATE").length}
+              {
+                tasks.tasks.filter((task) => task.priority === "MODERATE")
+                  .length
+              }
             </span>
           </div>
           <div className={Style.taskItem}>
@@ -93,7 +96,13 @@ function Anylactics() {
               <img src={Ellipse3} alt="icon" className={Style.icon} /> Due Date
               Tasks
             </h4>
-            <span>{tasks.tasks.filter((task) => task.duedate).length}</span>
+            <span>
+              {
+                tasks.tasks.filter(
+                  (task) => task.dueDate && new Date(task.dueDate) > new Date()
+                ).length
+              }
+            </span>
           </div>
         </div>
       </div>
