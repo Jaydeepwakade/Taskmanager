@@ -58,7 +58,7 @@ function Navbar() {
                             {" "}
                             <img src={database} alt="" />
                         </span>
-                        <p> Anyalitics</p>
+                        <p>Analytics</p>
                     </NavLink>
                 </li>
                 <li>

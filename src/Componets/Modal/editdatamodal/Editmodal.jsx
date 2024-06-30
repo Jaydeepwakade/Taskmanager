@@ -81,6 +81,8 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             assignee: assignee ? assignee.value : null
         };
 
+
+        console.log(payload)
         dispatch(edittasks(task._id, payload));
         onRequestClose();
         dispatch(fetchdata("today"));
