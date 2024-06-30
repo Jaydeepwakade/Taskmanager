@@ -40,8 +40,24 @@ font-size: 16px;
 .addpeople{
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-top: 30px;
   gap: 40px;
+}
+
+.addpeople h2{
+  margin-bottom: 10px;
+}
+.filtering select{
+  margin-right: 50px;
+
+}
+
+.boarding{
+  display: flex;
+  align-items: center;
+  justify-content: center ;
+  gap: 30px;
 }
 .header h2{
   margin-top: 10px;
@@ -94,11 +110,53 @@ font-size: 16px;
     border-radius: 30px; 
     border: 2px solid #eef2f5; 
   }
+  .datedone{
+    background-color: rgb(91, 177, 91);
+    color: white;
+  
+    font-family: "Noto Sans", sans-serif;
+    font-optical-sizing: auto;
+  }
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #9cb7c5;
   }
 }
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid lightblue; /* Light blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 
 .taskcontainer div {
   display: flex;
