@@ -13,25 +13,24 @@ function Navbar() {
     const [showPopup, setShowPopup] = useState(false);
 
     const handleLogout = () => {
-        setShowPopup(true); // Show the logout confirmation popup
+        setShowPopup(true); 
     };
 
     const confirmLogout = () => {
         localStorage.clear()
-        navigate("/"); // Navigate to home or logout endpoint
-        // Perform logout logic here if needed
+        navigate("/"); 
     };
 
     const cancelLogout = () => {
         setShowPopup(false);
-         // Hide the popup if cancelled
+        
     };
 
     return (
         <div className={styles.navbar}>
             <div className={styles.header}>
                 <span><img src={sandbox} alt="sandbox" /></span>
-                <h3> ProManager</h3>
+                <h3>ProManager</h3>
             </div>
             <div className={styles.NavDiv}>
                 <li>

@@ -76,7 +76,7 @@ function Signup() {
         <form action="">
           <div className={Style.mainDiv}>
             <div className={Style.inputDiv}>
-              <span>
+              <span className={Style.spanimg}>
                 <img src={namelogo} alt="name" />
               </span>
               <input
@@ -87,9 +87,9 @@ function Signup() {
               />
              
             </div>
-            {errors.name && <p className={Style.signupform}>{errors.name}</p>}
+            {errors.name && <p className={Style.error}>{errors.name}</p>}
             <div className={Style.inputDiv}>
-              <span>
+              <span className={Style.spanimg}>
                 <img src={icon} alt="icon" />
               </span>
               <input
@@ -100,9 +100,9 @@ function Signup() {
               />
              
             </div>
-            {errors.email && <p className="error">{errors.email}</p>}
+            {errors.email && <p className={Style.error}>{errors.email}</p>}
             <div className={Style.inputDiv}>
-              <span>
+            <span className={Style.spanimg}>
                 <img src={Group} alt="icon" />
               </span>
               <input
@@ -116,9 +116,9 @@ function Signup() {
               </span>
   
             </div>
-            {errors.password && <p className="error">{errors.password}</p>}
+            {errors.password && <p className={Style.error}>{errors.password}</p>}
             <div className={Style.inputDiv}>
-              <span>
+              <span className={Style.spanimg}>
                 <img src={Group} alt="icon" />
               </span>
               <input
@@ -134,7 +134,7 @@ function Signup() {
              
             </div>
             {errors.confirmPassword && (
-                <p className="error">{errors.confirmPassword}</p>
+                <p className={Style.error}>{errors.confirmPassword}</p>
               )}
           </div>
         </form>

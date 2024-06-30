@@ -267,3 +267,17 @@ button {
     background-color: rgb(231, 223, 223);
 
 }
+
+.priorityButton img {
+    margin-right: 10px;
+}
+
+.priorityButton:hover,
+.priorityButton.selected {
+    background-color: #cfcece;
+    border-color: #aaa;
+}
+
+.priorityButton.selected {
+    font-weight: bold;
+}
