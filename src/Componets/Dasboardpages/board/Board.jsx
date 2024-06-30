@@ -237,7 +237,6 @@ function Board() {
     const day = date.getDate();
     return `${month} ${day}`;
   };
-  console.log(formatDate());
 
   return (
     <div className={Style.container}>

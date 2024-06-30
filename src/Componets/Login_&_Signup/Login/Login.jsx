@@ -33,17 +33,20 @@ function Login() {
   }, []);
 
   const handleLogin = async () => {
-    const newErrors = {};
-    if (!email) newErrors.email = "Email is required";
-    if (!password) newErrors.password = "Password is required";
-    setErrors(newErrors);
+    if(!email || !password){
+      const newErrors = {};
+      if (!email) newErrors.email = "Email is required";
+      if (!password) newErrors.password = "Password is required";
+      setErrors(newErrors);
+      return
+    }
     const data = {
       email: email,
       password: password,
     };
+    console.log(url)
     const response = await fetch(`${url}/login`, {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

@@ -13,8 +13,9 @@ function Settings() {
   const [name,setName]=useState("")
   const [newPassword,setNewPassword]=useState("")
   const [password,setPassword]=useState("")
-  const [id,setId]=useState("")
   const navigate=useNavigate()
+  const [toggleVisibility,setToggleVisibility]=useState(false)
+  const [toggleVisibility2,setToggleVisibility2]=useState(false)
 
   useEffect(()=>{
     const id2=localStorage.getItem("id")
@@ -99,13 +100,13 @@ function Settings() {
                 <img src={Group} alt="icon" />
               </span>
               <input
-                type="password"
+                type={toggleVisibility?'text':'password'}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <span>
-                <img src={view} alt="" />
+                <img src={view} alt="" onClick={()=>setToggleVisibility(!toggleVisibility)}  />
               </span>
   
             </div>
@@ -115,13 +116,13 @@ function Settings() {
                 <img src={Group} alt="icon" />
               </span>
               <input
-                type="password"
+                type={toggleVisibility2?'text':'password'}
                 placeholder="Confirm Password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
               <span>
-                <img src={view} alt="" />
+                <img src={view} alt=""   onClick={()=>setToggleVisibility2(!toggleVisibility2)}/>
               </span>
 
              
