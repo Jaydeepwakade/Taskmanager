@@ -6,9 +6,11 @@ import view from "../../../assets/view.svg";
 import namelogo from "../../../assets/namelogo.svg";
 import { url } from '../../../redux/action';
 import { useNavigate } from 'react-router-dom';
+import Vector from '../../../assets/Vector.svg'
 
 function Settings() {
-
+  const [hideview, sethideview] = useState(false);
+  const [hideview2, sethideview2] = useState(false);
   const [email,setEmail]=useState("")
   const [name,setName]=useState("")
   const [newPassword,setNewPassword]=useState("")
@@ -100,13 +102,17 @@ function Settings() {
                 <img src={Group} alt="icon" />
               </span>
               <input
-                type={toggleVisibility?'text':'password'}
+                type={hideview?'text':'password'}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span>
-                <img src={view} alt="" onClick={()=>setToggleVisibility(!toggleVisibility)}  />
+              <span onClick={() => sethideview(!hideview)}>
+                {!hideview ? (
+                  <img src={view} alt="view" />
+                ) : (
+                  <img src={Vector} alt="view" />
+                )}
               </span>
   
             </div>
@@ -116,13 +122,17 @@ function Settings() {
                 <img src={Group} alt="icon" />
               </span>
               <input
-                type={toggleVisibility2?'text':'password'}
+                type={hideview2?'text':'password'}
                 placeholder="Confirm Password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
-              <span>
-                <img src={view} alt=""   onClick={()=>setToggleVisibility2(!toggleVisibility2)}/>
+              <span onClick={() => sethideview2(!hideview2)}>
+                {!hideview ? (
+                  <img src={view} alt="view" />
+                ) : (
+                  <img src={Vector} alt="view" />
+                )}
               </span>
 
              

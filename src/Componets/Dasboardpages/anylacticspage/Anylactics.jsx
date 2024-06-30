@@ -12,14 +12,15 @@ function Anylactics() {
 
   useEffect(() => {
     dispatch(fetchdata());
+
   }, [dispatch]);
 
   if (!tasks.tasks) {
     return <h1>Loading...</h1>;
   }
   const currentDate = new Date();
-  const startOfDay = moment(currentDate).startOf("day").format(); // Convert to string for logging/display
-  const endOfDay = moment(currentDate).endOf("day").format(); // Convert to string for logging/display
+  const startOfDay = moment(currentDate).startOf("day").format();
+  const endOfDay = moment(currentDate).endOf("day").format();
 
   const backlogTasks = tasks.tasks.filter((task) => task.status === "BACKLOG");
   const todoTasks = tasks.tasks.filter((task) => task.status === "TO-DO");
@@ -91,7 +92,7 @@ function Anylactics() {
             </h4>
             <span>
               {
-                tasks.tasks.filter((task) => task.priority === "MODERATE")
+                tasks.tasks.filter((task) => task.priority === "MODERATE PRIORITY")
                   .length
               }
             </span>
