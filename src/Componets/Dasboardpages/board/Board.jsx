@@ -492,7 +492,7 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                    <div className={Style.date}>f{formatDate(ele.dueDate)}</div>
+                    <div className={Style.date}>{formatDate(ele.dueDate)}</div>
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
