@@ -79,8 +79,6 @@ export const fetchdata = (day2) => {
   return (dispatch) => {
     dispatch(getdatareq());
     const data = localStorage.getItem('id');
-    const day='today'
-    console.log(day2)
     fetch(`${url}/fetchTask/${data}/${day2}`, {
       method: 'GET',
       headers: { "Content-Type":"application/json" }
@@ -101,7 +99,6 @@ export const fetchdata = (day2) => {
 export const updateTaskStatus = (taskId,newStatus) => {
   return (dispatch) => {
     dispatch(updateTaskRequest());
-    console.log("Status", newStatus, taskId);
 
     fetch(`${url}/updateTask/${taskId}`, {
       method: "PUT",
@@ -115,10 +112,7 @@ export const updateTaskStatus = (taskId,newStatus) => {
         return res.json();
       })
       .then((data) => {
-        console.log("New Data:", data.data);
-        console.log("hi jaydeep")
         dispatch(updateTaskSuccess(data.data));
-       
         dispatch(fetchdata("today"))
       })
       .catch((error) => dispatch(updateTaskError(error.message)));

@@ -24,7 +24,6 @@ function Login() {
   const [errors, setErrors] = useState({});
   useEffect(() => {
     const taskId = localStorage.getItem("token");
-    console.log(taskId);
     if (!taskId) {
       return;
     } else {
@@ -44,7 +43,6 @@ function Login() {
       email: email,
       password: password,
     };
-    console.log(url)
     const response = await fetch(`${url}/login`, {
       method: "POST",
       headers: {
@@ -59,7 +57,6 @@ function Login() {
       localStorage.setItem("token", result.data);
       localStorage.setItem("id", result.id);
       localStorage.setItem("name", result.name);
-      console.log("Logged in");
       setEmail("");
       setPassword("");
       showToast("Logged in successfully");
