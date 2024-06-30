@@ -82,8 +82,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       status: task.status,
       checklist: checklist,
       duedate: formattedDueDate,
-      assignee: assignee 
+      assignee: assignee.value 
     };
+    console.log(assignee)
 
     dispatch(edittasks(task._id, payload));
     onRequestClose();
