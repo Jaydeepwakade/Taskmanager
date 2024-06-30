@@ -329,7 +329,12 @@ font-size: 16px;
   background-color: red;
   color: white;
 }
-
+.subheader{
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .btns {
   margin-left: 20px;
 }
