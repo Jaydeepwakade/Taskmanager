@@ -483,20 +483,22 @@ function Board() {
                       ref={optionsDropdownRef}
                       className={Style.optionsDropdown}
                     >
-                      <button
+                       <button
                         onClick={() => {
-                          setOptionsDropdownId([]);
+                          setOptionsDropdownId(null);
                           setEditModalTaskId(ele._id);
                         }}
                       >
                         Edit
                       </button>
-                      <button onClick={() => handleDeleteClick(ele._id)}>
-                        Delete
-                      </button>
+                      
                       <button onClick={() => handleShare(ele._id)}>
                         Share
                       </button>
+                      <button style={{color:"red"}} onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
+                      </button>
+                   
                     </div>
                   )}
                   {editModalTaskId === ele._id && (
@@ -594,17 +596,18 @@ function Board() {
                     >
                       <button
                         onClick={() => {
-                          setOptionsDropdownId([]);
+                          setOptionsDropdownId(null);
                           setEditModalTaskId(ele._id);
                         }}
                       >
                         Edit
                       </button>
-                      <button onClick={() => handleDeleteClick(ele._id)}>
-                        Delete
-                      </button>
+                      
                       <button onClick={() => handleShare(ele._id)}>
                         Share
+                      </button>
+                      <button style={{color:"red"}} onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
                       </button>
                     </div>
                   )}
@@ -703,19 +706,20 @@ function Board() {
                       ref={optionsDropdownRef}
                       className={Style.optionsDropdown}
                     >
-                      <button
+                    <button
                         onClick={() => {
-                          setOptionsDropdownId([]);
+                          setOptionsDropdownId(null);
                           setEditModalTaskId(ele._id);
                         }}
                       >
                         Edit
                       </button>
-                      <button onClick={() => handleDeleteClick(ele._id)}>
-                        Delete
-                      </button>
+                      
                       <button onClick={() => handleShare(ele._id)}>
                         Share
+                      </button>
+                      <button style={{color:"red"}} onClick={() => handleDeleteClick(ele._id)}>
+                        Delete
                       </button>
                     </div>
                   )}

@@ -77,7 +77,7 @@ function Task() {
         {task.checklist && (
           <>
             <div className={Style.checklist}>
-              <h3>
+              <h3 className={Style.checklisth3}>
                 Checklist ({task.checklist.filter(item => item.completed).length}/{task.checklist.length})
               </h3>
             </div>
