@@ -63,6 +63,7 @@ function Signup() {
         setPassword("")
         setConfirmPassword("")
         alert("Successfully signed up")
+        navigate("/")
       }else{
         alert("Something went wrong")
       }
