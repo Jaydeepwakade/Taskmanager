@@ -16,7 +16,6 @@ import Editmodal from "../../Modal/editdatamodal/Editmodal";
 import people from "../../../assets/people.svg";
 import AddEmailpopup from "../../emailpopup/Addemailpopup";
 
-
 function Board() {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -33,11 +32,11 @@ function Board() {
   const [editModalTaskId, setEditModalTaskId] = useState(null);
   const optionsDropdownRef = useRef(null);
   const dateObj = new Date();
-      const day = String(dateObj.getDate()).padStart(2, "0");
-      const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-      const year = String(dateObj.getFullYear()).slice(-2); // Getting last two digits of the year
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const year = String(dateObj.getFullYear()).slice(-2); // Getting last two digits of the year
 
-      const formattedDate = `${day}/${month}/${year}`;
+  const formattedDate = `${day}/${month}/${year}`;
 
   const editModalRef = useRef(null);
   const navigate = useNavigate();
@@ -50,7 +49,7 @@ function Board() {
     }
   }, [navigate]);
   useEffect(() => {
-    dispatch(fetchdata('today'));
+    dispatch(fetchdata("today"));
   }, []);
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
@@ -76,7 +75,7 @@ function Board() {
       const storedId = localStorage.getItem("id");
       setName(storedName);
       setId(storedId);
-      dispatch(fetchdata('today'));
+      dispatch(fetchdata("today"));
     };
     fetchDataFromLocalStorage();
   }, []);
@@ -106,7 +105,6 @@ function Board() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
-
 
   const backlogTasks = tasks.tasks.filter((task) => task.status === "BACKLOG");
   const todoTasks = tasks.tasks.filter((task) => task.status === "TO-DO");
@@ -215,7 +213,7 @@ function Board() {
         if (result.ok) {
           const response = await result.json();
           console.log(response);
-          dispatch(fetchdata('today'));
+          dispatch(fetchdata("today"));
         } else {
         }
       } catch (error) {
@@ -263,8 +261,8 @@ function Board() {
     const day = date.getDate();
     return `${month} ${day}`;
   };
-  
-  if(tasks.loading){
+
+  if (tasks.loading) {
     return (
       <div className={Style.loaderContainer}>
         <div className={Style.loader}></div>
@@ -279,13 +277,13 @@ function Board() {
           <h2>Welcome! {name}</h2>
 
           <div className={Style.addpeople}>
-           <div className={Style.boarding}>
-           <h2>Board</h2>
-            <button onClick={handleaddemail}>
-              {" "}
-              <img src={people} alt="" /> Add people
-            </button>
-           </div>
+            <div className={Style.boarding}>
+              <h2>Board</h2>
+              <button onClick={handleaddemail}>
+                {" "}
+                <img src={people} alt="" /> Add people
+              </button>
+            </div>
             <Toast
               message={toastmessage}
               show={showtoast}
@@ -293,18 +291,14 @@ function Board() {
               onClose={handleCloseToast}
             />
 
-           <div className={Style.filtering}>
-             <h2></h2>
-           <select
-                
-              value={filter}
-              onChange={handleFilterChange}
-            >
-              <option value="today">Today</option>
-              <option value="next-week">Next Week</option>
-              <option value="next-month">Next Month</option>
-            </select>
-           </div>
+            <div className={Style.filtering}>
+              <h2></h2>
+              <select value={filter} onChange={handleFilterChange}>
+                <option value="today">Today</option>
+                <option value="next-week">Next Week</option>
+                <option value="next-month">Next Month</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -340,10 +334,14 @@ function Board() {
                   <div>
                     <div>
                       {renderPriorityCircle(ele, ele.priority)}
-                     <div className={Style.avatar}>
-                      <h4>{typeof ele.name === 'string' && ele.name.length >= 2 ? ele.name.substring(0, 2).toUpperCase() : ''}</h4>
+                      <div className={ele.name ? Style.avatar : ""}>
+                        <h4>
+                          {typeof ele.name === "string" && ele.name.length >= 2
+                            ? ele.name.substring(0, 2).toUpperCase()
+                            : ""}
+                        </h4>
                       </div>
-                      </div>
+                    </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
@@ -451,7 +449,14 @@ function Board() {
                 <div key={ele._id} className={Style.todos}>
                   <div>
                     <div>
-                      <p>{renderPriorityCircle(ele, ele.priority)}</p>
+                      {renderPriorityCircle(ele, ele.priority)}
+                      <div className={ele.name ? Style.avatar : ""}>
+                        <h4>
+                          {typeof ele.name === "string" && ele.name.length >= 2
+                            ? ele.name.substring(0, 2).toUpperCase()
+                            : ""}
+                        </h4>
+                      </div>
                     </div>
                     <img
                       onClick={() => setOptionsDropdownId(ele._id)}
@@ -548,12 +553,14 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                    <div>{renderPriorityCircle(ele, ele.priority)}</div>
-                    <img
-                      onClick={() => setOptionsDropdownId(ele._id)}
-                      src={dots}
-                      alt=""
-                    />
+                    {renderPriorityCircle(ele, ele.priority)}
+                    <div className={ele.name ? Style.avatar : ""}>
+                      <h4>
+                        {typeof ele.name === "string" && ele.name.length >= 2
+                          ? ele.name.substring(0, 2).toUpperCase()
+                          : ""}
+                      </h4>
+                    </div>
                   </div>
                   <h2>{ele.title}</h2>
                   {optionsDropdownId === ele._id && (
@@ -646,8 +653,16 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                    <div>{renderPriorityCircle(ele, ele.priority)}</div>
-                    <div>{ele.name}</div>
+                    <div>
+                      {renderPriorityCircle(ele, ele.priority)}
+                      <div className={ele.name ? Style.avatar : ""}>
+                        <h4>
+                          {typeof ele.name === "string" && ele.name.length >= 2
+                            ? ele.name.substring(0, 2).toUpperCase()
+                            : ""}
+                        </h4>
+                      </div>
+                    </div>
                     <img
                       onClick={() =>
                         setOptionsDropdownId(
@@ -715,7 +730,9 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                    <div className={Style.datedone}>{formatDate(ele.dueDate)}</div>
+                    <div className={Style.datedone}>
+                      {formatDate(ele.dueDate)}
+                    </div>
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "TO-DO")}>
                         TO-DO
