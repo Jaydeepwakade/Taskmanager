@@ -147,7 +147,7 @@ export const edittasks = (taskId, newdata) => {
   return (dispatch) => {
     dispatch(edittaskreq());
      
-       console.log(taskId)
+    console.log(newdata)
     fetch(`${url}/updateTaskDetails/${taskId}`, {
       method: "PUT",
       headers: {
