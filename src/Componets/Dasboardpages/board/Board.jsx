@@ -155,31 +155,6 @@ function Board() {
     }
   };
 
-  const handleWeek = async () => {
-    console.log("here");
-    const result = await fetch(`${url}/tasks/next-week`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const response = await result.json();
-    const data = response;
-    console.log(data);
-  };
-
-  const handleMonth = async () => {
-    console.log("here");
-    const result = await fetch(`${url}/tasks/next-month`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const response = await result.json();
-    const data = response;
-    console.log(data);
-  };
 
   const handleFilterChange = (event) => {
     const value = event.target.value;
@@ -193,7 +168,6 @@ function Board() {
         break;
       case "next-month":
         // dispatch(fetchdata(filter));
-        // Call your function for "Next Month"
         break;
       default:
         break;

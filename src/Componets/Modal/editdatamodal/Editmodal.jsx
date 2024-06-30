@@ -22,7 +22,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     const allEmails = useAllEmails();
     const [assignee, setAssignee] = useState(null);
     const dispatch = useDispatch();
-    const tasks = useSelector(state => state.tasks);
 
     useEffect(() => {
         if (task) {
@@ -64,7 +63,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
 
     const formattedDueDate = selectedDate?.toLocaleDateString();
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const payload = {
             _id: task._id,
             title: inputValue,
@@ -74,14 +73,13 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             duedate: formattedDueDate,
             assignee: assignee ? assignee.value : null
         };
-
-        console.log('Submitting payload:', payload);
         
-          dispatch(edittasks(task._id, payload)).then(() => {
-            dispatch(fetchdata("today")); // Refresh data after edit
-            console.log('Dispatched edit and fetch actions');
-            onRequestClose();
-        });
+        await dispatch(edittasks(task._id, payload));
+        await dispatch(fetchdata()); // Refresh data after edit
+
+        console.log('Dispatched edit and fetch actions');
+        
+        onRequestClose();
     };
 
     const customOption = ({ data, innerRef, innerProps }) => (
@@ -128,6 +126,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                         placeholder="Enter Task title"
                     />
                 </div>
+                {errors.inputValue && <p className="error">{errors.inputValue}</p>}
                 <div className={style.prioritydiv}>
                     <h3>Select Priority</h3>
                     <button onClick={() => setPrior("HIGH PRIORITY")}>
@@ -143,6 +142,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                         LOW PRIORITY
                     </button>
                 </div>
+                {errors.prior && <p className="error">{errors.prior}</p>}
                 <div className={style.assigndiv}>
                     <h4>Assign to</h4>
                     <Select
