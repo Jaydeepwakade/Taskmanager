@@ -21,7 +21,7 @@ function Anylactics() {
   const inProgressTasks = tasks.tasks.filter(
     (task) => task.status === "IN_PROGRESS"
   );
-  const doneTasks = tasks.tasks.filter((task) => task.status === "DONE");
+  const doneTasks = tasks.tasks.filter((task) => task.status === "done");
 
   return (
     <div className={Style.container}>

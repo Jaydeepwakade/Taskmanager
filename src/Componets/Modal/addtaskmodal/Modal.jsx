@@ -61,6 +61,18 @@ const Modal = ({ isOpen, onRequestClose }) => {
       prevChecklist.filter((item) => item.id !== id)
     );
   };
+  const handleHighPriorityClick = () => {
+    setPrior("HIGH PRIORITY");
+};
+
+const handleModeratePriorityClick = () => {
+    setPrior("MODERATE PRIORITY");
+};
+
+const handleLowPriorityClick = () => {
+    setPrior("LOW PRIORITY");
+};
+
 
   const handleSubmit = async () => {
     if (!selectedDate) {
@@ -140,20 +152,29 @@ const Modal = ({ isOpen, onRequestClose }) => {
           />
         </div>
         <div className={style.prioritydiv}>
-          <h3>Select Priority</h3>
-          <button onClick={() => setPrior("HIGH PRIORITY")}>
-            <img src={Ellipse2} alt="" />
-            HIGH PRIORITY
-          </button>
-          <button onClick={() => setPrior("MODERATE PRIORITY")}>
-            <img src={blue} alt="" />
-            MODERATE PRIORITY
-          </button>
-          <button onClick={() => setPrior("LOW PRIORITY")}>
-            <img src={green} alt="" />
-            LOW PRIORITY
-          </button>
-        </div>
+                    <h3>Select Priority</h3>
+                    <button
+                        className={`${style.priorityButton} ${prior === "HIGH PRIORITY" ? style.selected : ''}`}
+                        onClick={handleHighPriorityClick}
+                    >
+                        <img src={Ellipse2} alt="" />
+                        HIGH PRIORITY
+                    </button>
+                    <button
+                        className={`${style.priorityButton} ${prior === "MODERATE PRIORITY" ? style.selected : ''}`}
+                        onClick={handleModeratePriorityClick}
+                    >
+                        <img src={blue} alt="" />
+                        MODERATE PRIORITY
+                    </button>
+                    <button
+                        className={`${style.priorityButton} ${prior === "LOW PRIORITY" ? style.selected : ''}`}
+                        onClick={handleLowPriorityClick}
+                    >
+                        <img src={green} alt="" />
+                        LOW PRIORITY
+                    </button>
+                </div>
         <div className={style.assigndiv}>
           <h4>Assign to</h4>
          
