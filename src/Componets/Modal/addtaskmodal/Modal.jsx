@@ -27,7 +27,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const allEmails = useAllEmails();
    const [payloadnew,setpayloadnew]=useState([])
    const [userid,setuserid]=useState("")
-   cont [errors,setErrors]=useState({})
+   const [errors,setErrors]=useState({})
 
   useEffect(() => {
     const id = localStorage.getItem("id")
