@@ -73,33 +73,31 @@ const Modal = ({ isOpen, onRequestClose }) => {
   };
 
   const handleSubmit = async () => {
-    if (!selectedDate) {
-      setDateError("Please select a due date.");
+    if (!inputValue || !prior || checklist.length === 0) {
+      const newErrors = {};
+      if (!inputValue) newErrors.inputValue = "Please enter a title";
+      if (!prior) newErrors.priority = "Please select a priority";
+      if (checklist.length === 0) newErrors.checklist = "Enter at least one task";
+      setErrors(newErrors);
       return;
     }
-
-    if (!inputValue || !prior) {
-      const newError = {};
-      if (!inputValue) newError.inputValue = "Please Enter Title";
-      if (!prior) newError.priority = "Please Select Priority";
-      setErrors(newError);
-      return;
-    }
-
-    const formattedDueDate = new Date(selectedDate).toLocaleDateString();
 
     const payload = {
       title: inputValue,
       priority: prior,
       status: "TO-DO",
       checklist: checklist,
-      duedate: formattedDueDate,
       assignee: assignee ? assignee.value : null,
     };
+
+    if (selectedDate) {
+      payload.duedate = new Date(selectedDate).toLocaleDateString();
+    }
+
     setPayloadnew(payload);
     dispatch(addTask(payload, userid));
     dispatch(fetchdata("today"));
-    onRequestClose();
+    handleCloseModal();
   };
 
   const customOption = ({ data, innerRef, innerProps }) => (
@@ -129,11 +127,17 @@ const Modal = ({ isOpen, onRequestClose }) => {
 
   const checkedListCount = checklist.filter((task) => task.completed).length;
 
+  const handleCloseModal = () => {
+    setErrors({});
+    setDateError("");
+    onRequestClose();
+  };
+
   return (
     <div className={style.container}>
       <ReactModal
         isOpen={isOpen}
-        onRequestClose={onRequestClose}
+        onRequestClose={handleCloseModal}
         className={style.modal}
         overlayClassName="overlay"
       >
@@ -145,8 +149,9 @@ const Modal = ({ isOpen, onRequestClose }) => {
             type="text"
             value={inputValue}
             onChange={handleInputChange}
-            placeholder="Enter Task title"
+            placeholder="Enter task title"
           />
+          {errors.inputValue && <p className={style.error}>{errors.inputValue}</p>}
         </div>
         <div className={style.prioritydiv}>
           <h3>
@@ -180,6 +185,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
             LOW PRIORITY
           </button>
         </div>
+        {errors.priority && <p className={style.error}>{errors.priority}</p>}
         <div className={style.assigndiv}>
           <h4>Assign to</h4>
           <Select
@@ -230,6 +236,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
             </div>
           ))}
         </div>
+        {errors.checklist && <p className={style.error}>{errors.checklist}</p>}
         <h2 onClick={handleAddChecklistItem} className={style.addNew}>
           <img src={add} alt="Add new" /> Add
         </h2>
@@ -244,7 +251,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
             {dateError && <p className={style.error}>{dateError}</p>}
           </div>
           <div>
-            <button onClick={onRequestClose}>Close</button>
+            <button onClick={handleCloseModal}>Close</button>
             <button className={style.savebtn} onClick={handleSubmit}>
               Save
             </button>

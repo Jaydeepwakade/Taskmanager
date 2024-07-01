@@ -103,7 +103,7 @@ function Settings() {
               </span>
               <input
                 type={hideview?'text':'password'}
-                placeholder="Password"
+                placeholder="Old password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -123,7 +123,7 @@ function Settings() {
               </span>
               <input
                 type={hideview2?'text':'password'}
-                placeholder="Confirm Password"
+                placeholder="New Password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />

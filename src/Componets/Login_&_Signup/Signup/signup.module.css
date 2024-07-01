@@ -46,6 +46,13 @@
 
  
 }
+.hasaccount{
+  font-weight: 400;
+  color: rgb(58, 65, 71);
+}
+.error{
+  color: red;
+}
 
 .spanimg{
  margin-left: 0px;
@@ -56,6 +63,25 @@
   gap: 10px;
 
 }
+.errorBorder {
+  border: 1px solid red;
+  display: flex;
+  border-radius: 10px;
+  padding: 5px;
+  gap: 10px;
+  align-items: center;
+  height: 35px;
+  width: 416px;
+
+}
+.errorBorder input {
+  height: 1px;
+  border: none;
+  width: 300px;
+  outline: none;
+  margin-top: 8px;
+}
+
 
 .btndiv {
   display: flex;
@@ -87,8 +113,4 @@
   width: 425px;
   height: 40px; 
   border: 2px solid  #17a2b8;
-}
-.loginDiv p{
-font-weight: 400;
-color: rgb(58, 65, 71);
 }

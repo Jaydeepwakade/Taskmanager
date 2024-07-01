@@ -309,8 +309,8 @@ function Board() {
               <h2 className={Style.datenew}>{formattedDate}</h2>
               <select value={filter} onChange={handleFilterChange}>
                 <option value="today">Today</option>
-                <option value="next-week">Next Week</option>
-                <option value="next-month">Next Month</option>
+                <option value="next-week">ThisWeek</option>
+                <option value="next-month">This Month</option>
               </select>
             </div>
           </div>
@@ -421,7 +421,7 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                    <div className={Style.date}>{formatDate(ele.dueDate)}</div>
+                  {ele.dueDate && <div className={Style.date}>{formatDate(ele.dueDate)}</div>}
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
@@ -536,7 +536,7 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                    <div className={Style.date}>{formatDate(ele.dueDate)}</div>
+                  {ele.dueDate && <div className={Style.date}>{formatDate(ele.dueDate)}</div>}
                     <div className={Style.btns}>
                       <button  onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
@@ -647,7 +647,7 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                    <div className={Style.date}>{formatDate(ele.dueDate)}</div>
+                  {ele.dueDate && <div className={Style.date}>{formatDate(ele.dueDate)}</div>}
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "TO-DO")}>
                         TODO
@@ -758,9 +758,7 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                    <div className={Style.datedone}>
-                      {formatDate(ele.dueDate)}
-                    </div>
+                  {ele.dueDate && <div className={Style.date}>{formatDate(ele.dueDate)}</div>}
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "TO-DO")}>
                         TODO

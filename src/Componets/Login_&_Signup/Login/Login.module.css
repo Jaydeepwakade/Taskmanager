@@ -87,7 +87,28 @@
     height: 40px; 
     border: 2px solid  #17a2b8;
 }
- .loginDiv p{
+ .accounthave{
   font-weight: 400;
   color: rgb(58, 65, 71);
+  
 }
+.errorBorder {
+    border: 1px solid red;
+    display: flex;
+    border-radius: 10px;
+    padding: 5px;
+    gap: 10px;
+    align-items: center;
+    height: 35px;
+    width: 416px;
+
+  }
+.errorBorder input {
+    height: 1px;
+    border: none;
+    width: 300px;
+    outline: none;
+    margin-top: 8px;
+}
+
+  

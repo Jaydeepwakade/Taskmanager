@@ -15,34 +15,35 @@ function Login() {
   const [password, setPassword] = useState("");
   const [ShowToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
   const showToast = (message) => {
-    setShowToast(true);
     setToastMessage(message);
+    setShowToast(true);
   };
 
-  const [errors, setErrors] = useState({});
   useEffect(() => {
     const taskId = localStorage.getItem("token");
-    if (!taskId) {
-      return;
-    } else {
+    if (taskId) {
       navigate("/dashboard");
     }
   }, []);
 
   const handleLogin = async () => {
-    if(!email || !password){
+    if (!email || !password) {
       const newErrors = {};
       if (!email) newErrors.email = "Email is required";
       if (!password) newErrors.password = "Password is required";
       setErrors(newErrors);
-      return
+      return;
     }
+
     const data = {
       email: email,
       password: password,
     };
+
     const response = await fetch(`${url}/login`, {
       method: "POST",
       headers: {
@@ -50,6 +51,7 @@ function Login() {
       },
       body: JSON.stringify(data),
     });
+
     const result = await response.json();
 
     if (result.message) {
@@ -60,26 +62,32 @@ function Login() {
       setEmail("");
       setPassword("");
       showToast("Logged in successfully");
-      navigate("/dashboard");
+      navigate("/dashboard"); // Redirect to dashboard on successful login
+    } else {
+      // Handle login failure here, show toast or set errors accordingly
+      showToast("Login failed. Please check your credentials.");
     }
   };
+
   const handlesignup = () => {
     navigate("/signup");
   };
 
   return (
     <div className={style.container}>
-      <Toast
-        message={toastMessage}
-        show={ShowToast}
-        duration={3000}
-        onClose={() => ShowToast(false)}
-      />
       <div className={style.loginDiv}>
+        <div className={style.toast}>
+          <Toast
+            message={toastMessage}
+            show={ShowToast}
+            duration={3000}
+            onClose={() => setShowToast(false)}
+          />
+        </div>
         <h2>Login</h2>
-        <form action="">
+        <form>
           <div className={style.mainDiv}>
-            <div className={style.inputDiv}>
+          <div className={`${style.inputDiv} ${errors.password && style.error}`}>
               <span className={style.spanimg}>
                 <img src={icon} alt="icon" />
               </span>
@@ -88,10 +96,11 @@ function Login() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className={errors.email ? style.error : ""}
               />
             </div>
             {errors.email && <p className={style.error}>{errors.email}</p>}
-            <div className={style.inputDiv}>
+            <div className={`${style.inputDiv} ${errors.password && style.error}`}>
               <span className={style.spanimg}>
                 <img src={Group} alt="lock" />
               </span>
@@ -100,23 +109,20 @@ function Login() {
                 type={hideview ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className={errors.password ? style.error : ""}
               />
               <span onClick={() => sethideview(!hideview)}>
-                {!hideview ? (
-                  <img src={view} alt="view" />
-                ) : (
-                  <img src={Vector} alt="view" />
-                )}
+                {!hideview ? <img src={view} alt="view" /> : <img src={Vector} alt="view" />}
               </span>
             </div>
+            {errors.password && <p className={style.error}>{errors.password}</p>}
           </div>
-          {errors.password && <p className={style.error}>{errors.password}</p>}
         </form>
         <div className={style.btndiv}>
           <button className={style.loginbtn} onClick={handleLogin}>
             Log in
           </button>
-          <p>Have no account yet ?</p>
+          <p className={style.accounthave}>Have no account yet ?</p>
           <button className={style.regbtn} onClick={handlesignup}>
             Register
           </button>
@@ -128,38 +134,3 @@ function Login() {
 }
 
 export default Login;
-
-//   return (
-//     <div className={style.container}>
-
-//       <div className={style.loginDiv}>
-//         <h2>Login</h2>
-//         <form action="">
-//           <div className={style.mainDiv}>
-//             <div className={style.inputDiv}>
-//               <span>
-//                 <img src={icon} alt="icon" />
-//               </span>
-//               <input placeholder="Email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
-//             </div>
-//             <div className={style.inputDiv}>
-//               <span>
-//                 <img src={Group} alt="lock" />
-//               </span>
-//
-//
-//              </div>
-//           </div>
-//         </form>
-//         <div className={style.btndiv}>
-//             <button onClick={handleLogin}>Login</button>
-//             <p>Have no account yet ?</p>
-//             <button onClick={handlesignup}>signup</button>
-//           </div>
-//       </div>
-//       <Outlet/>
-//     </div>
-//   );
-// }
-
-// export default Login;
