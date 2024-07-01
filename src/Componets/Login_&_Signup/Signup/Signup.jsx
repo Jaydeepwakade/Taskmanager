@@ -77,7 +77,7 @@ function Signup() {
         <h1>Register</h1>
         <form action="">
           <div className={Style.mainDiv}>
-            <div className={`${Style.inputDiv} ${errors.name && Style.error}`}>
+            <div className={`${Style.inputDiv} ${errors.name && Style.errorBorder}`}>
               <span className={Style.spanimg}>
                 <img src={namelogo} alt="name" />
               </span>
@@ -86,11 +86,11 @@ function Signup() {
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className={errors.name && Style.errorBorder}
+                className={errors.name}
               />
-              {errors.name && <p className={Style.error}>{errors.name}</p>}
-            </div>
-            <div className={`${Style.inputDiv} ${errors.email && Style.error}`}>
+            
+            </div>{errors.name && <p className={Style.error}>{errors.name}</p>}
+            <div className={`${Style.inputDiv} ${errors.email && Style.errorBorder}`}>
               <span className={Style.spanimg}>
                 <img src={icon} alt="icon" />
               </span>
@@ -99,11 +99,12 @@ function Signup() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={errors.email && Style.errorBorder}
+                className={errors.email }
               />
-              {errors.email && <p className={Style.error}>{errors.email}</p>}
+              
             </div>
-            <div className={`${Style.inputDiv} ${errors.password && Style.error}`}>
+            {errors.email && <p className={Style.error}>{errors.email}</p>}
+            <div className={`${Style.inputDiv} ${errors.password && Style.errorBorder}`}>
               <span className={Style.spanimg}>
                 <img src={Group} alt="icon" />
               </span>
@@ -117,9 +118,10 @@ function Signup() {
               <span onClick={() => togglePasswordVisibility(1)}>
                 <img src={view} alt="view" />
               </span>
-              {errors.password && <p className={Style.error}>{errors.password}</p>}
+             
             </div>
-            <div className={`${Style.inputDiv} ${errors.confirmPassword && Style.error}`}>
+            {errors.password && <p className={Style.error}>{errors.password}</p>}
+            <div className={`${Style.inputDiv} ${errors.password && Style.errorBorder}`}>
               <span className={Style.spanimg}>
                 <img src={Group} alt="icon" />
               </span>
@@ -133,10 +135,11 @@ function Signup() {
               <span onClick={() => togglePasswordVisibility()}>
                 <img src={view} alt="view" />
               </span>
-              {errors.confirmPassword && (
+             
+            </div>
+            {errors.confirmPassword && (
                 <p className={Style.error}>{errors.confirmPassword}</p>
               )}
-            </div>
           </div>
         </form>
 

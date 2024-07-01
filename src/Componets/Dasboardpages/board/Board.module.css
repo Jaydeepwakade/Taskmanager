@@ -311,6 +311,7 @@ font-size: 16px;
 }
 .divbuttons {
   display: flex;
+  
   gap: 30px;
   width: 100%;
   padding: 1px;
@@ -320,14 +321,17 @@ font-size: 16px;
 .divbuttons div {
   display: flex;
   justify-content: center;
+
   align-items: center;
-  width: 65%;
+  width: 60%;
   border-radius: 10px;
 }
 
 .date {
   background-color: red;
   color: white;
+  border: 2px solid;
+   width: 30px;
 }
 .subheader{
   display: flex;
@@ -341,23 +345,21 @@ font-size: 16px;
   font-family:"Noto Sans", sans-serif; ;
 }
 .btns {
-  margin-left: 20px;
+  margin-left: 30px;
 }
 .btns button{
-  font-size: 12px;
+  font-size: 11px;
   padding: 6px;
-  width: 150px;
+  width: 100px;
   border: none;
-  margin-right: 0px;
+  margin-right: 10px;
   background-color: #e2e2e2;
   border-radius: 18px;
   text-align: center;
- 
+
   height:30px
 }
-.btnsdone{
-  width: 0px;
-}
+
 .optionsDropdown {
   position: absolute;
   top: 25px;
@@ -415,6 +417,28 @@ font-size: 16px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  margin-right: 8px;
+  margin-right: 5px;
   margin-top: 3px;
 }
+
+.duedate1{
+  display: inline-block;
+   width: 30px; /* Adjust width as needed */
+  text-align: center; /* Center align text */
+ 
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  font-size: 14px;
+}
+
+.duedate2 {
+  display: inline-block;
+  min-width: 0px; /* Adjust width to match due date */
+  text-align: center; /* Center align text */
+
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 14px;
+  color: #777; /* Adjust color for no due date label */
+}
+

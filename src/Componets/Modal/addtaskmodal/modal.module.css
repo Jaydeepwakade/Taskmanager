@@ -167,7 +167,8 @@ button {
 }
 
 .inputdiv2 {
-    height: 0px;
+    margin-top: 7px;
+    height: 1px;
     border: 1px solid red;
     border: none;
     outline: none;

@@ -73,6 +73,7 @@ function Login() {
     navigate("/signup");
   };
 
+
   return (
     <div className={style.container}>
       <div className={style.loginDiv}>
@@ -87,7 +88,7 @@ function Login() {
         <h2>Login</h2>
         <form>
           <div className={style.mainDiv}>
-          <div className={`${style.inputDiv} ${errors.password && style.error}`}>
+          <div className={`${style.inputDiv} ${errors.password && style.errorBorder}`}>
               <span className={style.spanimg}>
                 <img src={icon} alt="icon" />
               </span>
@@ -100,7 +101,7 @@ function Login() {
               />
             </div>
             {errors.email && <p className={style.error}>{errors.email}</p>}
-            <div className={`${style.inputDiv} ${errors.password && style.error}`}>
+            <div className={`${style.inputDiv} ${errors.password && style.errorBorder}`}>
               <span className={style.spanimg}>
                 <img src={Group} alt="lock" />
               </span>
