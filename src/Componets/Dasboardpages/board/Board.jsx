@@ -430,8 +430,8 @@ function Board() {
                       <button  onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
                       </button>
-                      <button onClick={() => moveTask(ele._id, "BACKLOG")}>
-                        BACKLOG
+                      <button onClick={() => moveTask(ele._id, "TO-DO")}>
+                        TODO
                       </button>
                       <button onClick={() => moveTask(ele._id, "done")}>
                         DONE
