@@ -3,26 +3,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+
   height: 100vh;
 }
 
 .header {
   display: flex;
-
-   gap: 20PX;
+  margin-top: 40px;
+  margin-bottom: -30px;
+  margin-right: 10px;
+  margin-left: 90px;
+  gap: 20PX;
   height: 30VH;
   width: 100%;
-  
+  font-family: "Poppins", sans-serif;
+
 }
 
 .header img {
-    height: 40PX;
-    margin-bottom: 20PX;
-}
-.header h3{
-  font-size: 30PX;
+  height: 35PX;
   margin-bottom: 20PX;
+}
+
+.header h3 {
+  font-size: 25PX;
+  margin-bottom:20PX;
+  font-weight: 800;
 }
 
 .todos {
@@ -35,10 +41,11 @@
   gap: 20px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   position: relative;
-  height: 500px;
+  height: auto;
   width: 550px;
 }
-.checklisth3{
+
+.checklisth3 {
   font-weight: 600;
   margin-bottom: -10px;
 }
@@ -63,8 +70,9 @@
   gap: 10px;
   padding: 10px;
   max-height: 200px;
-  overflow-y: auto; /* Add scrollbar when content exceeds max-height */
-  
+  overflow-y: auto;
+  /* Add scrollbar when content exceeds max-height */
+
   margin-left: -12px;
 }
 
@@ -107,16 +115,18 @@
   padding: 8px;
   color: white;
   margin-left: 10px;
-  border-radius: 5px;
-  height: 20px;
-  width: 90px;
+  border-radius: 10px;
+  font-family: "Noto Sans", sans-serif;
+  height: 18px;
+  width: 80px;
   text-align: center;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
 }
-.dueDate p{
+
+.dueDate p {
   font-size: 18px;
-  font-weight:200px;
+  font-weight: 700;
 }
 
 .priorityCircle {
@@ -132,8 +142,8 @@
 @media only screen and (max-width: 480px) {
   .container {
     flex-direction: column;
-    align-items:center ;
-    justify-content:center ;
+    align-items: center;
+    justify-content: center;
     padding: 10px;
 
   }
@@ -141,50 +151,60 @@
 
   .header {
     display: flex;
-    justify-content: flex-start;
-     gap: 20PX;
+    gap: 10PX;
     width: 100%;
-    height: 60PX;
-    
-    
+    height: 110PX; 
+    font-family: "Poppins", sans-serif;
+    margin-right: 1px;
+   
+
+
   }
-  
+
   .header img {
-      height: 40PX;
-      
+    height: 30PX;
+
   }
-  .header h3{
-    font-size: 30PX;
-  
+
+  .header h3 {
+    font-size: 20px;
+    font-weight: 800;
+
+
   }
+
   .dropdowndiv input {
     height: auto;
     width: 10px;
     margin: 10px;
-  
+
   }
+
   .dropdown {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 30px;
- }
+    height: 20px;
+  }
+
   .dropdown h3 {
     width: 120%;
     font-size: 14px;
     font-weight: 500;
     font-family: "Noto Sans", sans-serif;
-   
+
     overflow-wrap: break-word;
     max-width: 100%;
   }
+
   .todos {
-    
+
     width: 80%;
     height: auto;
     padding: 20px;
     font-size: 12px;
-    font-family: "Noto Sans", sans-serif;;
+    font-family: "Noto Sans", sans-serif;
+    ;
   }
 
   .dueDate {
@@ -192,5 +212,3 @@
     align-items: flex-start;
   }
 }
-
-

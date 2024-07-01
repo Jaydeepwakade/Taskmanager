@@ -7,11 +7,11 @@
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgb(231, 115, 178);
-    color: #000000;
+   
+    color: #2a9d24;
    
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(42, 255, 14, 0.1);
+    box-shadow: 0 2px 4px rgba(96, 220, 80, 0.1);
     z-index: 1000;
     opacity: 0.9;
     transition: opacity 0.3s ease-in-out;
