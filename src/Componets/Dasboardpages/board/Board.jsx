@@ -20,8 +20,13 @@ function Board() {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [openDropdownIds, setOpenDropdownIds] = useState([]);
+  const [openDropdownIdstodo, setOpenDropdownIdstodo] = useState([]);
+  const [openDropdownIddone, setOpenDropdownIdsdone] = useState([]);
+  
+  const [openDropdownIdsprogress, setOpenDropdownIdsprogress] = useState([]);
   const [showtoast, setShowtoast] = useState(false);
   const [optionsDropdownId, setOptionsDropdownId] = useState(null);
+  
   const [toastmessage, setToastmessage] = useState("");
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -88,8 +93,35 @@ function Board() {
     dispatch(fetchdata(filter));
   }, [filter]);
 
-  const toggleDropdown = (id) => {
+  const toggleDropdownbacklog= (id) => {
     setOpenDropdownIds((prevIds) => {
+      if (prevIds.includes(id)) {
+        return prevIds.filter((dropdownId) => dropdownId !== id);
+      } else {
+        return [...prevIds, id];
+      }
+    });
+  };
+  const toggleDropdowntodo= (id) => {
+    setOpenDropdownIdstodo((prevIds) => {
+      if (prevIds.includes(id)) {
+        return prevIds.filter((dropdownId) => dropdownId !== id);
+      } else {
+        return [...prevIds, id];
+      }
+    });
+  };
+  const toggleDropdownprogress= (id) => {
+    setOpenDropdownIdsprogress((prevIds) => {
+      if (prevIds.includes(id)) {
+        return prevIds.filter((dropdownId) => dropdownId !== id);
+      } else {
+        return [...prevIds, id];
+      }
+    });
+  };
+  const toggleDropdowndone= (id) => {
+    setOpenDropdownIdsdone((prevIds) => {
       if (prevIds.includes(id)) {
         return prevIds.filter((dropdownId) => dropdownId !== id);
       } else {
@@ -344,7 +376,7 @@ function Board() {
 
               return (
                 <div key={ele._id} className={Style.todos}>
-                  {/* {ele.name?<div>{ele.name}</div>:null} */}
+               
                   <div >
                     <div className={Style.subheader}>
                       {renderPriorityCircle(ele, ele.priority)}
@@ -398,7 +430,7 @@ function Board() {
                       Checklist{"  "}({completedCount}/{ele.checklist.length})
                     </h3>
                     <img
-                      onClick={() => toggleDropdown(ele._id)}
+                      onClick={() => toggleDropdownbacklog(ele._id)}
                       src={openDropdownIds.includes(ele._id) ? Arrow1 : Arrow2}
                       alt=""
                     />
@@ -453,7 +485,7 @@ function Board() {
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
 
               <img
-                onClick={() => setOpenDropdownIds([])}
+                onClick={() => setOpenDropdownIdstodo([])}
                 src={collapse}
                 alt=""
               />
@@ -519,13 +551,13 @@ function Board() {
                       Checklist ({completedCount}/{ele.checklist.length})
                     </h3>
                     <img
-                      onClick={() => toggleDropdown(ele._id)}
-                      src={openDropdownIds.includes(ele._id) ? Arrow1 : Arrow2}
+                      onClick={() => toggleDropdowntodo(ele._id)}
+                      src={openDropdownIdstodo.includes(ele._id) ? Arrow1 : Arrow2}
                       alt=""
                     />
                   </div>
                   <div className={Style.dropdowndiv}>
-                    {openDropdownIds.includes(ele._id) &&
+                    {openDropdownIdstodo.includes(ele._id) &&
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
                           <input
@@ -568,7 +600,7 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>In Progress</h3>
-            <img onClick={() => setOpenDropdownIds([])} src={collapse} alt="" />
+            <img onClick={() => setOpenDropdownIdsprogress([])} src={collapse} alt="" />
           </div>
           <div className={Style.taskshow}>
             {inProgressTasks.map((ele) => {
@@ -634,13 +666,13 @@ function Board() {
                       Checklist ({completedCount}/{ele.checklist.length})
                     </h3>
                     <img
-                      onClick={() => toggleDropdown(ele._id)}
-                      src={openDropdownIds.includes(ele._id) ? Arrow1 : Arrow2}
+                      onClick={() => toggleDropdownprogress(ele._id)}
+                      src={openDropdownIdsprogress.includes(ele._id) ? Arrow1 : Arrow2}
                       alt=""
                     />
                   </div>
                   <div className={Style.dropdowndiv}>
-                    {openDropdownIds.includes(ele._id) &&
+                    {openDropdownIdsprogress.includes(ele._id) &&
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
                           <input
@@ -684,7 +716,7 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>Done</h3>
-            <img onClick={() => setOpenDropdownIds([])} src={collapse} alt="" />
+            <img onClick={() => setOpenDropdownIdsdone([])} src={collapse} alt="" />
           </div>
           <div className={Style.taskshow}>
             {doneTasks.map((ele) => {
@@ -749,13 +781,13 @@ function Board() {
                       Checklist ({completedCount} / {ele.checklist.length})
                     </h3>
                     <img
-                      onClick={() => toggleDropdown(ele._id)}
-                      src={openDropdownIds.includes(ele._id) ? Arrow1 : Arrow2}
+                      onClick={() => toggleDropdowndone(ele._id)}
+                      src={openDropdownIddone.includes(ele._id) ? Arrow1 : Arrow2}
                       alt=""
                     />
                   </div>
                   <div className={Style.dropdowndiv}>
-                    {openDropdownIds.includes(ele._id) &&
+                    {openDropdownIddone.includes(ele._id) &&
                       ele.checklist.map((item) => (
                         <div key={item._id} className={Style.dropdown}>
                           <input
