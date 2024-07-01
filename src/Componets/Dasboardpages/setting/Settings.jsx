@@ -7,6 +7,7 @@ import namelogo from "../../../assets/namelogo.svg";
 import { url } from "../../../redux/action";
 import { useNavigate } from "react-router-dom";
 import Vector from "../../../assets/Vector.svg";
+import { useToast } from "@chakra-ui/react";
 
 function Settings() {
   const [hideview, sethideview] = useState(false);
@@ -17,6 +18,7 @@ function Settings() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const toast = useToast();
 
   useEffect(() => {
     const id2 = localStorage.getItem("id");
@@ -44,8 +46,8 @@ function Settings() {
       if (!email) newErrors.email = "Please Enter Email";
       if (!password) newErrors.password = "Please Enter Password";
       if (!newPassword) newErrors.newPassword = "Please Enter New Password";
-      if(password===newPassword){
-        errors.samePass=true
+      if (password === newPassword) {
+        newErrors.samePass = true;
       }
       setErrors(newErrors);
       return;
@@ -69,13 +71,27 @@ function Settings() {
     const response = await result.json();
     if (response.message) {
       localStorage.clear();
+      toast({
+        title: "Profile updated.",
+        description: "Your profile has been successfully updated.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
       navigate("/");
     } else if (response.errorPass) {
       newErrors.text = "Old password is incorrect";
+        toast({
+          title: "Old password is incorrect",
+          description: "please enter the correct old pasword.",
+          status: "error",
+          duration: 6000,
+          isClosable: true,
+        });
       setErrors(newErrors);
     }
-    console.log(response);
-  };
+  }
+
   return (
     <div className={Style.container}>
       <div className={Style.loginDiv}>
@@ -148,7 +164,7 @@ function Settings() {
             )}
           </div>
         </form>
-        {errors.text && <p className="error">{errors.setPass?"Old and new password cannot be same":"Incorrect old password"}</p>}
+        {errors.text && <p className="error">{errors.samePass ? "Old and new password cannot be the same" : "Incorrect old password"}</p>}
         <div className={Style.btndiv}>
           <button onClick={handleupdate}>UPDATE</button>
         </div>
