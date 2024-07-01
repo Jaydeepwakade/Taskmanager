@@ -16,8 +16,6 @@ function Settings() {
   const [newPassword, setNewPassword] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [toggleVisibility, setToggleVisibility] = useState(false);
-  const [toggleVisibility2, setToggleVisibility2] = useState(false);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -46,6 +44,9 @@ function Settings() {
       if (!email) newErrors.email = "Please Enter Email";
       if (!password) newErrors.password = "Please Enter Password";
       if (!newPassword) newErrors.newPassword = "Please Enter New Password";
+      if(password===newPassword){
+        errors.samePass=true
+      }
       setErrors(newErrors);
       return;
     }
@@ -147,7 +148,7 @@ function Settings() {
             )}
           </div>
         </form>
-        {errors.text && <p className="error">{errors.text}</p>}
+        {errors.text && <p className="error">{errors.setPass?"Old and new password cannot be same":"Incorrect old password"}</p>}
         <div className={Style.btndiv}>
           <button onClick={handleupdate}>UPDATE</button>
         </div>

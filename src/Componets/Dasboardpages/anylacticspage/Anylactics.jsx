@@ -114,7 +114,7 @@ function Anylactics() {
             <span>
               {
                 tasks.tasks.filter(
-                  (task) => task.dueDate && new Date(task.dueDate) > new Date()
+                  (task) => task.dueDate
                 ).length
               }
             </span>
