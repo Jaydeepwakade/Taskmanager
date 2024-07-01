@@ -32,7 +32,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       setSelectedDate(task.dueDate ? new Date(task.dueDate) : null);
       setAssignee(task.name);
     }
-    console.log(assignee);
   }, [task]);
 
   useEffect(() => {
@@ -60,11 +59,11 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
 
   const handleDeleteChecklistItem = (id) => {
     setChecklist((prevChecklist) =>
-      prevChecklist.filter((item) => item.id !== id)
+      prevChecklist.filter((item) => item._id !== id)
     );
   };
 
-  const formattedDueDate = selectedDate?.toLocaleDateString();
+  let formattedDueDate = selectedDate?.toLocaleDateString();
 
   const handleSubmit = async () => {
     if (!inputValue || !prior || checklist.length === 0) {
@@ -75,7 +74,11 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       setError(newErrors);
       return;
     }
-
+    if(!formattedDueDate){
+      setSelectedDate(null)
+      formattedDueDate=null
+      console.log(formattedDueDate)
+    }
     const payload = {
       _id: task._id,
       title: inputValue,
@@ -83,9 +86,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       status: task.status,
       checklist: checklist,
       duedate: formattedDueDate,
-      assignee: assignee.value 
+      assignee: assignee ? assignee : null,
     };
-    console.log(assignee)
+    console.log(assignee);
 
     dispatch(edittasks(task._id, payload));
     onRequestClose();
@@ -206,7 +209,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
 
         <div className={style.scrolldiv}>
           {checklist.map((item) => (
-            <div className={style.inputdiv} key={item.id}>
+            <div className={style.inputdiv} key={item._id}>
               <input
                 className={style.inputdiv1}
                 type="checkbox"
@@ -232,7 +235,10 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
               />
               <img
                 className={style.deleteButton}
-                onClick={() => handleDeleteChecklistItem(item.id)}
+                onClick={() =>{
+                  console.log("Item",item._id)
+                  handleDeleteChecklistItem(item._id)
+                } }
                 src={Delete}
                 alt=""
               />

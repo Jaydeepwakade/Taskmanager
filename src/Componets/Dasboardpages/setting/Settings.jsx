@@ -71,7 +71,7 @@ function Settings() {
       localStorage.clear();
       navigate("/");
     } else if (response.errorPass) {
-      newErrors.text = "Old password is incorrect";
+      newErrors.text = response.errorPass;
       setErrors(newErrors);
     }
     console.log(response);
@@ -143,12 +143,10 @@ function Settings() {
                 )}
               </span>
             </div>
-            {errors.confirmPassword && (
-              <p className="error">{errors.confirmPassword}</p>
-            )}
+            {errors.newPassword && <p className="error">{errors.newPassword}</p>}
           </div>
         </form>
-        {errors.text && <p className="error">{errors.setPass?"Old and new password cannot be same":"Incorrect old password"}</p>}
+        {errors.text && <p className="error">{errors.samePass?"Old and new password cannot be same": errors.text}</p>}
         <div className={Style.btndiv}>
           <button onClick={handleupdate}>UPDATE</button>
         </div>
