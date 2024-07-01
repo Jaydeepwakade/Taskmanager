@@ -97,7 +97,7 @@ router.post("/updateProfile", async (req, res) => {
         await user.save();
         return res.status(200).send({ message: "Password changed" });
       } else {
-        return res.status(400).send({ error: "Invalid old password" });
+        return res.status(400).send({ errorPass: "Invalid old password" });
       }
     } else {
       return res.status(400).send({ error: "Please enter valid email" });
