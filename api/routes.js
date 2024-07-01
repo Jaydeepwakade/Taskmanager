@@ -124,8 +124,8 @@ router.post("/saveTask/:id", async (req, res) => {
     });
 
     let user;
-    if (assignee && assignee.value) {
-      user = await User.findOne({ email: assignee.value });
+    if (assignee) {
+      user = await User.findOne({ email: assignee });
     }
     if (user) {
       const mainUser = await User.findById(id);
@@ -290,7 +290,7 @@ router.put("/updateTaskDetails/:taskId", async (req, res) => {
     const updateData = { title, priority, status, checklist, dueDate: duedate };
     
     if (assignee) {
-      updateData.name = assignee;
+      updateData.name = assignee.value;
     }
 
     const updatedTask = await Todo.findByIdAndUpdate(taskId, updateData, { new: true });
@@ -300,7 +300,7 @@ router.put("/updateTaskDetails/:taskId", async (req, res) => {
     }
 
     if (assignee) {
-      const user = await User.findOne({ email: assignee });
+      const user = await User.findOne({ email: assignee.value });
       if (user) {
         if (!user.todo.includes(updatedTask._id)) {
           user.todo.push(updatedTask._id);
