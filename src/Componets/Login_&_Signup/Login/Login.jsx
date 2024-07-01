@@ -13,22 +13,23 @@ function Login() {
   const [hideview, sethideview] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [ShowToast, setShowToast] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const showToast = (message) => {
+  const displayToast = (message) => {
     setToastMessage(message);
     setShowToast(true);
   };
 
   useEffect(() => {
-    const taskId = localStorage.getItem("token");
-    if (taskId) {
+    const token = localStorage.getItem("token");
+    if (token) {
       navigate("/dashboard");
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -39,41 +40,49 @@ function Login() {
       return;
     }
 
+    setLoading(true); // Set loading to true when login process starts
+
     const data = {
       email: email,
       password: password,
     };
 
-    const response = await fetch(`${url}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch(`${url}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    const result = await response.json();
+      const result = await response.json();
 
-    if (result.message) {
-      setErrors({});
-      localStorage.setItem("token", result.data);
-      localStorage.setItem("id", result.id);
-      localStorage.setItem("name", result.name);
-      showToast("Logged in successfully");
-      setEmail("");
-      setPassword("");
-      
-      navigate("/dashboard"); // Redirect to dashboard on successful login
-    } else {
-      // Handle login failure here, show toast or set errors accordingly
-      showToast("Login failed. Please check your credentials.");
+      setLoading(false); // Set loading to false when login process ends
+
+      if (result.message) {
+        setErrors({});
+        localStorage.setItem("token", result.data);
+        localStorage.setItem("id", result.id);
+        localStorage.setItem("name", result.name);
+        displayToast("Logged in successfully");
+        setEmail("");
+        setPassword("");
+
+        navigate("/dashboard"); // Redirect to dashboard on successful login
+      } else {
+        // Handle login failure here, show toast or set errors accordingly
+        displayToast("Login failed. Please check your credentials.");
+      }
+    } catch (error) {
+      setLoading(false);
+      displayToast("An error occurred. Please try again.");
     }
   };
 
-  const handlesignup = () => {
+  const handleSignup = () => {
     navigate("/signup");
   };
-
 
   return (
     <div className={style.container}>
@@ -81,7 +90,7 @@ function Login() {
         <div className={style.toast}>
           <Toast
             message={toastMessage}
-            show={ShowToast}
+            show={showToast}
             duration={3000}
             onClose={() => setShowToast(false)}
           />
@@ -89,7 +98,7 @@ function Login() {
         <h2>Login</h2>
         <form>
           <div className={style.mainDiv}>
-          <div className={`${style.inputDiv} ${errors.password && style.errorBorder}`}>
+            <div className={`${style.inputDiv} ${errors.email && style.errorBorder}`}>
               <span className={style.spanimg}>
                 <img src={icon} alt="icon" />
               </span>
@@ -121,11 +130,15 @@ function Login() {
           </div>
         </form>
         <div className={style.btndiv}>
-          <button className={style.loginbtn} onClick={handleLogin}>
-            Log in
+          <button className={style.loginbtn} onClick={handleLogin} disabled={loading}>
+            {loading ? (
+              <div className={style.loader}></div> // Add loader here
+            ) : (
+              "Log in"
+            )}
           </button>
           <p className={style.accounthave}>Have no account yet ?</p>
-          <button className={style.regbtn} onClick={handlesignup}>
+          <button className={style.regbtn} onClick={handleSignup}>
             Register
           </button>
         </div>

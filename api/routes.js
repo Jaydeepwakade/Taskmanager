@@ -249,7 +249,7 @@ router.get("/generateShareLink/:taskId", async (req, res) => {
     if (!task) {
       return res.status(404).send({ error: "Task not found" });
     }
-    const shareLink =`https://task-manager-final.vercel.app/task/${taskId}/readonly`;
+    const shareLink =`http://localhost:5173/task/${taskId}/readonly`;
     res.send({ shareLink });
   } catch (error) {
     res.status(500).send(error);

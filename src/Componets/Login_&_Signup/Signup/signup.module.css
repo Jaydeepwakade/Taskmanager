@@ -114,3 +114,37 @@
   height: 40px; 
   border: 2px solid  #17a2b8;
 }
+.loader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #3498db;
+  width: 12px;
+  height: 12px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loginbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 40px; /* Adjust this as needed */
+}
+
+.errorBorder {
+  border-color: red;
+}
+
+.error {
+  color: red;
+  font-size: 0.8em;
+}

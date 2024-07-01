@@ -15,6 +15,7 @@ function Signup() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confimrPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false); // State for loading
   const navigate = useNavigate();
 
   const togglePasswordVisibility = (value) => {
@@ -43,30 +44,40 @@ function Signup() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
+      setLoading(true); // Set loading to true when signup process starts
+
       const user = {
         name: name,
         email: email,
         password: password,
       };
-      const response = await fetch(`${url}/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
 
-      const result = await response.json();
-      setErrors({});
-      if (result.message) {
-        setEmail("");
-        setName("");
-        setPassword("");
-        setConfirmPassword("");
-        alert("Successfully signed up");
-        navigate("/");
-      } else {
-        alert("Something went wrong");
+      try {
+        const response = await fetch(`${url}/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        });
+
+        const result = await response.json();
+        setLoading(false); // Set loading to false when signup process ends
+
+        setErrors({});
+        if (result.message) {
+          setEmail("");
+          setName("");
+          setPassword("");
+          setConfirmPassword("");
+          alert("Successfully signed up");
+          navigate("/");
+        } else {
+          alert("Something went wrong");
+        }
+      } catch (error) {
+        setLoading(false);
+        alert("An error occurred. Please try again.");
       }
     }
   };
@@ -88,8 +99,8 @@ function Signup() {
                 onChange={(e) => setName(e.target.value)}
                 className={errors.name}
               />
-            
-            </div>{errors.name && <p className={Style.error}>{errors.name}</p>}
+            </div>
+            {errors.name && <p className={Style.error}>{errors.name}</p>}
             <div className={`${Style.inputDiv} ${errors.email && Style.errorBorder}`}>
               <span className={Style.spanimg}>
                 <img src={icon} alt="icon" />
@@ -99,9 +110,8 @@ function Signup() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={errors.email }
+                className={errors.email}
               />
-              
             </div>
             {errors.email && <p className={Style.error}>{errors.email}</p>}
             <div className={`${Style.inputDiv} ${errors.password && Style.errorBorder}`}>
@@ -118,7 +128,6 @@ function Signup() {
               <span onClick={() => togglePasswordVisibility(1)}>
                 <img src={view} alt="view" />
               </span>
-             
             </div>
             {errors.password && <p className={Style.error}>{errors.password}</p>}
             <div className={`${Style.inputDiv} ${errors.password && Style.errorBorder}`}>
@@ -135,17 +144,20 @@ function Signup() {
               <span onClick={() => togglePasswordVisibility()}>
                 <img src={view} alt="view" />
               </span>
-             
             </div>
             {errors.confirmPassword && (
-                <p className={Style.error}>{errors.confirmPassword}</p>
-              )}
+              <p className={Style.error}>{errors.confirmPassword}</p>
+            )}
           </div>
         </form>
 
         <div className={Style.btndiv}>
-          <button className={Style.loginbtn} onClick={handleSignup}>
-            Sign Up
+          <button className={Style.loginbtn} onClick={handleSignup} disabled={loading}>
+            {loading ? (
+              <div className={Style.loader}></div> // Loader when signing up
+            ) : (
+              "Sign Up"
+            )}
           </button>
           <p className={Style.hasaccount}>Have an account?</p>
           <button className={Style.regbtn} onClick={handleLogin}>
