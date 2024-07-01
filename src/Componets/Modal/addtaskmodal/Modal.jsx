@@ -87,7 +87,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
       priority: prior,
       status: "TO-DO",
       checklist: checklist,
-      assignee: assignee ? assignee.value : null,
+      assignee: assignee.value 
     };
 
     if (selectedDate) {

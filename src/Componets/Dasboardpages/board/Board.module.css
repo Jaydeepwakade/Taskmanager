@@ -190,12 +190,7 @@ font-size: 16px;
   }
  
 }
- .datedone{
-    background-color: rgb(91, 177, 91);
-    color: white;
-    font-family: "Noto Sans", sans-serif;
-    font-optical-sizing: auto;
-  }
+
   .newbutton{
     background-color: red;
   }
@@ -354,10 +349,10 @@ font-size: 16px;
   border: none;
   margin-right: 10px;
   background-color: #e2e2e2;
-  border-radius: 18px;
+  border-radius: 10px;
   text-align: center;
 
-  height:30px
+  height:28px
 }
 
 .optionsDropdown {
@@ -440,5 +435,10 @@ font-size: 16px;
   background-color: #ffffff;
   font-size: 14px;
   color: #777; /* Adjust color for no due date label */
+}
+.donebtn{
+  background-color: rgb(116, 214, 116);
+  color: white;
+  font-family:"Noto Sans", sans-serif; 
 }
 

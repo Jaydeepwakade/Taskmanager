@@ -59,9 +59,10 @@ function Login() {
       localStorage.setItem("token", result.data);
       localStorage.setItem("id", result.id);
       localStorage.setItem("name", result.name);
+      showToast("Logged in successfully");
       setEmail("");
       setPassword("");
-      showToast("Logged in successfully");
+      
       navigate("/dashboard"); // Redirect to dashboard on successful login
     } else {
       // Handle login failure here, show toast or set errors accordingly

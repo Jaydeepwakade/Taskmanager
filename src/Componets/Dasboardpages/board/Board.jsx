@@ -773,18 +773,18 @@ function Board() {
                   </div>
                   <div className={Style.divbuttons}>
                   {ele.dueDate? (
-    <div className={Style.date}>{formatDate(ele.dueDate)}</div>
+    <div className={Style.donebtn}>{formatDate(ele.dueDate)}</div>
   ) : (
     <div className={Style.duedate2}></div>
   )}
                     <div className={Style.btns}>
-                      <button onClick={() => moveTask(ele._id, "TO-DO")}>
+                      <button   onClick={() => moveTask(ele._id, "TO-DO")}>
                         TODO
                       </button>
-                      <button onClick={() => moveTask(ele._id, "inProgress")}>
+                      <button  onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
                       </button>
-                      <button onClick={() => moveTask(ele._id, "BACKLOG")}>
+                      <button  onClick={() => moveTask(ele._id, "BACKLOG")}>
                         BACKLOG
                       </button>
                     </div>
