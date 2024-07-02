@@ -52,7 +52,7 @@
   }
   
   .btn h2 {
-    margin: 0; 
+   font-weight: 600;
     color: red;/* Ensure no margin around the text */
   }
 .navlink {
@@ -97,4 +97,18 @@ li {
     width: 100px;
     color: rgb(78, 77, 77);
     font-size: 18px;
+}
+
+.activeNav {
+    background-color: #edf5fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 550;
+    color: black;
+    gap: 5px;
+    list-style: none;
+    text-decoration: none;
+    padding: 10px;
 }
