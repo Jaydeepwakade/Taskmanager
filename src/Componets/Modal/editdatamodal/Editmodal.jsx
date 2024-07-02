@@ -217,7 +217,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 onChange={() =>
                   setChecklist((prevChecklist) =>
                     prevChecklist.map((chk) =>
-                      chk.id === item.id
+                      chk._id === item._id
                         ? { ...chk, completed: !chk.completed }
                         : chk
                     )
@@ -229,7 +229,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 type="text"
                 value={item.task}
                 onChange={(e) =>
-                  handleChecklistTaskChange(item.id, e.target.value)
+                  handleChecklistTaskChange(item._id, e.target.value)
                 }
                 placeholder="Enter task"
               />
