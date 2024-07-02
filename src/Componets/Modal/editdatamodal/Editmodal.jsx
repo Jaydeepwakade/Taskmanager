@@ -12,7 +12,6 @@ import useAllEmails from "../Allmails/useAllEmails";
 import Ellipse2 from "../../../assets/Ellipse2.svg";
 import blue from "../../../assets/blue.svg";
 import green from "../../../assets/green.svg";
-import { color } from "framer-motion";
 ReactModal.setAppElement("#root");
 
 const Editmodal = ({ isOpen, onRequestClose, task }) => {
@@ -23,7 +22,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   const allEmails = useAllEmails();
   const [assignee, setAssignee] = useState(null);
   const [errors, setError] = useState({});
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   useEffect(() => {
     if (task) {
@@ -47,7 +46,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   const handleChecklistTaskChange = (id, value) => {
     setChecklist((prevChecklist) =>
       prevChecklist.map((item) =>
-        item._id === id ? { ...item, task: value } : item
+        item.id === id ? { ...item, task: value } : item
       )
     );
     console.log("Checklist", checklist);
@@ -58,8 +57,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       (prevChecklist) => [
         ...prevChecklist,
         { id: prevChecklist.length + 1, task: "", completed: false },
-      ],
-      console.log("checklist: ",checklist)
+      ],  
     );
   };
 
@@ -72,12 +70,17 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   let formattedDueDate = selectedDate?.toLocaleDateString();
 
   const handleSubmit = async () => {
-    if (!inputValue || !prior || checklist.length === 0) {
+    console.log(checklist)
+    console.log(checklist.task===null)
+    if (!inputValue || !prior || checklist.length === 0 || checklist.task===null) {
       const newErrors = {};
       if (!inputValue) newErrors.inputValue = "Please enter a title";
       if (!prior) newErrors.priority = "Please select a priority";
       if (checklist.length === 0)
         newErrors.checklist = "Enter at least one task";
+      if(checklist.task===null){
+        newErrors.checklist = "Please enter some data";
+      }
       setError(newErrors);
       return;
     }
@@ -219,9 +222,10 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 checked={item.completed}
                 onChange={() => {
                   console.log("Previous checklist:",checklist);
+                  console.log("Item",item);
                   setChecklist((prevChecklist) =>
                     prevChecklist.map((chk) =>
-                      chk._id === item._id
+                      chk.id === item.id
                         ? { ...chk, completed: !chk.completed }
                         : chk
                     )
@@ -232,16 +236,16 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
               <input
                 className={style.inputdiv2}
                 type="text"
-                value={item.task}
+                value={item.task?item.task:''}
                 onChange={(e) => {
-                  console.log(e.target.value);
-                  handleChecklistTaskChange(item._id, e.target.value);
+                  handleChecklistTaskChange(item.id, e.target.value);
                 }}
                 placeholder="Enter task"
               />
               <img
                 className={style.deleteButton}
                 onClick={() => {
+                  console.log("Item", item.id);
                   handleDeleteChecklistItem(item.id);
                 }}
                 src={Delete}
