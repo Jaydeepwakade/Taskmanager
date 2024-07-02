@@ -1,4 +1,4 @@
-export const url ="https://workserver-1.onrender.com";
+export const url ="http://192.168.0.105:4000";
 
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";
@@ -111,7 +111,7 @@ export const updateTaskStatus = (taskId,newStatus) => {
       })
       .then((data) => {
         dispatch(updateTaskSuccess(data.data));
-        dispatch(fetchdata("today"))
+        dispatch(fetchdata("next-week"))
       })
       .catch((error) => dispatch(updateTaskError(error.message)));
   };
@@ -135,7 +135,7 @@ export const addTask = (payload, id) => {
       }
       const newTask = await response.json();
       dispatch(addTaskSuccess(newTask));
-      dispatch(fetchdata("today"))
+      dispatch(fetchdata("next-week"))
       console.log(newTask)
 
    
@@ -164,7 +164,7 @@ export const edittasks = (taskId, newdata) => {
       })
       .then((data) => {
         dispatch(edittask(data.data));
-        dispatch(fetchdata("today"));
+        dispatch(fetchdata("next-week"));
       })
       .catch((error) => dispatch(edittaskerr(error.message)));
   };
