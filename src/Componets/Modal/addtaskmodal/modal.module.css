@@ -6,7 +6,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75);
+  
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,9 +43,18 @@
  .titlediv span{
     margin-left: 4px;
 }
+
+.check{
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 550;
+    color: rgb(53, 49, 49);  
+    font-size: 18px;
+
+}
 .titlediv input{
  width: 640px;
  height: 30px;
+ padding: 10px;
  border-color: rgb(217, 206, 206);
  color: rgb(96, 91, 91);
  font-size: 18px;
@@ -106,12 +115,12 @@ button {
 .inputdiv {
     display: flex;
     align-items: center;
-   
+    justify-content: center;
     border: 1px solid rgb(214, 203, 203);
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
     gap: 10px;
-    height: 25px;
+    height: 27px;
     color: rgb(54, 52, 52);
    
 }
@@ -168,10 +177,11 @@ button {
 
 .inputdiv2 {
     margin-top: 7px;
-    height: 1px;
+    height: 10px;
     border: 1px solid red;
     border: none;
     outline: none;
+    padding: 20px;
 
 }
 
@@ -228,8 +238,8 @@ button {
 }
 
 .datepicker{
-    height: 25px;
-    width: 120px;
+    height: 40px;
+    width: 170px;
     font-size: 16px;
     text-align: center;
 

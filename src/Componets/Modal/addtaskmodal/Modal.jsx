@@ -78,19 +78,20 @@ const Modal = ({ isOpen, onRequestClose }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(checklist.task===undefined)
-    console.log(checklist)
-    if (!inputValue || !prior || checklist.length == 0 || checklist.task===undefined) {
+    console.log(checklist.task==='')
+    console.log("c",checklist)
+    if (!inputValue || !prior || checklist.length == 0 || checklist.task===null) {
       const newErrors = {};
       console.log(checklist)
       if (!inputValue) newErrors.inputValue = "Please enter a title";
       if (!prior) newErrors.priority = "Please select a priority";
       if (checklist.length === 0)
         newErrors.checklist = "Enter at least one task";
-      if(checklist.task===undefined){
+      if(checklist.task===null){
         newErrors.checklist="Please enter data in checklist"
       }
       setErrors(newErrors);
+      console.log(newErrors);
       return;
     }
 
@@ -105,8 +106,10 @@ const Modal = ({ isOpen, onRequestClose }) => {
     if (selectedDate) {
       payload.duedate = new Date(selectedDate).toLocaleDateString();
     }
+    console.log(payload)
 
     setPayloadnew(payload);
+    console.log(payloadnew)
     dispatch(addTask(payload, userid));
     dispatch(fetchdata("today"));
     handleCloseModal();
@@ -241,17 +244,23 @@ const Modal = ({ isOpen, onRequestClose }) => {
                 }}
                 placeholder="Enter task"
               />
+           
               <img
                 className={style.deleteButton}
                 onClick={() => handleDeleteChecklistItem(item.id)}
                 src={Delete}
                 alt=""
-              />
-            </div>
+              />  
+            
+               </div>
+              
+            
           ))}
+          
+            
         </div>
         {errors.checklist && <p className={style.error}>{errors.checklist}</p>}
-        <h2 onClick={handleAddChecklistItem} className={style.addNew}>
+        <h2 onClick={handleAddChecklistItem} className={style.check}>
           <img src={add} alt="Add new" /> Add
         </h2>
         <div className={style.buttons}>

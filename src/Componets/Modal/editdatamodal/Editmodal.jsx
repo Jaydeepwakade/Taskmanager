@@ -70,19 +70,23 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   let formattedDueDate = selectedDate?.toLocaleDateString();
 
   const handleSubmit = async () => {
-    if (!inputValue || !prior || checklist.length === 0) {
+    console.log(checklist)
+    console.log(checklist.task===null)
+    if (!inputValue || !prior || checklist.length === 0 || checklist.task===null) {
       const newErrors = {};
       if (!inputValue) newErrors.inputValue = "Please enter a title";
       if (!prior) newErrors.priority = "Please select a priority";
       if (checklist.length === 0)
         newErrors.checklist = "Enter at least one task";
+      if(checklist.task===null){
+        newErrors.checklist = "Please enter some data";
+      }
       setError(newErrors);
       return;
     }
     if (!formattedDueDate) {
       setSelectedDate(null);
       formattedDueDate = null;
-      console.log(formattedDueDate);
     }
     const payload = {
       _id: task._id,
@@ -93,7 +97,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       duedate: formattedDueDate,
       assignee: assignee ? assignee : null,
     };
-    console.log(assignee);
 
     dispatch(edittasks(task._id, payload));
     onRequestClose();
@@ -147,9 +150,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         overlayClassName="overlay"
       >
         <div className={style.titlediv}>
-          <h2>
+          <h3>
             Title <span>*</span>
-          </h2>
+          </h3>
           <input
             type="text"
             value={inputValue}
@@ -192,7 +195,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         </div>
         {errors.prior && <p className="error">{errors.prior}</p>}
         <div className={style.assigndiv}>
-          <h4>Assign to</h4>
+          <h3 className={style.check}>Assign to</h3>
           <Select
             options={emailOptions}
             components={{ Option: customOption }}
@@ -206,15 +209,13 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
           />
         </div>
 
-        <h3>
-          <h3 className={style.check}>
-            Checklist <span>{`(${checkedListCount}/${checklist.length})`}</span>
-          </h3>
+        <h3 className={style.check}>
+          Checklist <span>{`(${checkedListCount}/${checklist.length})`}</span>
         </h3>
 
         <div className={style.scrolldiv}>
           {checklist.map((item) => (
-            <div className={style.inputdiv} key={item._id}>
+            <div className={style.inputdiv} key={item.id}>
               <input
                 className={style.inputdiv1}
                 type="checkbox"
@@ -235,7 +236,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
               <input
                 className={style.inputdiv2}
                 type="text"
-                value={item.task}
+                value={item.task?item.task:''}
                 onChange={(e) => {
                   handleChecklistTaskChange(item.id, e.target.value);
                 }}
@@ -244,19 +245,19 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
               <img
                 className={style.deleteButton}
                 onClick={() => {
-                  console.log("Item", item._id);
+                  console.log("Item", item.id);
                   handleDeleteChecklistItem(item.id);
                 }}
                 src={Delete}
-                alt=""
+                alt="Delete"
               />
             </div>
           ))}
         </div>
         {errors.checklist && <p className={style.error}>{errors.checklist}</p>}
-        <h2 onClick={handleAddChecklistItem} className={style.addNew}>
-          <img src={add} alt="Add new" /> Add new
-        </h2>
+        <h3 onClick={handleAddChecklistItem} className={style.check}>
+          <img className={style.check} src={add} alt="Add new" /> Add new
+        </h3>
         <div className={style.buttons}>
           <div>
             <DatePicker
