@@ -43,9 +43,10 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   };
 
   const handleChecklistTaskChange = (id, value) => {
+    console.log("Id",id)
     setChecklist((prevChecklist) =>
       prevChecklist.map((item) =>
-        item._id === id ? { ...item, task: value } : item
+        item.id === id ? { ...item, task: value } : item
       )
     );
   };
@@ -54,7 +55,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     setChecklist((prevChecklist) => [
       ...prevChecklist,
       { id: prevChecklist.length + 1, task: "", completed: false },
-    ]);
+    ],
+    console.log(checklist)
+  );
   };
 
   const handleDeleteChecklistItem = (id) => {
@@ -215,14 +218,17 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 className={style.inputdiv1}
                 type="checkbox"
                 checked={item.completed}
-                onChange={() =>
+                onChange={() =>{
                   setChecklist((prevChecklist) =>
                     prevChecklist.map((chk) =>
-                      chk._id === item._id
-                        ? { ...chk, completed: !chk.completed }
+                      chk.id === item.id
+                        ? { ...chk, completed:!chk.completed }
                         : chk
                     )
                   )
+                  console.log(checklist)
+                  console.log(item)
+                }
                 }
               />
               <input
@@ -231,7 +237,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 value={item.task}
                 onChange={(e) => {
                   console.log(e.target.value);
-                  handleChecklistTaskChange(item._id, e.target.value);
+                  handleChecklistTaskChange(item.id, e.target.value);
                 }}
                 placeholder="Enter task"
               />
