@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import Editmodal from "../../Modal/editdatamodal/Editmodal";
 import people from "../../../assets/people.svg";
 import AddEmailpopup from "../../emailpopup/Addemailpopup";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; 
 
 function Board() {
   const [name, setName] = useState("");
@@ -22,11 +24,11 @@ function Board() {
   const [openDropdownIds, setOpenDropdownIds] = useState([]);
   const [openDropdownIdstodo, setOpenDropdownIdstodo] = useState([]);
   const [openDropdownIddone, setOpenDropdownIdsdone] = useState([]);
-  
+
   const [openDropdownIdsprogress, setOpenDropdownIdsprogress] = useState([]);
   const [showtoast, setShowtoast] = useState(false);
   const [optionsDropdownId, setOptionsDropdownId] = useState(null);
-  
+
   const [toastmessage, setToastmessage] = useState("");
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -38,19 +40,29 @@ function Board() {
   const optionsDropdownRef = useRef(null);
   const formatedDate = (dateObj) => {
     const day = String(dateObj.getDate()).padStart(2, "0");
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
     const month = monthNames[dateObj.getMonth()];
     const year = dateObj.getFullYear();
-  
+
     return `${day} ${month} ${year}`;
   };
 
   const dateObj = new Date();
-  
 
   const formattedDate = formatedDate(dateObj);
-  
-
 
   const editModalRef = useRef(null);
   const navigate = useNavigate();
@@ -68,14 +80,17 @@ function Board() {
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
     function handleClickOutside(event) {
-      if (optionsDropdownRef.current && !optionsDropdownRef.current.contains(event.target)) {
+      if (
+        optionsDropdownRef.current &&
+        !optionsDropdownRef.current.contains(event.target)
+      ) {
         setOptionsDropdownId(null);
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [optionsDropdownRef]);
   useEffect(() => {
@@ -93,7 +108,7 @@ function Board() {
     dispatch(fetchdata(filter));
   }, [filter]);
 
-  const toggleDropdownbacklog= (id) => {
+  const toggleDropdownbacklog = (id) => {
     setOpenDropdownIds((prevIds) => {
       if (prevIds.includes(id)) {
         return prevIds.filter((dropdownId) => dropdownId !== id);
@@ -102,7 +117,7 @@ function Board() {
       }
     });
   };
-  const toggleDropdowntodo= (id) => {
+  const toggleDropdowntodo = (id) => {
     setOpenDropdownIdstodo((prevIds) => {
       if (prevIds.includes(id)) {
         return prevIds.filter((dropdownId) => dropdownId !== id);
@@ -111,7 +126,7 @@ function Board() {
       }
     });
   };
-  const toggleDropdownprogress= (id) => {
+  const toggleDropdownprogress = (id) => {
     setOpenDropdownIdsprogress((prevIds) => {
       if (prevIds.includes(id)) {
         return prevIds.filter((dropdownId) => dropdownId !== id);
@@ -120,7 +135,7 @@ function Board() {
       }
     });
   };
-  const toggleDropdowndone= (id) => {
+  const toggleDropdowndone = (id) => {
     setOpenDropdownIdsdone((prevIds) => {
       if (prevIds.includes(id)) {
         return prevIds.filter((dropdownId) => dropdownId !== id);
@@ -325,9 +340,9 @@ function Board() {
           <div className={Style.addpeople}>
             <div className={Style.boarding}>
               <h2>Board</h2>
-              <button style={{cursor:"pointer"}} onClick={handleaddemail}>
+              <button style={{ cursor: "pointer" }} onClick={handleaddemail}>
                 {" "}
-                <img  src={people} alt="" /> Add people
+                <img src={people} alt="" /> Add people
               </button>
             </div>
             <Toast
@@ -339,7 +354,8 @@ function Board() {
 
             <div className={Style.filtering}>
               <h2 className={Style.datenew}>{formattedDate}</h2>
-              <select  value={filter} onChange={handleFilterChange}>
+              <select value={filter} onChange={handleFilterChange}>
+                <option value="today">Today</option>
                 <option value="next-week">This Week</option>
                 <option value="today">Today</option>
                 <option value="next-month">This Month</option>
@@ -364,10 +380,13 @@ function Board() {
       <div className={Style.main}>
         <div className={Style.taskcontainer}>
           <div>
-            <h3 >Backlog</h3>
-            <img style={
-              {cursor:"pointer"}
-            } src={collapse} onClick={() => setOpenDropdownIds([])} alt="" />
+            <h3>Backlog</h3>
+            <img
+              style={{ cursor: "pointer" }}
+              src={collapse}
+              onClick={() => setOpenDropdownIds([])}
+              alt=""
+            />
           </div>
 
           <div className={Style.taskshow}>
@@ -378,8 +397,7 @@ function Board() {
 
               return (
                 <div key={ele._id} className={Style.todos}>
-               
-                  <div >
+                  <div>
                     <div className={Style.subheader}>
                       {renderPriorityCircle(ele, ele.priority)}
                       <div className={ele.name ? Style.avatar : ""}>
@@ -396,7 +414,13 @@ function Board() {
                       alt=""
                     />
                   </div>
-                  <h2 className={Style.title}>{ele.title}</h2>
+                  <Tippy  className={Style.customTooltip} content={ele.title}>
+         
+         <h2 className={Style.title} key={ele._id}>
+            {ele.title}
+          </h2>
+       
+        </Tippy>
                   {optionsDropdownId === ele._id && (
                     <div
                       ref={optionsDropdownRef}
@@ -410,11 +434,14 @@ function Board() {
                       >
                         Edit
                       </button>
-                      
+
                       <button onClick={() => handleShare(ele._id)}>
                         Share
                       </button>
-                      <button style={{color:"red"}} onClick={() => handleDeleteClick(ele._id)}>
+                      <button
+                        style={{ color: "red" }}
+                        onClick={() => handleDeleteClick(ele._id)}
+                      >
                         Delete
                       </button>
                     </div>
@@ -455,13 +482,15 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                  {ele.dueDate? (
-              <div className={Style.date}>{formatDate(ele.dueDate)}</div>
-             ) : (
-              <div className={Style.duedate2}></div>
-                 )}
+                    {ele.dueDate ? (
+                      <div className={Style.date}>
+                        {formatDate(ele.dueDate)}
+                      </div>
+                    ) : (
+                      <div className={Style.duedate2}></div>
+                    )}
                     <div className={Style.btns}>
-                      <button  onClick={() => moveTask(ele._id, "inProgress")}>
+                      <button onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
                       </button>
                       <button onClick={() => moveTask(ele._id, "TO-DO")}>
@@ -483,11 +512,16 @@ function Board() {
           <div>
             <h3>To Do</h3>
             <div>
-              <img className={Style.addmodal} onClick={openModal} src={add} alt="" />
+              <img
+                className={Style.addmodal}
+                onClick={openModal}
+                src={add}
+                alt=""
+              />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
 
               <img
-              style={{cursor:"pointer"}} 
+                style={{ cursor: "pointer" }}
                 onClick={() => setOpenDropdownIdstodo([])}
                 src={collapse}
                 alt=""
@@ -502,7 +536,7 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                  <div className={Style.subheader}>
+                    <div className={Style.subheader}>
                       {renderPriorityCircle(ele, ele.priority)}
                       <div className={ele.name ? Style.avatar : ""}>
                         <h4>
@@ -513,18 +547,27 @@ function Board() {
                       </div>
                     </div>
                     <img
-                      onClick={() =>setOptionsDropdownId(ele._id)}
+                      onClick={() => setOptionsDropdownId(ele._id)}
                       src={dots}
                       alt=""
                     />
                   </div>
-                  <h2>{ele.title}</h2>
+                
+                <Tippy  className={Style.customTooltip} content={ele.title}>
+         
+                 <h2 className={Style.title} key={ele._id}>
+                    {ele.title}
+                  </h2>
+               
+                </Tippy>
+                
+
                   {optionsDropdownId === ele._id && (
                     <div
                       ref={optionsDropdownRef}
                       className={Style.optionsDropdown}
                     >
-                       <button
+                      <button
                         onClick={() => {
                           setOptionsDropdownId(null);
                           setEditModalTaskId(ele._id);
@@ -532,14 +575,16 @@ function Board() {
                       >
                         Edit
                       </button>
-                      
+
                       <button onClick={() => handleShare(ele._id)}>
                         Share
                       </button>
-                      <button style={{color:"red"}} onClick={() => handleDeleteClick(ele._id)}>
+                      <button
+                        style={{ color: "red" }}
+                        onClick={() => handleDeleteClick(ele._id)}
+                      >
                         Delete
                       </button>
-                   
                     </div>
                   )}
                   {editModalTaskId === ele._id && (
@@ -555,7 +600,9 @@ function Board() {
                     </h3>
                     <img
                       onClick={() => toggleDropdowntodo(ele._id)}
-                      src={openDropdownIdstodo.includes(ele._id) ? Arrow1 : Arrow2}
+                      src={
+                        openDropdownIdstodo.includes(ele._id) ? Arrow1 : Arrow2
+                      }
                       alt=""
                     />
                   </div>
@@ -577,13 +624,15 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                  {ele.dueDate? (
-              <div className={Style.date}>{formatDate(ele.dueDate)}</div>
-             ) : (
-              <div className={Style.duedate2}></div>
-                 )}
+                    {ele.dueDate ? (
+                      <div className={Style.date}>
+                        {formatDate(ele.dueDate)}
+                      </div>
+                    ) : (
+                      <div className={Style.duedate2}></div>
+                    )}
                     <div className={Style.btns}>
-                      <button  onClick={() => moveTask(ele._id, "inProgress")}>
+                      <button onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
                       </button>
                       <button onClick={() => moveTask(ele._id, "BACKLOG")}>
@@ -603,7 +652,12 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>In Progress</h3>
-            <img style={{cursor:"pointer"}}  onClick={() => setOpenDropdownIdsprogress([])} src={collapse} alt="" />
+            <img
+              style={{ cursor: "pointer" }}
+              onClick={() => setOpenDropdownIdsprogress([])}
+              src={collapse}
+              alt=""
+            />
           </div>
           <div className={Style.taskshow}>
             {inProgressTasks.map((ele) => {
@@ -612,8 +666,8 @@ function Board() {
               ).length;
               return (
                 <div key={ele._id} className={Style.todos}>
-                      <div>
-                      <div className={Style.subheader}>
+                  <div>
+                    <div className={Style.subheader}>
                       {renderPriorityCircle(ele, ele.priority)}
                       <div className={ele.name ? Style.avatar : ""}>
                         <h4>
@@ -633,7 +687,13 @@ function Board() {
                       alt=""
                     />
                   </div>
-                  <h2>{ele.title}</h2>
+                  <Tippy  className={Style.customTooltip} content={ele.title}>
+         
+         <h2 className={Style.title} key={ele._id}>
+            {ele.title}
+          </h2>
+       
+        </Tippy>
                   {optionsDropdownId === ele._id && (
                     <div
                       ref={optionsDropdownRef}
@@ -647,11 +707,14 @@ function Board() {
                       >
                         Edit
                       </button>
-                      
+
                       <button onClick={() => handleShare(ele._id)}>
                         Share
                       </button>
-                      <button style={{color:"red"}} onClick={() => handleDeleteClick(ele._id)}>
+                      <button
+                        style={{ color: "red" }}
+                        onClick={() => handleDeleteClick(ele._id)}
+                      >
                         Delete
                       </button>
                     </div>
@@ -670,7 +733,11 @@ function Board() {
                     </h3>
                     <img
                       onClick={() => toggleDropdownprogress(ele._id)}
-                      src={openDropdownIdsprogress.includes(ele._id) ? Arrow1 : Arrow2}
+                      src={
+                        openDropdownIdsprogress.includes(ele._id)
+                          ? Arrow1
+                          : Arrow2
+                      }
                       alt=""
                     />
                   </div>
@@ -692,11 +759,13 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                  {ele.dueDate? (
-    <div className={Style.date}>{formatDate(ele.dueDate)}</div>
-  ) : (
-    <div className={Style.duedate2}></div>
-  )}
+                    {ele.dueDate ? (
+                      <div className={Style.date}>
+                        {formatDate(ele.dueDate)}
+                      </div>
+                    ) : (
+                      <div className={Style.duedate2}></div>
+                    )}
                     <div className={Style.btns}>
                       <button onClick={() => moveTask(ele._id, "TO-DO")}>
                         TODO
@@ -719,7 +788,12 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>Done</h3>
-            <img style={{cursor:"pointer"}}  onClick={() => setOpenDropdownIdsdone([])} src={collapse} alt="" />
+            <img
+              style={{ cursor: "pointer" }}
+              onClick={() => setOpenDropdownIdsdone([])}
+              src={collapse}
+              alt=""
+            />
           </div>
           <div className={Style.taskshow}>
             {doneTasks.map((ele) => {
@@ -729,7 +803,7 @@ function Board() {
               return (
                 <div key={ele._id} className={Style.todos}>
                   <div>
-                  <div className={Style.subheader}>
+                    <div className={Style.subheader}>
                       {renderPriorityCircle(ele, ele.priority)}
                       <div className={ele.name ? Style.avatar : ""}>
                         <h4>
@@ -749,13 +823,19 @@ function Board() {
                       alt=""
                     />
                   </div>
-                  <h2>{ele.title}</h2>
+                  <Tippy  className={Style.customTooltip} content={ele.title}>
+         
+         <h2 className={Style.title} key={ele._id}>
+            {ele.title}
+          </h2>
+       
+        </Tippy>
                   {optionsDropdownId === ele._id && (
                     <div
                       ref={optionsDropdownRef}
                       className={Style.optionsDropdown}
                     >
-                    <button
+                      <button
                         onClick={() => {
                           setOptionsDropdownId(null);
                           setEditModalTaskId(ele._id);
@@ -763,11 +843,14 @@ function Board() {
                       >
                         Edit
                       </button>
-                      
+
                       <button onClick={() => handleShare(ele._id)}>
                         Share
                       </button>
-                      <button style={{color:"red"}} onClick={() => handleDeleteClick(ele._id)}>
+                      <button
+                        style={{ color: "red" }}
+                        onClick={() => handleDeleteClick(ele._id)}
+                      >
                         Delete
                       </button>
                     </div>
@@ -785,7 +868,9 @@ function Board() {
                     </h3>
                     <img
                       onClick={() => toggleDropdowndone(ele._id)}
-                      src={openDropdownIddone.includes(ele._id) ? Arrow1 : Arrow2}
+                      src={
+                        openDropdownIddone.includes(ele._id) ? Arrow1 : Arrow2
+                      }
                       alt=""
                     />
                   </div>
@@ -807,19 +892,21 @@ function Board() {
                       ))}
                   </div>
                   <div className={Style.divbuttons}>
-                  {ele.dueDate? (
-    <div className={Style.donebtn}>{formatDate(ele.dueDate)}</div>
-  ) : (
-    <div className={Style.duedate2}></div>
-  )}
+                    {ele.dueDate ? (
+                      <div className={Style.donebtn}>
+                        {formatDate(ele.dueDate)}
+                      </div>
+                    ) : (
+                      <div className={Style.duedate2}></div>
+                    )}
                     <div className={Style.btns}>
-                      <button   onClick={() => moveTask(ele._id, "TO-DO")}>
+                      <button onClick={() => moveTask(ele._id, "TO-DO")}>
                         TODO
                       </button>
-                      <button  onClick={() => moveTask(ele._id, "inProgress")}>
+                      <button onClick={() => moveTask(ele._id, "inProgress")}>
                         PROGRESS
                       </button>
-                      <button  onClick={() => moveTask(ele._id, "BACKLOG")}>
+                      <button onClick={() => moveTask(ele._id, "BACKLOG")}>
                         BACKLOG
                       </button>
                     </div>
