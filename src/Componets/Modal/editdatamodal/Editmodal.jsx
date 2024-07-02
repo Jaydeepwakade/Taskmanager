@@ -12,6 +12,7 @@ import useAllEmails from "../Allmails/useAllEmails";
 import Ellipse2 from "../../../assets/Ellipse2.svg";
 import blue from "../../../assets/blue.svg";
 import green from "../../../assets/green.svg";
+import { color } from "framer-motion";
 ReactModal.setAppElement("#root");
 
 const Editmodal = ({ isOpen, onRequestClose, task }) => {
@@ -43,7 +44,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   };
 
   const handleChecklistTaskChange = (id, value) => {
-    console.log("Id",id)
     setChecklist((prevChecklist) =>
       prevChecklist.map((item) =>
         item.id === id ? { ...item, task: value } : item
@@ -55,14 +55,12 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     setChecklist((prevChecklist) => [
       ...prevChecklist,
       { id: prevChecklist.length + 1, task: "", completed: false },
-    ],
-    console.log(checklist)
-  );
+    ]);
   };
 
   const handleDeleteChecklistItem = (id) => {
     setChecklist((prevChecklist) =>
-      prevChecklist.filter((item) => item._id !== id)
+      prevChecklist.filter((item) => item.id !== id)
     );
   };
 
@@ -81,7 +79,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
     if (!formattedDueDate) {
       setSelectedDate(null);
       formattedDueDate = null;
-      console.log(formattedDueDate);
     }
     const payload = {
       _id: task._id,
@@ -92,7 +89,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       duedate: formattedDueDate,
       assignee: assignee ? assignee : null,
     };
-    console.log(assignee);
 
     dispatch(edittasks(task._id, payload));
     onRequestClose();
@@ -146,9 +142,9 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         overlayClassName="overlay"
       >
         <div className={style.titlediv}>
-          <h2>
+          <h3>
             Title <span>*</span>
-          </h2>
+          </h3>
           <input
             type="text"
             value={inputValue}
@@ -191,7 +187,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         </div>
         {errors.prior && <p className="error">{errors.prior}</p>}
         <div className={style.assigndiv}>
-          <h4>Assign to</h4>
+          <h3 className={style.check}>Assign to</h3>
           <Select
             options={emailOptions}
             components={{ Option: customOption }}
@@ -205,38 +201,32 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
           />
         </div>
 
-        <h3>
-          <h3 className={style.check}>
-            Checklist <span>{`(${checkedListCount}/${checklist.length})`}</span>
-          </h3>
+        <h3 className={style.check}>
+          Checklist <span>{`(${checkedListCount}/${checklist.length})`}</span>
         </h3>
 
         <div className={style.scrolldiv}>
           {checklist.map((item) => (
-            <div className={style.inputdiv} key={item._id}>
+            <div className={style.inputdiv} key={item.id}>
               <input
                 className={style.inputdiv1}
                 type="checkbox"
                 checked={item.completed}
-                onChange={() =>{
+                onChange={() => {
                   setChecklist((prevChecklist) =>
                     prevChecklist.map((chk) =>
                       chk.id === item.id
-                        ? { ...chk, completed:!chk.completed }
+                        ? { ...chk, completed: !chk.completed }
                         : chk
                     )
-                  )
-                  console.log(checklist)
-                  console.log(item)
-                }
-                }
+                  );
+                }}
               />
               <input
                 className={style.inputdiv2}
                 type="text"
                 value={item.task}
                 onChange={(e) => {
-                  console.log(e.target.value);
                   handleChecklistTaskChange(item.id, e.target.value);
                 }}
                 placeholder="Enter task"
@@ -244,19 +234,18 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
               <img
                 className={style.deleteButton}
                 onClick={() => {
-                  console.log("Item", item._id);
-                  handleDeleteChecklistItem(item._id);
+                  handleDeleteChecklistItem(item.id);
                 }}
                 src={Delete}
-                alt=""
+                alt="Delete"
               />
             </div>
           ))}
         </div>
         {errors.checklist && <p className={style.error}>{errors.checklist}</p>}
-        <h2 onClick={handleAddChecklistItem} className={style.addNew}>
-          <img src={add} alt="Add new" /> Add new
-        </h2>
+        <h3 onClick={handleAddChecklistItem} className={style.check}>
+          <img className={style.check} src={add} alt="Add new" /> Add new
+        </h3>
         <div className={style.buttons}>
           <div>
             <DatePicker
