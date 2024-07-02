@@ -270,11 +270,26 @@ font-size: 16px;
   font-size: 14px;
 }
 
-.todos h2{
+.todos h2 {
   font-size: 19px;
   font-family: "Noto Sans", sans-serif;
-  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
 }
+.customTooltip {
+  font-family: "Noto Sans", sans-serif;
+  max-width: 200px;
+  height: 30px;
+  padding: 10px;
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #cccccc;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .filtertag{
   margin-left: 1230px;
 }
