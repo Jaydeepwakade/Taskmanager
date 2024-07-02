@@ -33,18 +33,13 @@ const Modal = ({ isOpen, onRequestClose }) => {
     const id = localStorage.getItem("id");
     setUserid(id);
     dispatch(fetchdata("today"));
-  }, [payloadnew]);
+  }, []);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
   const handleChecklistTaskChange = (id, value) => {
-    console.log(value)
-    if (value==='') {
-      setChecklist(null)
-      return;
-    }
     setChecklist((prevChecklist) =>
       prevChecklist.map((item) =>
         item.id === id ? { ...item, task: value } : item
@@ -78,20 +73,14 @@ const Modal = ({ isOpen, onRequestClose }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(checklist.task==='')
-    console.log("c",checklist)
-    if (!inputValue || !prior || checklist.length == 0 || checklist.task===null) {
+    // Validate the checklist items
+    if (!inputValue || !prior || checklist.length === 0 || checklist.some(item => item.task === "")) {
       const newErrors = {};
-      console.log(checklist)
       if (!inputValue) newErrors.inputValue = "Please enter a title";
       if (!prior) newErrors.priority = "Please select a priority";
-      if (checklist.length === 0)
-        newErrors.checklist = "Enter at least one task";
-      if(checklist.task===null){
-        newErrors.checklist="Please enter data in checklist"
-      }
+      if (checklist.length === 0) newErrors.checklist = "Enter at least one task";
+      if (checklist.some(item => item.task === "")) newErrors.checklist = "Please enter data in all checklist items";
       setErrors(newErrors);
-      console.log(newErrors);
       return;
     }
 
@@ -100,16 +89,13 @@ const Modal = ({ isOpen, onRequestClose }) => {
       priority: prior,
       status: "TO-DO",
       checklist: checklist,
-      assignee: assignee ? assignee : null,
+      assignee: assignee ? assignee.value.label : null,
+      duedate: selectedDate ? new Date(selectedDate).toLocaleDateString() : null,
     };
 
-    if (selectedDate) {
-      payload.duedate = new Date(selectedDate).toLocaleDateString();
-    }
-    console.log(payload)
+    console.log("Payload:", payload);
 
     setPayloadnew(payload);
-    console.log(payloadnew)
     dispatch(addTask(payload, userid));
     dispatch(fetchdata("today"));
     handleCloseModal();
@@ -238,26 +224,18 @@ const Modal = ({ isOpen, onRequestClose }) => {
               <input
                 className={style.inputdiv2}
                 type="text"
-                value={item.task?item.task:''}
-                onChange={(e) => {
-                  handleChecklistTaskChange(item.id, e.target.value);
-                }}
+                value={item.task}
+                onChange={(e) => handleChecklistTaskChange(item.id, e.target.value)}
                 placeholder="Enter task"
               />
-           
               <img
                 className={style.deleteButton}
                 onClick={() => handleDeleteChecklistItem(item.id)}
                 src={Delete}
                 alt=""
-              />  
-            
-               </div>
-              
-            
+              />
+            </div>
           ))}
-          
-            
         </div>
         {errors.checklist && <p className={style.error}>{errors.checklist}</p>}
         <h2 onClick={handleAddChecklistItem} className={style.check}>
