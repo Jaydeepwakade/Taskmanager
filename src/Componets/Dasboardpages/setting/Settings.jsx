@@ -79,7 +79,7 @@ function Settings() {
   return (
     <div className={Style.container}>
       <div className={Style.loginDiv}>
-        <h1>settings</h1>
+        <h1 className={Style.heading}>settings</h1>
         <form action="">
           <div className={Style.mainDiv}>
             <div className={Style.inputDiv}>

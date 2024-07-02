@@ -364,8 +364,10 @@ function Board() {
       <div className={Style.main}>
         <div className={Style.taskcontainer}>
           <div>
-            <h3>Backlog</h3>
-            <img src={collapse} onClick={() => setOpenDropdownIds([])} alt="" />
+            <h3 >Backlog</h3>
+            <img style={
+              {cursor:"pointer"}
+            } src={collapse} onClick={() => setOpenDropdownIds([])} alt="" />
           </div>
 
           <div className={Style.taskshow}>
@@ -481,7 +483,7 @@ function Board() {
           <div>
             <h3>To Do</h3>
             <div>
-              <img onClick={openModal} src={add} alt="" />
+              <img className={Style.addmodal} onClick={openModal} src={add} alt="" />
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
 
               <img

@@ -61,7 +61,7 @@ function Task() {
     <div className={Style.container}>
        <div className={Style.header}>
                 <span><img src={sandbox} alt="sandbox" /></span>
-                <h3> ProManager</h3>
+                <h3> Pro Manage</h3>
             </div>
       <div className={Style.todos}>
         <div>
@@ -94,7 +94,7 @@ function Task() {
 
 {task.dueDate && (
           <div className={Style.dueDate}>
-            <p>Due Date: <span>{formatDate(task.dueDate)}</span></p>
+            <p>Due Date <span>{formatDate(task.dueDate)}</span></p>
           </div>
         )}
       </div>

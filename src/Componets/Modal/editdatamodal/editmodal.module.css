@@ -172,6 +172,9 @@ button {
     outline: none;
 
 }
+.error{
+    color: red;
+}
 
 .assigndiv {
     display: flex;

@@ -30,7 +30,7 @@ function Navbar() {
         <div className={styles.navbar}>
             <div className={styles.header}>
                 <span><img src={sandbox} alt="sandbox" /></span>
-                <h3>ProManager</h3>
+                <h3>Pro Manage</h3>
             </div>
             <div className={styles.NavDiv}>
                 <li>
