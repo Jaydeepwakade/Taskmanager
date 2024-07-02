@@ -364,8 +364,10 @@ function Board() {
       <div className={Style.main}>
         <div className={Style.taskcontainer}>
           <div>
-            <h3 className={Style.tasksection}>Backlog</h3>
-            <img src={collapse} onClick={() => setOpenDropdownIds([])} alt="" />
+            <h3 >Backlog</h3>
+            <img style={
+              {cursor:"pointer"}
+            } src={collapse} onClick={() => setOpenDropdownIds([])} alt="" />
           </div>
 
           <div className={Style.taskshow}>
