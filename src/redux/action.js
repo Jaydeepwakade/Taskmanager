@@ -1,4 +1,4 @@
-export const url ="http://172.20.10.5:4000";
+export const url ="http://192.168.0.105:4000";
 
 export const getdatarequest = "GETDATAREQUEST";
 export const getdatasucces = "GETDATA";

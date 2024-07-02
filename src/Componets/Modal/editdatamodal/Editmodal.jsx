@@ -45,7 +45,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   const handleChecklistTaskChange = (id, value) => {
     setChecklist((prevChecklist) =>
       prevChecklist.map((item) =>
-        item.id === id ? { ...item, task: value } : item
+        item._id === id ? { ...item, task: value } : item
       )
     );
   };
@@ -70,14 +70,15 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       const newErrors = {};
       if (!inputValue) newErrors.inputValue = "Please enter a title";
       if (!prior) newErrors.priority = "Please select a priority";
-      if (checklist.length === 0) newErrors.checklist = "Enter at least one task";
+      if (checklist.length === 0)
+        newErrors.checklist = "Enter at least one task";
       setError(newErrors);
       return;
     }
-    if(!formattedDueDate){
-      setSelectedDate(null)
-      formattedDueDate=null
-      console.log(formattedDueDate)
+    if (!formattedDueDate) {
+      setSelectedDate(null);
+      formattedDueDate = null;
+      console.log(formattedDueDate);
     }
     const payload = {
       _id: task._id,
@@ -152,7 +153,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
             placeholder="Enter Task title"
           />
         </div>
-       
+
         <div className={style.prioritydiv}>
           <h3>
             Select Priority <span>*</span>
@@ -217,7 +218,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 onChange={() =>
                   setChecklist((prevChecklist) =>
                     prevChecklist.map((chk) =>
-                      chk.id === item.id
+                      chk._id === item._id
                         ? { ...chk, completed: !chk.completed }
                         : chk
                     )
@@ -228,17 +229,18 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 className={style.inputdiv2}
                 type="text"
                 value={item.task}
-                onChange={(e) =>
-                  handleChecklistTaskChange(item.id, e.target.value)
-                }
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  handleChecklistTaskChange(item._id, e.target.value);
+                }}
                 placeholder="Enter task"
               />
               <img
                 className={style.deleteButton}
-                onClick={() =>{
-                  console.log("Item",item._id)
-                  handleDeleteChecklistItem(item._id)
-                } }
+                onClick={() => {
+                  console.log("Item", item._id);
+                  handleDeleteChecklistItem(item._id);
+                }}
                 src={Delete}
                 alt=""
               />

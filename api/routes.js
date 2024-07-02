@@ -177,8 +177,6 @@ router.get("/fetchTask/:id/:day", async (req, res) => {
       res.status(200).json({ message: "Done", data: tasksNextWeek });
     } else if (day === "next-month") {
       const today = new Date();
-      // const nextMonth = new Date();
-      // nextMonth.setMonth(today.getMonth() + 1);
       const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0); // Get the last day of the current month
 
       const tasksNextMonth = allTasks.filter((task) => {
