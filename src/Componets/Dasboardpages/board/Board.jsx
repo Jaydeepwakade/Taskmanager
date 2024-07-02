@@ -33,7 +33,7 @@ function Board() {
   const [checked, setChecked] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [itemId, setItemId] = useState("");
-  const [filter, setFilter] = useState("today");
+  const [filter, setFilter] = useState("next-week");
   const [editModalTaskId, setEditModalTaskId] = useState(null);
   const optionsDropdownRef = useRef(null);
   const formatedDate = (dateObj) => {
@@ -63,7 +63,7 @@ function Board() {
     }
   }, [navigate]);
   useEffect(() => {
-    dispatch(fetchdata("today"));
+    dispatch(fetchdata("next-week"));
   }, []);
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
@@ -84,7 +84,7 @@ function Board() {
       const storedId = localStorage.getItem("id");
       setName(storedName);
       setId(storedId);
-      dispatch(fetchdata("today"));
+      dispatch(fetchdata("next-week"));
     };
     fetchDataFromLocalStorage();
   }, []);
@@ -182,7 +182,7 @@ function Board() {
       if (result.ok) {
         handleShowToast("Task deleted successfully");
         closePopup();
-        dispatch(fetchdata("today"));
+        dispatch(fetchdata("next-week"));
       } else {
         handleShowToast("Failed to delete task");
       }
@@ -259,7 +259,7 @@ function Board() {
         if (result.ok) {
           const response = await result.json();
           console.log(response);
-          dispatch(fetchdata("today"));
+          dispatch(fetchdata("next-week"));
         } else {
         }
       } catch (error) {
@@ -340,8 +340,8 @@ function Board() {
             <div className={Style.filtering}>
               <h2 className={Style.datenew}>{formattedDate}</h2>
               <select  value={filter} onChange={handleFilterChange}>
-                <option value="today">Today</option>
                 <option value="next-week">This Week</option>
+                <option value="today">Today</option>
                 <option value="next-month">This Month</option>
               </select>
             </div>
