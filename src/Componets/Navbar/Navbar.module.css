@@ -52,7 +52,7 @@
   }
   
   .btn h2 {
-    margin: 0; 
+   font-weight: 600;
     color: red;/* Ensure no margin around the text */
   }
 .navlink {
