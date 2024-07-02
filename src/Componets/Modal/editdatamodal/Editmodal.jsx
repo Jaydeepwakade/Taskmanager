@@ -22,7 +22,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   const allEmails = useAllEmails();
   const [assignee, setAssignee] = useState(null);
   const [errors, setError] = useState({});
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   useEffect(() => {
     if (task) {
@@ -46,7 +46,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   const handleChecklistTaskChange = (id, value) => {
     setChecklist((prevChecklist) =>
       prevChecklist.map((item) =>
-        item._id === id ? { ...item, task: value } : item
+        item.id === id ? { ...item, task: value } : item
       )
     );
     console.log("Checklist", checklist);
@@ -57,14 +57,13 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       (prevChecklist) => [
         ...prevChecklist,
         { id: prevChecklist.length + 1, task: "", completed: false },
-      ],
-      console.log("checklist: ",checklist)
+      ],  
     );
   };
 
   const handleDeleteChecklistItem = (id) => {
     setChecklist((prevChecklist) =>
-      prevChecklist.filter((item) => item._id !== id)
+      prevChecklist.filter((item) => item.id !== id)
     );
   };
 
@@ -222,9 +221,10 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 checked={item.completed}
                 onChange={() => {
                   console.log("Previous checklist:",checklist);
+                  console.log("Item",item);
                   setChecklist((prevChecklist) =>
                     prevChecklist.map((chk) =>
-                      chk._id === item._id
+                      chk.id === item.id
                         ? { ...chk, completed: !chk.completed }
                         : chk
                     )
@@ -237,8 +237,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 type="text"
                 value={item.task}
                 onChange={(e) => {
-                  console.log(e.target.value);
-                  handleChecklistTaskChange(item._id, e.target.value);
+                  handleChecklistTaskChange(item.id, e.target.value);
                 }}
                 placeholder="Enter task"
               />
@@ -246,7 +245,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
                 className={style.deleteButton}
                 onClick={() => {
                   console.log("Item", item._id);
-                  handleDeleteChecklistItem(item._id);
+                  handleDeleteChecklistItem(item.id);
                 }}
                 src={Delete}
                 alt=""

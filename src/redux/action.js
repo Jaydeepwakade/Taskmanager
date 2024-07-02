@@ -120,6 +120,7 @@ export const updateTaskStatus = (taskId,newStatus) => {
 export const addTask = (payload, id) => {
   return async (dispatch) => {
     dispatch(addTaskRequest());
+    console.log(payload)
     try {
       const response = await fetch(`${url}/saveTask/${id}`, {
         method: "POST",
