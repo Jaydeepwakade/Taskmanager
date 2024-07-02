@@ -115,7 +115,7 @@ router.post("/saveTask/:mainId", async (req, res) => {
   console.log("heelo")
   try {
     const { mainId } = req.params;
-    const { title, priority, status, checklist, duedate, assignee,id } = req.body;
+    const { title, priority, status, checklist, duedate, assignee } = req.body;
     console.log(req.body)
     const newTodo = await Todo({
       title,

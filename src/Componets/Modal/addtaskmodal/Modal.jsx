@@ -40,6 +40,11 @@ const Modal = ({ isOpen, onRequestClose }) => {
   };
 
   const handleChecklistTaskChange = (id, value) => {
+    console.log(value)
+    if (value==='') {
+      setChecklist(null)
+      return;
+    }
     setChecklist((prevChecklist) =>
       prevChecklist.map((item) =>
         item.id === id ? { ...item, task: value } : item
@@ -73,16 +78,18 @@ const Modal = ({ isOpen, onRequestClose }) => {
   };
 
   const handleSubmit = async () => {
-    const newErrors = {};
-
-    if (!inputValue) newErrors.inputValue = "Please enter a title";
-    if (!prior) newErrors.priority = "Please select a priority";
-    if (checklist.length === 0) newErrors.checklist = "Enter at least one task";
-
-    const emptyTasks = checklist.filter((item) => !item.task.trim());
-    if (emptyTasks.length > 0) newErrors.task = "!";
-
-    if (Object.keys(newErrors).length > 0) {
+    console.log(checklist.task==='')
+    console.log("c",checklist)
+    if (!inputValue || !prior || checklist.length == 0 || checklist.task===null) {
+      const newErrors = {};
+      console.log(checklist)
+      if (!inputValue) newErrors.inputValue = "Please enter a title";
+      if (!prior) newErrors.priority = "Please select a priority";
+      if (checklist.length === 0)
+        newErrors.checklist = "Enter at least one task";
+      if(checklist.task===null){
+        newErrors.checklist="Please enter data in checklist"
+      }
       setErrors(newErrors);
       console.log(newErrors);
       return;
@@ -93,7 +100,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
       priority: prior,
       status: "TO-DO",
       checklist: checklist,
-      assignee: assignee?assignee:null 
+      assignee: assignee ? assignee : null,
     };
 
     if (selectedDate) {
@@ -159,7 +166,9 @@ const Modal = ({ isOpen, onRequestClose }) => {
             onChange={handleInputChange}
             placeholder="Enter task title"
           />
-          {errors.inputValue && <p className={style.error}>{errors.inputValue}</p>}
+          {errors.inputValue && (
+            <p className={style.error}>{errors.inputValue}</p>
+          )}
         </div>
         <div className={style.prioritydiv}>
           <h3>
@@ -229,10 +238,10 @@ const Modal = ({ isOpen, onRequestClose }) => {
               <input
                 className={style.inputdiv2}
                 type="text"
-                value={item.task}
-                onChange={(e) =>
-                  handleChecklistTaskChange(item.id, e.target.value)
-                }
+                value={item.task?item.task:''}
+                onChange={(e) => {
+                  handleChecklistTaskChange(item.id, e.target.value);
+                }}
                 placeholder="Enter task"
               />
            
