@@ -325,9 +325,9 @@ function Board() {
           <div className={Style.addpeople}>
             <div className={Style.boarding}>
               <h2>Board</h2>
-              <button onClick={handleaddemail}>
+              <button style={{cursor:"pointer"}} onClick={handleaddemail}>
                 {" "}
-                <img src={people} alt="" /> Add people
+                <img  src={people} alt="" /> Add people
               </button>
             </div>
             <Toast
@@ -339,9 +339,9 @@ function Board() {
 
             <div className={Style.filtering}>
               <h2 className={Style.datenew}>{formattedDate}</h2>
-              <select value={filter} onChange={handleFilterChange}>
+              <select  value={filter} onChange={handleFilterChange}>
                 <option value="today">Today</option>
-                <option value="next-week">ThisWeek</option>
+                <option value="next-week">This Week</option>
                 <option value="next-month">This Month</option>
               </select>
             </div>
@@ -487,6 +487,7 @@ function Board() {
               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
 
               <img
+              style={{cursor:"pointer"}} 
                 onClick={() => setOpenDropdownIdstodo([])}
                 src={collapse}
                 alt=""
@@ -602,7 +603,7 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>In Progress</h3>
-            <img onClick={() => setOpenDropdownIdsprogress([])} src={collapse} alt="" />
+            <img style={{cursor:"pointer"}}  onClick={() => setOpenDropdownIdsprogress([])} src={collapse} alt="" />
           </div>
           <div className={Style.taskshow}>
             {inProgressTasks.map((ele) => {
@@ -718,7 +719,7 @@ function Board() {
         <div className={Style.taskcontainer}>
           <div>
             <h3>Done</h3>
-            <img onClick={() => setOpenDropdownIdsdone([])} src={collapse} alt="" />
+            <img style={{cursor:"pointer"}}  onClick={() => setOpenDropdownIdsdone([])} src={collapse} alt="" />
           </div>
           <div className={Style.taskshow}>
             {doneTasks.map((ele) => {

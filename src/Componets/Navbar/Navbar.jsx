@@ -76,8 +76,8 @@ function Navbar() {
                     </NavLink>
                 </li>
             </div>
-            <button className={styles.btn} onClick={handleLogout}>
-                <img src={Logout} alt="" /> <h2>Logout</h2>
+            <button style={{cursor:"pointer"}} className={styles.btn} onClick={handleLogout}>
+                <img   src={Logout} alt="" /> <h2>Logout</h2>
             </button>
            
             <ConfirmationModal
