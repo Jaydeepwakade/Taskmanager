@@ -48,7 +48,6 @@ const Modal = ({ isOpen, onRequestClose }) => {
             });
             const response = await result.json();
             const data = response.data;
-            console.log(data)
             setAllEmails(data);
         } catch (error) {
             console.error('Error fetching emails:', error);
@@ -130,7 +129,7 @@ useEffect(() => {
       return;
     }
 
-    console.log(assignee)
+    console.log("Assignne:",assignee)
     const payload = {
       title: inputValue,
       priority: prior,
@@ -151,7 +150,7 @@ useEffect(() => {
   const customOption = ({ data, innerRef, innerProps }) => (
     <div {...innerProps} ref={innerRef} className={style.selectOption}>
       <div className={style.avatar}>
-        {data.value.label.substring(0, 2).toUpperCase()}
+        {data.value.substring(0, 2).toUpperCase()}
       </div>
       <div className={style.emaildiv}>
         <span className={style.email}>{data.label}</span>
@@ -169,7 +168,7 @@ useEffect(() => {
   );
 
   const emailOptions = allEmails.map((email) => ({
-    value: { value: email, label: email },
+    value: email,
     label: email,
   }));
 

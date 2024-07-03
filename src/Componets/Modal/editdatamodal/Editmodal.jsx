@@ -31,7 +31,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       setPrior(task.priority || "");
       setSelectedDate(task.dueDate ? new Date(task.dueDate) : null);
       setAssignee(task.name);
-      console.log("Checklist", assignee);
     }
   }, [task]);
 
@@ -69,8 +68,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   let formattedDueDate = selectedDate?.toLocaleDateString();
 
   const handleSubmit = async () => {
-    console.log(checklist)
-    console.log(checklist.task===null)
     if (!inputValue || !prior || checklist.length === 0 || checklist.task===null) {
       const newErrors = {};
       if (!inputValue) newErrors.inputValue = "Please enter a title";
@@ -87,6 +84,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       setSelectedDate(null);
       formattedDueDate = null;
     }
+    console.log(assignee===task.name)
     const payload = {
       _id: task._id,
       title: inputValue,
@@ -94,7 +92,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       status: task.status,
       checklist: checklist,
       duedate: formattedDueDate,
-      assignee: assignee ? assignee : null,
+      assignee: assignee===task.name ? null : assignee,
     };
 
     dispatch(edittasks(task._id, payload));
@@ -117,7 +115,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   const customOption = ({ data, innerRef, innerProps }) => (
     <div {...innerProps} ref={innerRef} className={style.selectOption}>
       <div className={style.avatar}>
-        {data.value.label.substring(0, 2).toUpperCase()}
+        {data.value.substring(0, 2).toUpperCase()}
       </div>
       <div className={style.emaildiv}>
         <span className={style.email}>{data.label}</span>
@@ -135,7 +133,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
   );
 
   const emailOptions = allEmails.map((email) => ({
-    value: { value: email, label: email },
+    value: email,
     label: email,
   }));
   const checkedListCount = checklist.filter((task) => task.completed).length;
@@ -198,11 +196,12 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
           <Select
             options={emailOptions}
             components={{ Option: customOption }}
-            value={task.name}
+            value={assignee}
             onChange={(text) => {
+              console.log(text)
               setAssignee(text)
             }}
-            placeholder='Select Assigne'
+            placeholder={assignee}
             isClearable
             className={style.select}
           />
