@@ -124,6 +124,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         className={style.assignButton}
         onClick={(e) => {
           e.stopPropagation();
+          console.log(data)
           setAssignee(data.value);
         }}
       >
