@@ -25,6 +25,7 @@ function Settings() {
     setToastMessage(message);
     setShowToast(true);
   };
+  const [successMessage, setSuccessMessage] =useState("");
 
   useEffect(() => {
     const id2 = localStorage.getItem("id");
@@ -87,6 +88,12 @@ function Settings() {
       localStorage.clear();
       navigate("/");
     }
+      setToastMessage(response.errorPass);
+      setShowToast(true);
+    }
+    setShowToast(true);
+    setSuccessMessage("Profile updated successfully!");
+    console.log(response);
   };
   return (
     <div className={Style.container}>
@@ -98,6 +105,9 @@ function Settings() {
           onClose={() => setShowToast(false)}
         />
         <h1 className={Style.heading}>Settings</h1>
+        {successMessage && (
+          <Toast message={successMessage} show={showToast} duration={3000} onClose={() => setShowToast(false)} />
+        )}
         <form action="">
           <div className={Style.mainDiv}>
             <div className={Style.inputDiv}>
