@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './addpopup.module.css';
-import { url } from '../../redux/action';
+import { fetchdata, url } from '../../redux/action';
 import Succesfullpopup from './Succesfullpopup';
+import { useDispatch } from 'react-redux';
 
 const AddEmailpopup = ({ isOpen, onClose}) => {
+  const dispatch=useDispatch()
 const [email,setEmail]=useState('')
 const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 const id=localStorage.getItem('id')
@@ -19,9 +21,9 @@ const id=localStorage.getItem('id')
   })
 
   if(result.ok){
+    dispatch(fetchdata("next-week"))
    setIsConfirmOpen(true)
   }
-
   onClose()
   
  }

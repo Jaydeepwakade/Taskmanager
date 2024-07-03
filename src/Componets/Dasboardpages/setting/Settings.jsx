@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import Vector from "../../../assets/Vector.svg";
 import Toast from "../../toasts/Toast";
 
-
 function Settings() {
   const [hideview, sethideview] = useState(false);
   const [hideview2, sethideview2] = useState(false);
@@ -19,9 +18,14 @@ function Settings() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] =useState("");
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+
+  const displayToast = (message) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
+  const [successMessage, setSuccessMessage] =useState("");
 
   useEffect(() => {
     const id2 = localStorage.getItem("id");
@@ -44,14 +48,7 @@ function Settings() {
 
   const handleupdate = async () => {
     const newErrors = {};
-    if (!name || !email ) {
-      // if (!name) newErrors.name = "Please Enter Name";
-      // if (!email) newErrors.email = "Please Enter Email";
-      // if (!password) newErrors.password = "Please Enter Password";
-      // if (!newPassword) newErrors.newPassword = "Please Enter New Password";
-        // if(password===newPassword){
-        //   errors.samePass=true
-        // }
+    if (!name || !email) {
       setErrors(newErrors);
       return;
     }
@@ -73,13 +70,24 @@ function Settings() {
 
     const response = await result.json();
     if (response.message) {
-
-    
+      displayToast("Password changed succesfully")
       localStorage.clear();
       navigate("/");
     } else if (response.errorPass) {
+      displayToast("Invalid password")
       newErrors.text = response.errorPass;
       setErrors(newErrors);
+      return
+    } else if (response.nameChanged) {
+      localStorage.setItem("name",response.name)
+      displayToast("Profile Details updated successfully")
+      
+      return
+    }else if(response.emailChanged){
+      displayToast("Profile Details updated successfully")
+      localStorage.clear();
+      navigate("/");
+    }
       setToastMessage(response.errorPass);
       setShowToast(true);
     }
@@ -90,6 +98,12 @@ function Settings() {
   return (
     <div className={Style.container}>
       <div className={Style.loginDiv}>
+        <Toast
+          message={toastMessage}
+          show={showToast}
+          duration={4000}
+          onClose={() => setShowToast(false)}
+        />
         <h1 className={Style.heading}>Settings</h1>
         {successMessage && (
           <Toast message={successMessage} show={showToast} duration={3000} onClose={() => setShowToast(false)} />
@@ -157,10 +171,18 @@ function Settings() {
                 )}
               </span>
             </div>
-            {errors.newPassword && <p className="error">{errors.newPassword}</p>}
+            {errors.newPassword && (
+              <p className="error">{errors.newPassword}</p>
+            )}
           </div>
         </form>
-        {errors.text && <p className="error">{errors.samePass?"Old and new password cannot be same": errors.text}</p>}
+        {errors.text && (
+          <p className="error">
+            {errors.samePass
+              ? "Old and new password cannot be same"
+              : errors.text}
+          </p>
+        )}
         <div className={Style.btndiv}>
           <button onClick={handleupdate}>UPDATE</button>
         </div>
