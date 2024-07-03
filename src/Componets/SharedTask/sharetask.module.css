@@ -1,0 +1,280 @@
+/* Default styles (Your original CSS) */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: -30px;
+  margin-right: 10px;
+  margin-left: 90px;
+  gap: 20PX;
+  height: 30VH;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+
+}
+
+.header img {
+  height: 35PX;
+  margin-bottom: 20PX;
+}
+
+.header h3 {
+  font-size: 25PX;
+  margin-bottom:20PX;
+  font-weight: 800;
+}
+
+.todos {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 25px;
+  gap: 20px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  position: relative;
+  height: auto;
+  width: 550px;
+}
+
+.checklisth3 {
+  font-weight: 600;
+  margin-bottom: -10px;
+}
+
+.todos p {
+  font-weight: 400;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  margin-left: -2px;
+}
+
+.todos h2 {
+  font-size: 19px;
+  font-family: "Noto Sans", sans-serif;
+  margin-left: -0px;
+}
+
+.dropdowndiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  /* Add scrollbar when content exceeds max-height */
+  scrollbar-color: blue;
+  scrollbar-width:15px;
+  scrollbar-color: rgba(156, 183, 197, 1);
+
+  
+  &::-webkit-scrollbar {
+    width: 15px; 
+  }
+
+  &::-webkit-scrollbar-track {
+    width: 1px;
+    background:#ebeff0; 
+    
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #9cb7c5;
+    border-radius: 30px; 
+    border: 2px solid #eef2f5; 
+  }
+
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #8aa0ac;
+  }
+  margin-left: -12px;
+}
+
+.dropdowndiv input {
+  height: auto;
+  width: 20px;
+  margin: 10px;
+
+}
+
+.dropdown {
+  display: flex;
+
+  font-size: 15px;
+  font-weight: 400;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown h3 {
+  width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Noto Sans", sans-serif;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.dueDate {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dueDate span {
+  background-color: rgb(210, 26, 26);
+  padding: 8px;
+  color: white;
+  margin-left: 10px;
+  border-radius: 10px;
+  font-family: "Noto Sans", sans-serif;
+  height: 18px;
+  width: 80px;
+  text-align: center;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dueDate p {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.priorityCircle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* Media Queries */
+
+/* Mobile devices (Up to 480px) */
+@media only screen and (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 10px;
+
+  }
+
+
+  .header {
+    display: flex;
+    gap: 10PX;
+    width: 80%;
+    height: 240px; 
+    font-family: "Poppins", sans-serif;
+    align-items:start;
+    justify-content: flex-start;
+  
+    margin-right: 190px;
+  
+  }
+
+  .header img {
+    height: 30PX;
+
+  }
+
+  .header h3 {
+    font-size: 20px;
+    font-weight: 800;
+    
+
+
+  }
+ 
+    .dropdowndiv {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      max-height: 130px;
+      overflow-y: auto;
+      /* Add scrollbar when content exceeds max-height */
+      scrollbar-color: blue;
+      scrollbar-width:10px;
+      scrollbar-color: rgba(156, 183, 197, 1);
+    
+      
+      &::-webkit-scrollbar {
+        width: 10px; 
+      }
+    
+      &::-webkit-scrollbar-track {
+        width: 10px;
+        background:#ebeff0; 
+        
+        border-radius: 20px;
+      }
+    
+      &::-webkit-scrollbar-thumb {
+        background-color: #9cb7c5;
+        border-radius: 30px; 
+        border: 2px solid #eef2f5; 
+      }
+    
+    
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #8aa0ac;
+      }
+      margin-left: -12px;
+    }
+  
+
+  .dropdowndiv input {
+    height: auto;
+    width: 10px;
+    margin: 10px;
+
+  }
+
+  .dropdown {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 20px;
+
+  }
+
+  .dropdown h3 {
+    width: 120%;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Noto Sans", sans-serif;
+
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  .todos {
+
+    width: 80%;
+    height: auto;
+    padding: 20px;
+    font-size: 12px;
+    font-family: "Noto Sans", sans-serif;
+    ;
+  }
+
+  .dueDate {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

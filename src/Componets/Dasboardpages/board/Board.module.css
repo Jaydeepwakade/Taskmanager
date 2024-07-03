@@ -1,0 +1,471 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  overflow: hidden;
+  font-family: "Noto Sans", sans-serif;
+  
+}
+.datenew{
+  margin-bottom:-30px;
+  width: 230px;
+  color: #777070;
+  margin-left: -30px;
+  font-size: 20px;
+}
+.filtering select{
+  margin-left: 10px;
+  width: 100px;
+ 
+  border: none;
+  text-align: center;
+  font-size: 14px;
+
+}
+.filtering select option{
+  border: none;
+}
+
+.filtering{
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+   gap: 40px;
+
+  height: 100px;
+  margin-top: -120px;
+
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  font-size: 20.4px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.header button{
+
+height: 40px;
+border: none;
+background-color: white;
+text-align: center;
+text-align: center;
+font-size: 16px;
+
+}
+.header button img{
+  height: 20px;
+}
+.addpeople{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 40px;
+}
+
+.avatar {
+  width: 30px ; 
+  height: 30px;
+  background-color:rgb(239, 220, 220);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+
+
+  text-align: center;
+
+ 
+}
+.addmodal{
+  height: 20px;
+}
+.avatar h4{
+  text-align: center;
+  margin-left: 8px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.addpeople h2{
+  margin-bottom: 10px;
+}
+
+
+.boarding{
+  display: flex;
+  align-items: center;
+  justify-content: center ;
+  gap: 30px;
+}
+.header h2{
+  margin-top: 10px;
+  margin-left: 10px;
+  font-family: "Noto Sans", sans-serif;;
+}
+.checklist h3{
+  font-weight: 600;
+  font-size: 18px;
+  font-family: "Noto Sans", sans-serif;
+}
+
+
+
+.taskcontainer {
+  width: 420px;
+  height: 94%;
+  margin-right: 20px;
+  background-color: #eef2f5;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  display: inline-block;
+  white-space: normal;
+  word-wrap: break-word;
+  position: relative;
+
+
+  scrollbar-width:15px;
+  scrollbar-color: #10a2eb; 
+
+  
+  &::-webkit-scrollbar {
+    width: 15px; 
+  }
+
+  &::-webkit-scrollbar-track {
+    width: 1px;
+    background:#ebeff0; 
+    
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #9cb7c5;
+    border-radius: 30px; 
+    border: 2px solid #eef2f5; 
+  }
+ 
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #8aa0ac;
+  }
+}
+
+.main {
+  height: 100vh;
+  overflow-y: auto;
+  white-space: nowrap;
+  padding: 10px;
+  scrollbar-color: blue;
+  scrollbar-width:15px;
+  scrollbar-color: rgba(156, 183, 197, 1);
+
+  
+  &::-webkit-scrollbar {
+    width: 15px; 
+  }
+
+  &::-webkit-scrollbar-track {
+    width: 1px;
+    background:#ebeff0; 
+    
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #9cb7c5;
+    border-radius: 30px; 
+    border: 2px solid #eef2f5; 
+  }
+
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #8aa0ac;
+  }
+ 
+}
+
+  .newbutton{
+    background-color: red;
+  }
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid lightblue; /* Light blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.taskcontainer div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.taskcontainer div div {
+  display: flex;
+  gap: 20px;
+}
+
+.taskshow {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+}
+
+.todos {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: rgba(231, 226, 226, 0.02) 0px 1px 3px 0px;
+  position: relative; /* Ensure parent container is relative */
+}
+
+.todos p{
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.todos h2 {
+  font-size: 19px;
+  font-family: "Noto Sans", sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+.customTooltip {
+  font-family: "Noto Sans", sans-serif;
+  max-width: 200px;
+  height: 30px;
+  padding: 10px;
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #cccccc;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filtertag{
+  margin-left: 1230px;
+}
+
+.dropdowndiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdowndiv input {
+  height: 20px;
+  width: 20px;
+  margin: 10px;
+}
+
+.dropdown {
+  display: flex;
+  font-size: 15px;
+  font-weight: 400;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown h3 {
+  width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Noto Sans", sans-serif;
+}
+.prioritydiv p{
+  margin-left: -20px;
+}
+.divbuttons {
+  display: flex;
+  
+  gap: 30px;
+  width: 100%;
+  padding: 1px;
+  border: none;
+}
+
+.divbuttons div {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+  width: 60%;
+  border-radius: 10px;
+}
+
+.date {
+  background-color: red;
+  color: white;
+  border: 2px solid;
+   width: 30px;
+}
+.subheader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.subheader p{
+   font-size: 12px;
+}
+.titles{
+  font-family:"Noto Sans", sans-serif; ;
+}
+.btns {
+  margin-left: 30px;
+}
+.btns button{
+  font-size: 11px;
+  padding: 6px;
+  width: 100px;
+  border: none;
+  margin-right: 10px;
+  background-color: #e2e2e2;
+  border-radius: 10px;
+  text-align: center;
+ cursor: pointer;
+  height:28px
+}
+.tasksection{
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 500;
+}
+
+.optionsDropdown {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: stretch; 
+  
+  box-sizing: border-box;
+  background-color: rgb(118, 48, 48);
+  z-index: 100;
+  padding: 0; 
+  width: 130px; 
+  max-width: 100%; 
+  height: auto; 
+  box-shadow: rgba(24, 7, 7, 0.02) 0px 1px 3px 0px, rgba(197, 200, 204, 0.15) 0px 0px 0px 1px;
+}
+
+.optionsDropdown.show {
+  display: block;
+}
+
+.optionsDropdown button {
+  width: 100%;
+  padding: 8px 2px; /* Adjust padding as needed */
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap; /* Prevent button text from wrapping */
+  margin: 0;
+  cursor: pointer; /* Remove margin to eliminate space between buttons */
+ /* Add border between buttons to show separation */
+}
+
+.optionsDropdown button:last-child {
+  border-bottom: none; /* Remove bottom border for the last button */
+  margin-top: -20px;
+}
+
+.optionsDropdown button:nth-last-child(2) {
+  border-bottom: none; 
+  margin-top: -20px; 
+}
+.optionsDropdown button:nth-last-child() {
+  border-bottom: none; 
+  margin-top: -20px;
+}
+
+
+.optionsDropdown button:hover {
+  background-color: #e8e5e5;
+}
+.priorityCircle {
+  width: 12px;
+  height: 12px;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+
+.duedate1{
+  display: inline-block;
+   width: 30px; /* Adjust width as needed */
+  text-align: center; /* Center align text */
+ 
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  font-size: 14px;
+}
+
+.duedate2 {
+  display: inline-block;
+  min-width: 0px; /* Adjust width to match due date */
+  text-align: center; /* Center align text */
+
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 14px;
+  color: #777; /* Adjust color for no due date label */
+}
+.donebtn{
+  background-color: rgb(116, 214, 116);
+  color: white;
+  font-family:"Noto Sans", sans-serif; 
+}
+
