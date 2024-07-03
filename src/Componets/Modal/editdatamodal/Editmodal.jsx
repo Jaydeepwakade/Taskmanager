@@ -31,12 +31,12 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
       setPrior(task.priority || "");
       setSelectedDate(task.dueDate ? new Date(task.dueDate) : null);
       setAssignee(task.name);
-      console.log("Checklist", task.checklist);
+      console.log("Checklist", assignee);
     }
   }, [task]);
 
   useEffect(() => {
-    dispatch(fetchdata("today"));
+    dispatch(fetchdata("next-week"));
   }, [dispatch]);
 
   const handleInputChange = (e) => {
@@ -49,7 +49,6 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
         item.id === id ? { ...item, task: value } : item
       )
     );
-    console.log("Checklist", checklist);
   };
 
   const handleAddChecklistItem = () => {
@@ -100,7 +99,7 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
 
     dispatch(edittasks(task._id, payload));
     onRequestClose();
-    dispatch(fetchdata("today"));
+    dispatch(fetchdata("next-week"));
   };
 
   const handleHighPriorityClick = () => {
@@ -199,11 +198,11 @@ const Editmodal = ({ isOpen, onRequestClose, task }) => {
           <Select
             options={emailOptions}
             components={{ Option: customOption }}
-            value={assignee}
+            value={task.name}
             onChange={(text) => {
-              setAssignee(text.value);
+              setAssignee(text)
             }}
-            placeholder={assignee}
+            placeholder='Select Assigne'
             isClearable
             className={style.select}
           />

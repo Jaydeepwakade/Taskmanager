@@ -9,7 +9,7 @@ import green from "../../../assets/green.svg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import style from "./modal.module.css";
-import { addTask, fetchdata } from "../../../redux/action";
+import { addTask, fetchdata, url } from "../../../redux/action";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
 import useAllEmails from "../Allmails/useAllEmails";
@@ -24,7 +24,8 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const [dateError, setDateError] = useState("");
   const [assignee, setAssignee] = useState(null);
   const dispatch = useDispatch();
-  const allEmails = useAllEmails();
+  // const allEmails = useAllEmails();
+  const [allEmails,setAllEmails]=useState([])
   const [payloadnew, setPayloadnew] = useState([]);
   const [userid, setUserid] = useState("");
   const [errors, setErrors] = useState({});
@@ -32,8 +33,53 @@ const Modal = ({ isOpen, onRequestClose }) => {
   useEffect(() => {
     const id = localStorage.getItem("id");
     setUserid(id);
-    dispatch(fetchdata("today"));
+    dispatch(fetchdata("next-week"));
   }, []);
+
+  useEffect(() => {
+    const temp = localStorage.getItem('id');
+    const fetchAllEmails = async () => {
+        try {
+            const result = await fetch(`${url}/fetchAllEmails/${temp}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const response = await result.json();
+            const data = response.data;
+            console.log(data)
+            setAllEmails(data);
+        } catch (error) {
+            console.error('Error fetching emails:', error);
+            
+        }
+    };
+    fetchAllEmails();
+}, []);
+
+useEffect(() => {
+  if (isOpen) {
+    const fetchAllEmails = async () => {
+      const temp = localStorage.getItem("id");
+      try {
+        const result = await fetch(`${url}/fetchAllEmails/${temp}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        const response = await result.json();
+        const data = response.data;
+        setAllEmails(data);
+      } catch (error) {
+        console.error('Error fetching emails:', error);
+      }
+    };
+
+    fetchAllEmails();
+  }
+}, [isOpen]);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -84,12 +130,13 @@ const Modal = ({ isOpen, onRequestClose }) => {
       return;
     }
 
+    console.log(assignee)
     const payload = {
       title: inputValue,
       priority: prior,
       status: "TO-DO",
       checklist: checklist,
-      assignee: assignee ? assignee.value.label : null,
+      assignee: assignee ? assignee.value : null,
       duedate: selectedDate ? new Date(selectedDate).toLocaleDateString() : null,
     };
 
@@ -97,7 +144,7 @@ const Modal = ({ isOpen, onRequestClose }) => {
 
     setPayloadnew(payload);
     dispatch(addTask(payload, userid));
-    dispatch(fetchdata("today"));
+    dispatch(fetchdata("next-week"));
     handleCloseModal();
   };
 
@@ -195,8 +242,8 @@ const Modal = ({ isOpen, onRequestClose }) => {
             options={emailOptions}
             components={{ Option: customOption }}
             value={assignee}
-            onChange={setAssignee}
-            placeholder="Select assignee"
+            onChange={(e)=>setAssignee(e)}
+            placeholder="Select Assigne"
             isClearable
             className={style.select}
           />
