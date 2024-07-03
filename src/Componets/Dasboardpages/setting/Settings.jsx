@@ -7,6 +7,7 @@ import namelogo from "../../../assets/namelogo.svg";
 import { url } from "../../../redux/action";
 import { useNavigate } from "react-router-dom";
 import Vector from "../../../assets/Vector.svg";
+import Toast from "../../toasts/Toast";
 
 function Settings() {
   const [hideview, sethideview] = useState(false);
@@ -17,6 +18,13 @@ function Settings() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const displayToast = (message) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
 
   useEffect(() => {
     const id2 = localStorage.getItem("id");
@@ -39,14 +47,7 @@ function Settings() {
 
   const handleupdate = async () => {
     const newErrors = {};
-    if (!name || !email ) {
-      // if (!name) newErrors.name = "Please Enter Name";
-      // if (!email) newErrors.email = "Please Enter Email";
-      // if (!password) newErrors.password = "Please Enter Password";
-      // if (!newPassword) newErrors.newPassword = "Please Enter New Password";
-        // if(password===newPassword){
-        //   errors.samePass=true
-        // }
+    if (!name || !email) {
       setErrors(newErrors);
       return;
     }
@@ -68,17 +69,34 @@ function Settings() {
 
     const response = await result.json();
     if (response.message) {
+      displayToast("Password changed succesfully")
       localStorage.clear();
       navigate("/");
     } else if (response.errorPass) {
+      displayToast("Invalid password")
       newErrors.text = response.errorPass;
       setErrors(newErrors);
+      return
+    } else if (response.nameChanged) {
+      localStorage.setItem("name",response.name)
+      displayToast("Profile Details updated successfully")
+      
+      return
+    }else if(response.emailChanged){
+      displayToast("Profile Details updated successfully")
+      localStorage.clear();
+      navigate("/");
     }
-    console.log(response);
   };
   return (
     <div className={Style.container}>
       <div className={Style.loginDiv}>
+        <Toast
+          message={toastMessage}
+          show={showToast}
+          duration={4000}
+          onClose={() => setShowToast(false)}
+        />
         <h1 className={Style.heading}>Settings</h1>
         <form action="">
           <div className={Style.mainDiv}>
@@ -143,10 +161,18 @@ function Settings() {
                 )}
               </span>
             </div>
-            {errors.newPassword && <p className="error">{errors.newPassword}</p>}
+            {errors.newPassword && (
+              <p className="error">{errors.newPassword}</p>
+            )}
           </div>
         </form>
-        {errors.text && <p className="error">{errors.samePass?"Old and new password cannot be same": errors.text}</p>}
+        {errors.text && (
+          <p className="error">
+            {errors.samePass
+              ? "Old and new password cannot be same"
+              : errors.text}
+          </p>
+        )}
         <div className={Style.btndiv}>
           <button onClick={handleupdate}>UPDATE</button>
         </div>

@@ -355,7 +355,6 @@ function Board() {
             <div className={Style.filtering}>
               <h2 className={Style.datenew}>{formattedDate}</h2>
               <select value={filter} onChange={handleFilterChange}>
-                <option value="today">Today</option>
                 <option value="next-week">This Week</option>
                 <option value="today">Today</option>
                 <option value="next-month">This Month</option>
