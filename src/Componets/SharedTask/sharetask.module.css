@@ -205,7 +205,7 @@
       flex-direction: column;
       gap: 10px;
       padding: 10px;
-      max-height: 200px;
+      max-height: 130px;
       overflow-y: auto;
       /* Add scrollbar when content exceeds max-height */
       scrollbar-color: blue;

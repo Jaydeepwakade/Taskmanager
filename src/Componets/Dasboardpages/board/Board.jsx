@@ -403,7 +403,7 @@ function Board() {
                         <h4>
                           {typeof ele.name === "string" && ele.name.length >= 2
                             ? ele.name.substring(0, 2).toUpperCase()
-                            : ""}
+                            : null}
                         </h4>
                       </div>
                     </div>
