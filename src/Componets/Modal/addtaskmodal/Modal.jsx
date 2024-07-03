@@ -24,7 +24,6 @@ const Modal = ({ isOpen, onRequestClose }) => {
   const [dateError, setDateError] = useState("");
   const [assignee, setAssignee] = useState(null);
   const dispatch = useDispatch();
-  // const allEmails = useAllEmails();
   const [allEmails,setAllEmails]=useState([])
   const [payloadnew, setPayloadnew] = useState([]);
   const [userid, setUserid] = useState("");
@@ -159,7 +158,8 @@ useEffect(() => {
         className={style.assignButton}
         onClick={(e) => {
           e.stopPropagation();
-          setAssignee(data.value);
+          console.log(data)
+          setAssignee(data);
         }}
       >
         Assign
