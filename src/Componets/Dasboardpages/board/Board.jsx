@@ -234,13 +234,13 @@ function Board() {
     setFilter(value);
     switch (value) {
       case "today":
-        // dispatch(fetchdata(filter));
+         dispatch(fetchdata(filter));
         break;
       case "next-week":
-        // dispatch(fetchdata(filter));
+         dispatch(fetchdata(filter));
         break;
       case "next-month":
-        // dispatch(fetchdata(filter));
+         dispatch(fetchdata(filter));
         break;
       default:
         break;
