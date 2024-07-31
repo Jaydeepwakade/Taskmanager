@@ -1,4 +1,4 @@
-Task Management Application
+ProManage Application
 
 This project includes a comprehensive task management application with the following features:
 
